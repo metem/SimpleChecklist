@@ -51,17 +51,31 @@ namespace SimpleChecklist.Models.Workspaces
 
         public async Task RestoreBackup()
         {
-            foreach (var workspace in _workspaces)
+            try
             {
-                await workspace.RestoreBackup();
+                foreach (var workspace in _workspaces)
+                {
+                    await workspace.RestoreBackup();
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
             }
         }
 
         public async Task CreateBackup()
         {
-            foreach (var workspace in _workspaces)
+            try
             {
-                await workspace.CreateBackup();
+                foreach (var workspace in _workspaces)
+                {
+                    await workspace.CreateBackup();
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
             }
         }
     }

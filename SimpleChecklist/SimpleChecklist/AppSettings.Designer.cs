@@ -125,7 +125,7 @@ namespace SimpleChecklist {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.1.
+        ///   Looks up a localized string similar to 1.2.
         /// </summary>
         internal static string VersionNumber {
             get {
