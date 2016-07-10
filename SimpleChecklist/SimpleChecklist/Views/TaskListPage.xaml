@@ -2,9 +2,9 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:SimpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
+             xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
              x:Class="SimpleChecklist.Views.TaskListPage"
-             Title="{x:Static SimpleChecklist:AppTexts.TaskListPageTitle}">
+             Title="{x:Static simpleChecklist:AppTexts.TaskListPageTitle}">
 
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
@@ -96,7 +96,7 @@
                 Text="{Binding EntryText}"
                 Completed="SaveEntryOnCompleted" />
             <Button
-                Text="{x:Static SimpleChecklist:AppTexts.AddTaskButtonText}"
+                Text="{x:Static simpleChecklist:AppTexts.AddTaskButtonText}"
                 HorizontalOptions="End"
                 HeightRequest="36"
                 VerticalOptions="CenterAndExpand"

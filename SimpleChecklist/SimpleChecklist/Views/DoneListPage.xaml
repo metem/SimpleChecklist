@@ -2,9 +2,9 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:SimpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
+             xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
              x:Class="SimpleChecklist.Views.DoneListPage"
-             Title="{x:Static SimpleChecklist:AppTexts.DonePageTitle}">
+             Title="{x:Static simpleChecklist:AppTexts.DonePageTitle}">
 
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />

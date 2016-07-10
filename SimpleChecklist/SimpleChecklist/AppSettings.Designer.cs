@@ -98,6 +98,15 @@ namespace SimpleChecklist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .bcp.
+        /// </summary>
+        internal static string PartialBackupFileExtension {
+            get {
+                return ResourceManager.GetString("PartialBackupFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to tasklist.xml.
         /// </summary>
         internal static string TaskListFileName {

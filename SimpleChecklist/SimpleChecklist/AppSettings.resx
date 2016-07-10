@@ -141,4 +141,7 @@
   <data name="WebsiteUrl" xml:space="preserve">
     <value>www.facebook.com/SimpleChecklist</value>
   </data>
+  <data name="PartialBackupFileExtension" xml:space="preserve">
+    <value>.bcp</value>
+  </data>
 </root>

@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using SimpleChecklist.Models.Workspaces;
 
 namespace SimpleChecklist.Universal
 {
@@ -13,16 +14,16 @@ namespace SimpleChecklist.Universal
     public sealed partial class App : Application
     {
         private readonly Lazy<MainWindowsPage> _mainWindowsPage;
-        private readonly Lazy<PortableApp> _portableApp;
+        private readonly Lazy<WorkspacesManager> _workspacesManager;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public App(Lazy<MainWindowsPage> mainWindowsPage, Lazy<PortableApp> portableApp)
+        public App(Lazy<MainWindowsPage> mainWindowsPage, Lazy<WorkspacesManager> workspacesManager)
         {
             _mainWindowsPage = mainWindowsPage;
-            _portableApp = portableApp;
+            _workspacesManager = workspacesManager;
 
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
@@ -31,12 +32,6 @@ namespace SimpleChecklist.Universal
             InitializeComponent();
 
             Suspending += OnSuspending;
-            UnhandledException += OnUnhandledException;
-        }
-
-        private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-        {
-            await _portableApp.Value.SaveWorkspacesStateAsync();
         }
 
         /// <summary>
@@ -65,7 +60,7 @@ namespace SimpleChecklist.Universal
 
                 Xamarin.Forms.Forms.Init(e); // requires the `e` parameter
 
-                await _portableApp.Value.LoadWorkspacesStateAsync();
+                await _workspacesManager.Value.LoadWorkspacesStateAsync();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
@@ -106,7 +101,7 @@ namespace SimpleChecklist.Universal
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            await _portableApp.Value.SaveWorkspacesStateAsync();
+            await _workspacesManager.Value.SaveWorkspacesStateAsync();
 
             deferral.Complete();
         }

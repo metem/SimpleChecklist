@@ -4,12 +4,24 @@ namespace SimpleChecklist.Models.Utils
 {
     public interface IFileUtils
     {
-        Task<string> ReadTextAsync(object file, bool useApplicationDataPath = false);
+        Task<string> LocalReadTextAsync(string fileName);
 
-        Task SaveTextAsync(object file, string contents, bool useApplicationDataPath = false);
+        Task<string> ReadTextAsync(object file);
 
-        Task<byte[]> ReadBytesAsync(object file, bool useApplicationDataPath = false);
+        Task SaveTextAsync(object file, string content);
 
-        Task SaveBytesAsync(object file, byte[] contents, bool useApplicationDataPath = false);
+        Task LocalSaveTextAsync(string fileName, string content);
+
+        Task<byte[]> ReadBytesAsync(object file);
+
+        Task<byte[]> LocalReadBytesAsync(string fileName);
+
+        Task SaveBytesAsync(object file, byte[] content);
+
+        Task LocalSaveBytesAsync(string fileName, byte[] content);
+
+        Task CopyFileAsync(object sourceFile, object destinationFile);
+
+        Task LocalCopyFileAsync(string sourceFileName, string destinationFileName);
     }
 }

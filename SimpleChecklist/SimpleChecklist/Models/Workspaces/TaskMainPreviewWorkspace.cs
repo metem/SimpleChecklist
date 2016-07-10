@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Views;
 
 namespace SimpleChecklist.Models.Workspaces
 {
@@ -15,7 +16,8 @@ namespace SimpleChecklist.Models.Workspaces
 
         public TaskListObservableCollection TaskListObservableCollection => _taskListObservableCollection;
 
-        public TaskMainPreviewWorkspace(IFileUtils fileUtils, IDialogUtils dialogUtils, TaskListObservableCollection taskList) : base(ViewsId.TaskList)
+        public TaskMainPreviewWorkspace(IFileUtils fileUtils, IDialogUtils dialogUtils,
+            TaskListObservableCollection taskList) : base(ViewsId.TaskList)
         {
             _fileUtils = fileUtils;
             _dialogUtils = dialogUtils;
@@ -28,7 +30,7 @@ namespace SimpleChecklist.Models.Workspaces
 
             try
             {
-                await _fileUtils.SaveBytesAsync(AppSettings.TaskListFileName, data, true);
+                await _fileUtils.LocalSaveBytesAsync(AppSettings.TaskListFileName, data);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -45,7 +47,7 @@ namespace SimpleChecklist.Models.Workspaces
 
             try
             {
-                data = await _fileUtils.ReadBytesAsync(AppSettings.TaskListFileName, true);
+                data = await _fileUtils.LocalReadBytesAsync(AppSettings.TaskListFileName);
 
             }
             catch (FileNotFoundException)
@@ -73,6 +75,20 @@ namespace SimpleChecklist.Models.Workspaces
             }
 
             return false;
+        }
+
+        public override async Task CreateBackup()
+        {
+            await
+                _fileUtils.LocalCopyFileAsync(AppSettings.TaskListFileName,
+                    AppSettings.TaskListFileName + AppSettings.PartialBackupFileExtension);
+        }
+
+        public override async Task RestoreBackup()
+        {
+            await
+                _fileUtils.LocalCopyFileAsync(AppSettings.TaskListFileName + AppSettings.PartialBackupFileExtension,
+                    AppSettings.TaskListFileName);
         }
     }
 }

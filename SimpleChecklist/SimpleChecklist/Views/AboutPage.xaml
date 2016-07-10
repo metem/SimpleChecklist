@@ -2,31 +2,31 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:SimpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
+             xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
              x:Class="SimpleChecklist.Views.AboutPage"
-             Title="{x:Static SimpleChecklist:AppTexts.AboutPageTitle}">
+             Title="{x:Static simpleChecklist:AppTexts.AboutPageTitle}">
   <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
     <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
     <StackLayout VerticalOptions="CenterAndExpand">
         <Label
-            Text="{x:Static SimpleChecklist:AppTexts.AboutPageText}"
+            Text="{x:Static simpleChecklist:AppTexts.AboutPageText}"
             HorizontalOptions="Center"
             FontSize="20" />
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
             <Label
-                Text="{x:Static SimpleChecklist:AppTexts.AboutPageVersionText}"
+                Text="{x:Static simpleChecklist:AppTexts.AboutPageVersionText}"
                 HorizontalOptions="Center"
                 FontSize="20" />
 
             <Label
-                Text="{x:Static SimpleChecklist:AppSettings.VersionNumber}"
+                Text="{x:Static simpleChecklist:AppSettings.VersionNumber}"
                 HorizontalOptions="Center"
                 FontSize="20" />
         </StackLayout>
 
         <Label
-            Text="{x:Static SimpleChecklist:AppSettings.WebsiteUrl}"
+            Text="{x:Static simpleChecklist:AppSettings.WebsiteUrl}"
             HorizontalOptions="Center"
             Margin="0,50,0,0"
             FontSize="20"
@@ -39,13 +39,13 @@
         </Label>
 
         <Label
-            Text="{x:Static SimpleChecklist:AppTexts.AboutPageTranslatorsText}"
+            Text="{x:Static simpleChecklist:AppTexts.AboutPageTranslatorsText}"
             HorizontalOptions="StartAndExpand"
             Margin="0,50,0,0"
             FontSize="20" />
 
         <Label
-            Text="{x:Static SimpleChecklist:AppTexts.AboutPageTranslatorsListText}"
+            Text="{x:Static simpleChecklist:AppTexts.AboutPageTranslatorsListText}"
             HorizontalOptions="StartAndExpand"
             FontSize="20" />
     </StackLayout>

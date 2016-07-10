@@ -7,54 +7,69 @@ namespace SimpleChecklist.Droid
 {
     public class DroidFileUtils : IFileUtils
     {
-        public async Task<string> ReadTextAsync(object file, bool useApplicationDataPath = false)
+        public async Task<string> LocalReadTextAsync(string fileName)
         {
-            if (useApplicationDataPath)
-            {
-                var fileName = file as string;
-                if (fileName != null)
-                {
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-                    try
-                    {
-                        using (var streamReader = new StreamReader(Path.Combine(path, fileName)))
-                        {
-                            return await streamReader.ReadToEndAsync();
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        return string.Empty;
-                    }
+            try
+            {
+                using (var streamReader = new StreamReader(Path.Combine(path, fileName)))
+                {
+                    return await streamReader.ReadToEndAsync();
                 }
             }
-            throw new NotImplementedException();
-        }
-
-        public async Task SaveTextAsync(object file, string contents, bool useApplicationDataPath = false)
-        {
-            if (useApplicationDataPath)
+            catch (Exception)
             {
-                var fileName = file as string;
-                if (fileName != null)
-                {
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-                    using (var streamWriter = new StreamWriter(Path.Combine(path, fileName), false))
-                    {
-                        await streamWriter.WriteAsync(contents);
-                    }
-                }
+                return string.Empty;
             }
         }
 
-        public Task<byte[]> ReadBytesAsync(object file, bool useApplicationDataPath = false)
+        public Task<string> ReadTextAsync(object file)
         {
             throw new NotImplementedException();
         }
 
-        public Task SaveBytesAsync(object file, byte[] contents, bool useApplicationDataPath = false)
+        public Task SaveTextAsync(object file, string content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task LocalSaveTextAsync(string fileName, string content)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            using (var streamWriter = new StreamWriter(Path.Combine(path, fileName), false))
+            {
+                await streamWriter.WriteAsync(content);
+            }
+        }
+
+        public Task<byte[]> ReadBytesAsync(object file)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<byte[]> LocalReadBytesAsync(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SaveBytesAsync(object file, byte[] content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task LocalSaveBytesAsync(string fileName, byte[] content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CopyFileAsync(object sourceFile, object destinationFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task LocalCopyFileAsync(string sourceFileName, string destinationFileName)
         {
             throw new NotImplementedException();
         }

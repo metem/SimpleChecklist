@@ -15,6 +15,8 @@ namespace SimpleChecklist
 
             builder.RegisterType<MainPage>().SingleInstance();
 
+            builder.RegisterType<WorkspacesManager>().SingleInstance();
+
             builder.RegisterType<TaskListPage>()
                 .AsSelf()
                 .Keyed<ContentPage>(ViewsId.TaskList)
@@ -44,19 +46,13 @@ namespace SimpleChecklist
 
             builder.RegisterType<TaskMainPreviewWorkspace>()
                 .As<IBaseWorkspace>()
-                .Keyed<IBaseWorkspace>(WorkspacesId.TaskList)
-                .SingleInstance()
-                .AutoActivate();
+                .SingleInstance();
             builder.RegisterType<DoneListWorkspace>()
                 .As<IBaseWorkspace>()
-                .Keyed<IBaseWorkspace>(WorkspacesId.DoneList)
-                .SingleInstance()
-                .AutoActivate();
+                .SingleInstance();
             builder.Register(context => new BaseWorkspace(ViewsId.About))
                 .As<IBaseWorkspace>()
-                .Keyed<IBaseWorkspace>(WorkspacesId.About)
-                .SingleInstance()
-                .AutoActivate();
+                .SingleInstance();
         }
     }
 }

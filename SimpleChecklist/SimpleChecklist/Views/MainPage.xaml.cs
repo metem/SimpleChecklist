@@ -1,5 +1,4 @@
 ﻿using Autofac.Features.Indexed;
-using SimpleChecklist.Models.Workspaces;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.Views

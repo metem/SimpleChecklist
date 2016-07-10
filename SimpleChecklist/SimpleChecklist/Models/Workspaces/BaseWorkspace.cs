@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using SimpleChecklist.Views;
 
 namespace SimpleChecklist.Models.Workspaces
 {
@@ -19,6 +20,16 @@ namespace SimpleChecklist.Models.Workspaces
         public virtual async Task<bool> LoadCurrentStateAsync()
         {
             return await Task.Run(() => true);
+        }
+
+        public virtual async Task CreateBackup()
+        {
+            await Task.Run(() => { });
+        }
+
+        public virtual async Task RestoreBackup()
+        {
+            await Task.Run(() => { });
         }
     }
 }
