@@ -80,7 +80,7 @@ namespace SimpleChecklist.Models.Workspaces
         {
             await
                 _fileUtils.LocalCopyFileAsync(AppSettings.DoneListFileName,
-                    AppSettings.TaskListFileName + AppSettings.PartialBackupFileExtension);
+                    AppSettings.DoneListFileName + AppSettings.PartialBackupFileExtension);
 
         }
 
@@ -88,7 +88,7 @@ namespace SimpleChecklist.Models.Workspaces
         {
             await
                 _fileUtils.LocalCopyFileAsync(AppSettings.DoneListFileName + AppSettings.PartialBackupFileExtension,
-                    AppSettings.TaskListFileName);
+                    AppSettings.DoneListFileName);
         }
     }
 }

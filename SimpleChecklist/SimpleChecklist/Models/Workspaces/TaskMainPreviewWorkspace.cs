@@ -48,7 +48,6 @@ namespace SimpleChecklist.Models.Workspaces
             try
             {
                 data = await _fileUtils.LocalReadBytesAsync(AppSettings.TaskListFileName);
-
             }
             catch (FileNotFoundException)
             {
