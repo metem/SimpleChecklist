@@ -118,7 +118,7 @@
     <Compile Include="Renderers\UniversalEntryRenderer.cs" />
     <Compile Include="Renderers\UniversalListViewRenderer.cs" />
     <Compile Include="UniversalDialogUtils.cs" />
-    <Compile Include="UniversalFileUtils.cs" />
+    <Compile Include="UniversalFile.cs" />
     <Compile Include="Renderers\UniversalTabbedPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>

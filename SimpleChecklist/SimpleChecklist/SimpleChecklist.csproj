@@ -61,7 +61,7 @@
     <Compile Include="Models\Collections\TaskListColor.cs" />
     <Compile Include="Models\Workspaces\BaseWorkspace.cs" />
     <Compile Include="Models\Workspaces\IBaseWorkspace.cs" />
-    <Compile Include="Models\Utils\IFileUtils.cs" />
+    <Compile Include="Models\Utils\IFile.cs" />
     <Compile Include="Models\Workspaces\DoneListWorkspace.cs" />
     <Compile Include="Models\Utils\XmlStringSerializer.cs" />
     <Compile Include="Properties\Annotations.cs" />

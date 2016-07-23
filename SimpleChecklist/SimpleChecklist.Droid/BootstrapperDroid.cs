@@ -9,7 +9,9 @@ namespace SimpleChecklist.Droid
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<SimpleChecklistModule>();
 
-            containerBuilder.RegisterType<DroidFileUtils>().AsImplementedInterfaces();
+            containerBuilder.RegisterType<DroidDialogUtils>().AsImplementedInterfaces();
+            containerBuilder.RegisterType<AppUtils>().AsImplementedInterfaces();
+            containerBuilder.RegisterType<DroidFile>().AsImplementedInterfaces();
 
             var container = containerBuilder.Build();
 

@@ -112,8 +112,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppUtils.cs" />
     <Compile Include="BootstrapperDroid.cs" />
-    <Compile Include="DroidFileUtils.cs" />
+    <Compile Include="DroidDialogUtils.cs" />
+    <Compile Include="DroidFile.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

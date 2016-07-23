@@ -24,8 +24,8 @@ namespace SimpleChecklist.Models.Utils
             return _mainPage.Value.DisplayAlert(title, message, accept, cancel);
         }
 
-        public abstract Task<object> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes);
+        public abstract Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes);
 
-        public abstract Task<object> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes);
+        public abstract Task<IFile> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes);
     }
 }

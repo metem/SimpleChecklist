@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -14,7 +13,6 @@ namespace SimpleChecklist.ViewModels
 {
     public class SettingsPageViewModel : INotifyPropertyChanged
     {
-        private readonly IFileUtils _fileUtils;
         private readonly TaskListObservableCollection _taskListObservableCollection;
         private readonly DoneListObservableCollection _doneListObservableCollection;
         private readonly IDialogUtils _dialogUtils;
@@ -22,9 +20,8 @@ namespace SimpleChecklist.ViewModels
         private bool _createBackupButtonIsEnabled;
         private bool _loadBackupButtonIsEnabled;
 
-        public SettingsPageViewModel(IFileUtils fileUtils, TaskListObservableCollection taskListObservableCollection, DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
+        public SettingsPageViewModel(TaskListObservableCollection taskListObservableCollection, DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
         {
-            _fileUtils = fileUtils;
             _taskListObservableCollection = taskListObservableCollection;
             _doneListObservableCollection = doneListObservableCollection;
             _dialogUtils = dialogUtils;
@@ -81,11 +78,7 @@ namespace SimpleChecklist.ViewModels
 
             try
             {
-                text = await _fileUtils.ReadTextAsync(file);
-            }
-            catch (FileNotFoundException)
-            {
-                text = string.Empty;
+                text = file.Exist ? await file.ReadTextAsync() : string.Empty;
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -156,7 +149,7 @@ namespace SimpleChecklist.ViewModels
 
             try
             {
-                await _fileUtils.SaveTextAsync(file, data);
+                await file.SaveTextAsync(data);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -182,11 +175,7 @@ namespace SimpleChecklist.ViewModels
 
             try
             {
-                text = await _fileUtils.ReadTextAsync(file);
-            }
-            catch (FileNotFoundException)
-            {
-                text = string.Empty;
+                text = file.Exist ? await file.ReadTextAsync() : string.Empty;
             }
             catch (ArgumentOutOfRangeException)
             {

@@ -13,7 +13,7 @@ namespace SimpleChecklist.Universal
         {
         }
 
-        public override async Task<object> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes)
+        public override async Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes)
         {
             var filePicker = new FileOpenPicker
             {
@@ -27,10 +27,10 @@ namespace SimpleChecklist.Universal
             }
 
             var storageFile = await filePicker.PickSingleFileAsync();
-            return storageFile;
+            return new UniversalFile(storageFile);
         }
 
-        public override async Task<object> SaveFileDialogAsync(string defaultFileName,
+        public override async Task<IFile> SaveFileDialogAsync(string defaultFileName,
             IEnumerable<string> allowedFileTypes)
         {
             var filePicker = new FileSavePicker()
@@ -47,7 +47,7 @@ namespace SimpleChecklist.Universal
             filePicker.SuggestedFileName = defaultFileName;
 
             var storageFile = await filePicker.PickSaveFileAsync();
-            return storageFile;
+            return new UniversalFile(storageFile);
         }
     }
 }

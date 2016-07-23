@@ -10,8 +10,8 @@ namespace SimpleChecklist.Universal
             containerBuilder.RegisterModule<SimpleChecklistModule>();
 
             containerBuilder.RegisterType<UniversalDialogUtils>().AsImplementedInterfaces();
-            containerBuilder.RegisterType<UniversalFileUtils>().AsImplementedInterfaces();
             containerBuilder.RegisterType<AppUtils>().AsImplementedInterfaces();
+            containerBuilder.RegisterType<UniversalFile>().AsImplementedInterfaces();
 
             containerBuilder.RegisterType<MainWindowsPage>().SingleInstance();
             containerBuilder.RegisterType<App>().SingleInstance();
