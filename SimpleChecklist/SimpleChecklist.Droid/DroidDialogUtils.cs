@@ -14,12 +14,12 @@ namespace SimpleChecklist.Droid
 
         public override async Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes)
         {
-            return await new Task<IFile>(() => new DroidFile());
+            return await new Task<IFile>(() => new DroidFile(string.Empty));
         }
 
         public override async Task<IFile> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes)
         {
-            return await new Task<IFile>(() => new DroidFile());
+            return await new Task<IFile>(() => new DroidFile(string.Empty));
         }
     }
 }

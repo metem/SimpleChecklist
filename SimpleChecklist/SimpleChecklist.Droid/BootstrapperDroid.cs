@@ -4,7 +4,7 @@ namespace SimpleChecklist.Droid
 {
     public static class BootstrapperDroid
     {
-        public static PortableApp Configure()
+        public static App Configure()
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<SimpleChecklistModule>();
@@ -13,9 +13,11 @@ namespace SimpleChecklist.Droid
             containerBuilder.RegisterType<AppUtils>().AsImplementedInterfaces();
             containerBuilder.RegisterType<DroidFile>().AsImplementedInterfaces();
 
+            containerBuilder.RegisterType<App>().SingleInstance();
+
             var container = containerBuilder.Build();
 
-            return container.Resolve<PortableApp>();
+            return container.Resolve<App>();
         }
     }
 }

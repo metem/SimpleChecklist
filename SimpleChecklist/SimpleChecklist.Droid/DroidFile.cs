@@ -7,54 +7,48 @@ namespace SimpleChecklist.Droid
 {
     public class DroidFile : IFile
     {
-        public async Task CreateAsync()
+        public DroidFile(string fileName)
         {
-            throw new NotImplementedException();
+            Name = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), fileName);
         }
 
-        public async Task<string> ReadTextAsync()
+        public DroidFile(FileInfo file)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            try
-            {
-                using (var streamReader = new StreamReader(Path.Combine(path, Name)))
-                {
-                    return await streamReader.ReadToEndAsync();
-                }
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
+            Name = file.FullName;
         }
 
-        public async Task<byte[]> ReadBytesAsync()
+        public Task CreateAsync()
         {
-            throw new NotImplementedException();
+            return Task.Run(() => File.Create(Name));
         }
 
-        public async Task CopyFileAsync(IFile destinationFile)
+        public Task<string> ReadTextAsync()
         {
-            throw new NotImplementedException();
+            return Task.Run(() => File.ReadAllText(Name));
+        }
+
+        public Task<byte[]> ReadBytesAsync()
+        {
+            return Task.Run(() => File.ReadAllBytes(Name));
+        }
+
+        public Task CopyFileAsync(IFile destinationFile)
+        {
+            return Task.Run(() => File.Copy(Name, destinationFile.Name));
         }
 
         public string Name { get; }
-        public bool Exist { get; }
 
-        public async Task SaveBytesAsync(byte[] content)
+        public bool Exist => File.Exists(Name);
+
+        public Task SaveBytesAsync(byte[] content)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => File.WriteAllBytes(Name, content));
         }
 
-        public async Task SaveTextAsync(string content)
+        public Task SaveTextAsync(string content)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            using (var streamWriter = new StreamWriter(Path.Combine(path, Name), false))
-            {
-                await streamWriter.WriteAsync(content);
-            }
+            return Task.Run(() => File.WriteAllText(Name, content));
         }
     }
 }
