@@ -37,12 +37,15 @@ namespace SimpleChecklist
                 .Keyed<ContentPage>(ViewsId.About)
                 .SingleInstance();
 
+            builder.RegisterType<FilePickerPage>();
+
             builder.RegisterType<AboutPageViewModel>().SingleInstance();
             builder.RegisterType<TaskListPageViewModel>().SingleInstance();
             builder.RegisterType<DoneListPageViewModel>().SingleInstance();
             builder.RegisterType<SettingsPageViewModel>().SingleInstance();
             builder.RegisterType<TaskListObservableCollection>().SingleInstance();
             builder.RegisterType<DoneListObservableCollection>().SingleInstance();
+            builder.RegisterType<FilePickerViewModel>().SingleInstance();
 
             builder.RegisterType<TaskMainPreviewWorkspace>()
                 .As<IBaseWorkspace>()

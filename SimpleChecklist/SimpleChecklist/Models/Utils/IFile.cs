@@ -18,6 +18,8 @@ namespace SimpleChecklist.Models.Utils
 
         string Name { get; }
 
+        string FullName { get; }
+
         bool Exist { get; }
     }
 }

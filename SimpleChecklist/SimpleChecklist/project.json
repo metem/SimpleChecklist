@@ -2,7 +2,7 @@
   "supports": {},
   "dependencies": {
     "Autofac": "4.0.0-rc3-316",
-    "Xamarin.Forms": "2.3.0.107"
+    "Xamarin.Forms": "2.3.1.114"
   },
   "frameworks": {
     ".NETPortable,Version=v4.6,Profile=Profile44": {}

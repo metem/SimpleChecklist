@@ -75,6 +75,8 @@ namespace SimpleChecklist.Universal
 
         public string Name { get; }
 
+        public string FullName { get; }
+
         public bool Exist => _storageFile != null;
 
         private async Task<IStorageFolder> GetParentAsync()

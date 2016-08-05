@@ -7,48 +7,50 @@ namespace SimpleChecklist.Droid
 {
     public class DroidFile : IFile
     {
+        public string FullName { get; }
+
         public DroidFile(string fileName)
         {
-            Name = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), fileName);
+            FullName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), fileName);
         }
 
         public DroidFile(FileInfo file)
         {
-            Name = file.FullName;
+            FullName = file.FullName;
         }
 
         public Task CreateAsync()
         {
-            return Task.Run(() => File.Create(Name));
+            return Task.Run(() => File.Create(FullName));
         }
 
         public Task<string> ReadTextAsync()
         {
-            return Task.Run(() => File.ReadAllText(Name));
+            return Task.Run(() => File.ReadAllText(FullName));
         }
 
         public Task<byte[]> ReadBytesAsync()
         {
-            return Task.Run(() => File.ReadAllBytes(Name));
+            return Task.Run(() => File.ReadAllBytes(FullName));
         }
 
         public Task CopyFileAsync(IFile destinationFile)
         {
-            return Task.Run(() => File.Copy(Name, destinationFile.Name));
+            return Task.Run(() => File.Copy(FullName, destinationFile.FullName));
         }
 
-        public string Name { get; }
+        public string Name => Path.GetFileName(FullName);
 
-        public bool Exist => File.Exists(Name);
+        public bool Exist => File.Exists(FullName);
 
         public Task SaveBytesAsync(byte[] content)
         {
-            return Task.Run(() => File.WriteAllBytes(Name, content));
+            return Task.Run(() => File.WriteAllBytes(FullName, content));
         }
 
         public Task SaveTextAsync(string content)
         {
-            return Task.Run(() => File.WriteAllText(Name, content));
+            return Task.Run(() => File.WriteAllText(FullName, content));
         }
     }
 }

@@ -12,6 +12,7 @@ namespace SimpleChecklist.Droid
             containerBuilder.RegisterType<DroidDialogUtils>().AsImplementedInterfaces();
             containerBuilder.RegisterType<AppUtils>().AsImplementedInterfaces();
             containerBuilder.RegisterType<DroidFile>().AsImplementedInterfaces();
+            containerBuilder.RegisterType<DroidDirectory>().AsImplementedInterfaces();
 
             containerBuilder.RegisterType<App>().SingleInstance();
 
