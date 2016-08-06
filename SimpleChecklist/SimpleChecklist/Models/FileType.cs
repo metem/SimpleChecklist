@@ -1,4 +1,4 @@
-﻿namespace SimpleChecklist.ViewModels
+﻿namespace SimpleChecklist.Models
 {
     public enum FileType
     {

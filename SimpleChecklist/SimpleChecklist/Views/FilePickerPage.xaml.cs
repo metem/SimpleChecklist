@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SimpleChecklist.Models.Utils;
 using SimpleChecklist.ViewModels;
 using Xamarin.Forms;

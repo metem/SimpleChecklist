@@ -1,11 +1,11 @@
-﻿using SimpleChecklist.Models.Utils;
+﻿using Caliburn.Micro.Xamarin.Forms;
+using SimpleChecklist.Models.Utils;
 using SimpleChecklist.Models.Workspaces;
 using SimpleChecklist.Views;
-using Xamarin.Forms;
 
 namespace SimpleChecklist
 {
-    public class PortableApp : Application
+    public class PortableApp : FormsApplication
     {
         private readonly IDialogUtils _dialogUtils;
         private readonly IAppUtils _appUtils;
@@ -18,6 +18,8 @@ namespace SimpleChecklist
             _dialogUtils = dialogUtils;
             _appUtils = appUtils;
             MainPage = mainPage;
+
+            Initialize();
         }
 
         protected override async void OnStart()

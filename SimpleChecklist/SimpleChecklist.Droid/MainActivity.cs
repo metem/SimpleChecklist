@@ -1,33 +1,31 @@
-﻿using Android.App;
+﻿using System.Threading.Tasks;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Caliburn.Micro;
+using SimpleChecklist.Models.Workspaces;
+using Xamarin.Forms.Platform.Android;
 
 namespace SimpleChecklist.Droid
 {
-    [Activity(Label = "SimpleChecklist", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : Xamarin.Forms.Platform.Android.FormsApplicationActivity
+    [Activity(Label = "SimpleChecklist", Icon = "@drawable/icon", MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : FormsApplicationActivity
     {
-        private App _app;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             Xamarin.Forms.Forms.Init(this, bundle);
 
-            _app = BootstrapperDroid.Configure();
-
-            LoadApplication(_app.GetPortableApp());
-
-            _app.Load();
+            LoadApplication(IoC.Get<PortableApp>());
         }
 
         protected override void OnStop()
         {
             base.OnStop();
 
-            _app.Save();
+            Task.Run(async () => await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync()).Wait();
         }
     }
 }
-

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Caliburn.Micro;
+using SimpleChecklist.Models;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Properties;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class FilePickerViewModel : INotifyPropertyChanged
+    public class FilePickerViewModel : Screen
     {
         public Action<string> FileChoosen { get; set; }
 
@@ -40,8 +39,6 @@ namespace SimpleChecklist.ViewModels
 
         public ObservableCollection<KeyValuePair<FileType, string>> FilesList { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public void ChangeListedDirectory(IDirectory directory)
         {
             if (!directory.Exist)
@@ -66,12 +63,6 @@ namespace SimpleChecklist.ViewModels
             {
                 FilesList.Add(new KeyValuePair<FileType, string>(FileType.File, file.Name));
             }
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

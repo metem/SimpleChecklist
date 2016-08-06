@@ -1,17 +1,15 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Caliburn.Micro;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Properties;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class SettingsPageViewModel : INotifyPropertyChanged
+    public class SettingsPageViewModel : Screen
     {
         private readonly TaskListObservableCollection _taskListObservableCollection;
         private readonly DoneListObservableCollection _doneListObservableCollection;
@@ -36,7 +34,7 @@ namespace SimpleChecklist.ViewModels
             set
             {
                 _addTasksFromTextFileButtonIsEnabled = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => AddTasksFromTextFileButtonIsEnabled);
             }
         }
 
@@ -46,7 +44,7 @@ namespace SimpleChecklist.ViewModels
             set
             {
                 _createBackupButtonIsEnabled = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => CreateBackupButtonIsEnabled);
             }
         }
 
@@ -56,7 +54,7 @@ namespace SimpleChecklist.ViewModels
             set
             {
                 _loadBackupButtonIsEnabled = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => LoadBackupButtonIsEnabled);
             }
         }
 
@@ -201,14 +199,6 @@ namespace SimpleChecklist.ViewModels
                     _taskListObservableCollection.Add(task);
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

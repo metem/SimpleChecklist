@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
+using Caliburn.Micro;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class AboutPageViewModel
+    public class AboutPageViewModel : Screen
     {
         public ICommand UrlClickCommand => new Command(() =>
         {

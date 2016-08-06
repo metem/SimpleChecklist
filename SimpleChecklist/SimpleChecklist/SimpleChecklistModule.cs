@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist
 {
-    public class SimpleChecklistModule :Module
+    public class SimpleChecklistModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

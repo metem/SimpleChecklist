@@ -73,7 +73,7 @@
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\DoneListPageViewModel.cs" />
     <Compile Include="ViewModels\FilePickerViewModel.cs" />
-    <Compile Include="ViewModels\FileType.cs" />
+    <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\Utils\IDirectory.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\TaskListPageViewModel.cs" />

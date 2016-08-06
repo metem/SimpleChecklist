@@ -1,14 +1,12 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using Caliburn.Micro;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Properties;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class DoneListPageViewModel : INotifyPropertyChanged
+    public class DoneListPageViewModel : Screen
     {
         public DoneListObservableCollection DoneList { get; }
         private readonly TaskListObservableCollection _taskList;
@@ -50,13 +48,5 @@ namespace SimpleChecklist.ViewModels
                 DoneList.RemoveDoneItem(doneItem);
             }
         });
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
