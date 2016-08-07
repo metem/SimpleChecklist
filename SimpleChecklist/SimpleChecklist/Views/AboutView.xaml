@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
-             x:Class="SimpleChecklist.Views.AboutPage"
+             x:Class="SimpleChecklist.Views.AboutView"
              Title="{x:Static simpleChecklist:AppTexts.AboutPageTitle}">
   <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
     <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />

@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class TaskListPageViewModel : Screen
+    public class TaskListViewModel : Screen
     {
         private readonly DoneListObservableCollection _doneList;
         private readonly IDialogUtils _dialogUtils;
@@ -14,7 +14,7 @@ namespace SimpleChecklist.ViewModels
 
         public TaskListObservableCollection TaskListObservableCollection { get; }
 
-        public TaskListPageViewModel(TaskListObservableCollection taskList, DoneListObservableCollection doneList, IDialogUtils dialogUtils)
+        public TaskListViewModel(TaskListObservableCollection taskList, DoneListObservableCollection doneList, IDialogUtils dialogUtils)
         {
             TaskListObservableCollection = taskList;
             _doneList = doneList;

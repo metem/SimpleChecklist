@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
-             x:Class="SimpleChecklist.Views.TaskListPage"
+             x:Class="SimpleChecklist.Views.TaskListView"
              Title="{x:Static simpleChecklist:AppTexts.TaskListPageTitle}">
 
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">

@@ -70,31 +70,31 @@
     <Compile Include="SimpleChecklistModule.cs" />
     <Compile Include="Models\Collections\TaskListObservableCollection.cs" />
     <Compile Include="Models\Collections\DoneItemsGroup.cs" />
-    <Compile Include="ViewModels\AboutPageViewModel.cs" />
-    <Compile Include="ViewModels\DoneListPageViewModel.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\DoneListViewModel.cs" />
     <Compile Include="ViewModels\FilePickerViewModel.cs" />
     <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\Utils\IDirectory.cs" />
-    <Compile Include="ViewModels\SettingsPageViewModel.cs" />
-    <Compile Include="ViewModels\TaskListPageViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\TaskListViewModel.cs" />
     <Compile Include="Models\Collections\ToDoItem.cs" />
-    <Compile Include="Views\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DoneListPage.xaml.cs">
-      <DependentUpon>DoneListPage.xaml</DependentUpon>
+    <Compile Include="Views\DoneListView.xaml.cs">
+      <DependentUpon>DoneListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FilePickerPage.xaml.cs">
-      <DependentUpon>FilePickerPage.xaml</DependentUpon>
+    <Compile Include="Views\FilePickerView.xaml.cs">
+      <DependentUpon>FilePickerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TaskListPage.xaml.cs">
-      <DependentUpon>TaskListPage.xaml</DependentUpon>
+    <Compile Include="Views\TaskListView.xaml.cs">
+      <DependentUpon>TaskListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewIds.cs" />
     <Compile Include="Models\Workspaces\WorkspacesManager.cs" />
@@ -115,31 +115,31 @@
       <SubType>Designer</SubType>
       <LastGenOutput>AppSettings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\TaskListPage.xaml">
+    <EmbeddedResource Include="Views\TaskListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\AboutPage.xaml">
+    <EmbeddedResource Include="Views\AboutView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\MainPage.xaml">
+    <EmbeddedResource Include="Views\MainView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\SettingsPage.xaml">
+    <EmbeddedResource Include="Views\SettingsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\DoneListPage.xaml">
+    <EmbeddedResource Include="Views\DoneListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -148,7 +148,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\FilePickerPage.xaml">
+    <EmbeddedResource Include="Views\FilePickerView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

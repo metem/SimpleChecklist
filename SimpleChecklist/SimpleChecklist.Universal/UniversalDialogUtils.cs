@@ -9,7 +9,7 @@ namespace SimpleChecklist.Universal
 {
     public class UniversalDialogUtils : DialogUtils
     {
-        public UniversalDialogUtils(Lazy<MainPage> mainPage) : base(mainPage)
+        public UniversalDialogUtils(Lazy<MainView> mainPage) : base(mainPage)
         {
         }
 

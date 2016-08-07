@@ -7,9 +7,9 @@ namespace SimpleChecklist.Models.Utils
 {
     public abstract class DialogUtils : IDialogUtils
     {
-        protected readonly Lazy<MainPage> MainPage;
+        protected readonly Lazy<MainView> MainPage;
 
-        protected DialogUtils(Lazy<MainPage> mainPage)
+        protected DialogUtils(Lazy<MainView> mainPage)
         {
             MainPage = mainPage;
         }

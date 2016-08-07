@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist.Views
 {
-    public partial class MainPage : TabbedPage
+    public partial class MainView : TabbedPage
     {
-        public MainPage(IIndex<ViewsId, ContentPage> pages)
+        public MainView(IIndex<ViewsId, ContentPage> pages)
         {
             InitializeComponent();
 

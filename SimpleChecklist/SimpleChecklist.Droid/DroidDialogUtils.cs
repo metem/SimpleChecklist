@@ -10,9 +10,9 @@ namespace SimpleChecklist.Droid
 {
     public class DroidDialogUtils : DialogUtils
     {
-        private readonly Func<INavigation, IDirectory, FilePickerPage> _filePickerPage;
+        private readonly Func<INavigation, IDirectory, FilePickerView> _filePickerPage;
 
-        public DroidDialogUtils(Lazy<MainPage> mainPage, Func<INavigation, IDirectory, FilePickerPage> filePickerPage)
+        public DroidDialogUtils(Lazy<MainView> mainPage, Func<INavigation, IDirectory, FilePickerView> filePickerPage)
             : base(mainPage)
         {
             _filePickerPage = filePickerPage;

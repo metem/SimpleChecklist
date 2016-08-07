@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class SettingsPageViewModel : Screen
+    public class SettingsViewModel : Screen
     {
         private readonly TaskListObservableCollection _taskListObservableCollection;
         private readonly DoneListObservableCollection _doneListObservableCollection;
@@ -18,7 +18,7 @@ namespace SimpleChecklist.ViewModels
         private bool _createBackupButtonIsEnabled;
         private bool _loadBackupButtonIsEnabled;
 
-        public SettingsPageViewModel(TaskListObservableCollection taskListObservableCollection, DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
+        public SettingsViewModel(TaskListObservableCollection taskListObservableCollection, DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
         {
             _taskListObservableCollection = taskListObservableCollection;
             _doneListObservableCollection = doneListObservableCollection;

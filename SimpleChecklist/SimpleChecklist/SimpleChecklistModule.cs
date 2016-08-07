@@ -13,36 +13,36 @@ namespace SimpleChecklist
         {
             builder.RegisterType<PortableApp>().SingleInstance();
 
-            builder.RegisterType<MainPage>().SingleInstance();
+            builder.RegisterType<MainView>().SingleInstance();
 
             builder.RegisterType<WorkspacesManager>().SingleInstance();
 
-            builder.RegisterType<TaskListPage>()
+            builder.RegisterType<TaskListView>()
                 .AsSelf()
                 .Keyed<ContentPage>(ViewsId.TaskList)
                 .SingleInstance();
 
-            builder.RegisterType<DoneListPage>()
+            builder.RegisterType<DoneListView>()
                 .AsSelf()
                 .Keyed<ContentPage>(ViewsId.DoneList)
                 .SingleInstance();
 
-            builder.RegisterType<SettingsPage>()
+            builder.RegisterType<SettingsView>()
                 .AsSelf()
                 .Keyed<ContentPage>(ViewsId.Settings)
                 .SingleInstance();
 
-            builder.RegisterType<AboutPage>()
+            builder.RegisterType<AboutView>()
                 .AsSelf()
                 .Keyed<ContentPage>(ViewsId.About)
                 .SingleInstance();
 
-            builder.RegisterType<FilePickerPage>();
+            builder.RegisterType<FilePickerView>();
 
-            builder.RegisterType<AboutPageViewModel>().SingleInstance();
-            builder.RegisterType<TaskListPageViewModel>().SingleInstance();
-            builder.RegisterType<DoneListPageViewModel>().SingleInstance();
-            builder.RegisterType<SettingsPageViewModel>().SingleInstance();
+            builder.RegisterType<AboutViewModel>().SingleInstance();
+            builder.RegisterType<TaskListViewModel>().SingleInstance();
+            builder.RegisterType<DoneListViewModel>().SingleInstance();
+            builder.RegisterType<SettingsViewModel>().SingleInstance();
             builder.RegisterType<TaskListObservableCollection>().SingleInstance();
             builder.RegisterType<DoneListObservableCollection>().SingleInstance();
             builder.RegisterType<FilePickerViewModel>().SingleInstance();

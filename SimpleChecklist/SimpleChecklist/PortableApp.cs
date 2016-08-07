@@ -11,13 +11,13 @@ namespace SimpleChecklist
         private readonly IAppUtils _appUtils;
         private readonly WorkspacesManager _workspacesManager;
 
-        public PortableApp(WorkspacesManager workspacesManager, MainPage mainPage, IDialogUtils dialogUtils,
+        public PortableApp(WorkspacesManager workspacesManager, MainView mainView, IDialogUtils dialogUtils,
             IAppUtils appUtils)
         {
             _workspacesManager = workspacesManager;
             _dialogUtils = dialogUtils;
             _appUtils = appUtils;
-            MainPage = mainPage;
+            MainPage = mainView;
 
             Initialize();
         }

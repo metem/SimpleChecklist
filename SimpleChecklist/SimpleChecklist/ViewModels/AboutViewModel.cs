@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class AboutPageViewModel : Screen
+    public class AboutViewModel : Screen
     {
         public ICommand UrlClickCommand => new Command(() =>
         {
