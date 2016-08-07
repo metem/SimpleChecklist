@@ -235,6 +235,15 @@ namespace SimpleChecklist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveButtonText {
+            get {
+                return ResourceManager.GetString("SaveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string SettingsPageTitle {

@@ -10,32 +10,37 @@ namespace SimpleChecklist.Droid
 {
     public class DroidDialogUtils : DialogUtils
     {
-        private readonly Func<INavigation, IDirectory, FilePickerView> _filePickerPage;
+        private readonly Func<INavigation, IDirectory, OpenFilePickerView> _openFilePicker;
+        private readonly Func<INavigation, IDirectory, SaveFilePickerView> _saveFilePicker;
 
-        public DroidDialogUtils(Lazy<MainView> mainPage, Func<INavigation, IDirectory, FilePickerView> filePickerPage)
+        public DroidDialogUtils(Lazy<MainView> mainPage,
+            Func<INavigation, IDirectory, OpenFilePickerView> openFilePicker,
+            Func<INavigation, IDirectory, SaveFilePickerView> saveFilePicker)
             : base(mainPage)
         {
-            _filePickerPage = filePickerPage;
+            _openFilePicker = openFilePicker;
+            _saveFilePicker = saveFilePicker;
         }
 
         public override async Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes)
         {
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePickerDialog = _filePickerPage(MainPage.Value.Navigation, new DroidDirectory(folderPath));
+            var filePickerDialog = _openFilePicker(MainPage.Value.Navigation, new DroidDirectory(folderPath));
 
             var path = await filePickerDialog.ShowAsync();
 
-            return new DroidFile(new FileInfo(path));
+            return path != null ? new DroidFile(new FileInfo(path)) : null;
         }
 
-        public override async Task<IFile> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes)
+        public override async Task<IFile> SaveFileDialogAsync(string defaultFileName,
+            IEnumerable<string> allowedFileTypes)
         {
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePickerDialog = _filePickerPage(MainPage.Value.Navigation, new DroidDirectory(folderPath));
+            var filePickerDialog = _saveFilePicker(MainPage.Value.Navigation, new DroidDirectory(folderPath));
 
-            var path = await filePickerDialog.ShowAsync();
+            var path = await filePickerDialog.ShowAsync(defaultFileName);
 
-            return new DroidFile(new FileInfo(path));
+            return path != null ? new DroidFile(new FileInfo(path)) : null;
         }
     }
 }

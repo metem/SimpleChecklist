@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
+             x:Class="SimpleChecklist.Views.SaveFilePickerView">
+
+    <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <ListView ItemsSource="{Binding FilesList}" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Label
+                                Text="{Binding Value}"
+                                FontSize="20"
+                                HorizontalOptions="Start"
+                                VerticalOptions="CenterAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Path=BindingContext.FileChoosenCommand, Source={x:Reference ParentContext}}"
+                                        CommandParameter="{Binding}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
+        <StackLayout
+            Orientation="Horizontal"
+            HeightRequest="40"
+            VerticalOptions="End"
+            HorizontalOptions="FillAndExpand">
+            <Entry
+                x:Name="InputEntry"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Text="{Binding FileName}"
+                Completed="SaveEntryOnCompleted" />
+            <Button
+                Text="{x:Static simpleChecklist:AppTexts.SaveButtonText}"
+                HorizontalOptions="End"
+                HeightRequest="36"
+                VerticalOptions="CenterAndExpand"
+                BackgroundColor="#20FFFFFF"
+                Command="{Binding AddClickCommand}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

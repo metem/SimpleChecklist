@@ -72,6 +72,12 @@ namespace SimpleChecklist.ViewModels
         {
             var file = await _dialogUtils.OpenFileDialogAsync(new[] {AppSettings.BackupFileExtension});
 
+            if (file == null)
+            {
+                // Cancelled
+                return false;
+            }
+
             string text;
 
             try
@@ -145,6 +151,12 @@ namespace SimpleChecklist.ViewModels
                         $"{AppSettings.BackupFileName}-{DateTime.Now.ToString("yy.MM.dd_HH_mm_ss")}",
                         new[] {AppSettings.BackupFileExtension});
 
+            if (file == null)
+            {
+                // Cancelled
+                return;
+            }
+
             try
             {
                 await file.SaveTextAsync(data);
@@ -168,6 +180,12 @@ namespace SimpleChecklist.ViewModels
         private async Task AddTasksFromTextFile()
         {
             var file = await _dialogUtils.OpenFileDialogAsync(new[] {AppSettings.TextFileExtension});
+
+            if (file == null)
+            {
+                // Cancelled
+                return;
+            }
 
             string text;
 

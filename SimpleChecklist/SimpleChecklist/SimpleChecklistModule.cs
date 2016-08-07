@@ -37,7 +37,8 @@ namespace SimpleChecklist
                 .Keyed<ContentPage>(ViewsId.About)
                 .SingleInstance();
 
-            builder.RegisterType<FilePickerView>();
+            builder.RegisterType<OpenFilePickerView>();
+            builder.RegisterType<SaveFilePickerView>();
 
             builder.RegisterType<AboutViewModel>().SingleInstance();
             builder.RegisterType<TaskListViewModel>().SingleInstance();
@@ -45,7 +46,8 @@ namespace SimpleChecklist
             builder.RegisterType<SettingsViewModel>().SingleInstance();
             builder.RegisterType<TaskListObservableCollection>().SingleInstance();
             builder.RegisterType<DoneListObservableCollection>().SingleInstance();
-            builder.RegisterType<FilePickerViewModel>().SingleInstance();
+            builder.RegisterType<OpenFilePickerViewModel>();
+            builder.RegisterType<SaveFilePickerViewModel>();
 
             builder.RegisterType<TaskMainPreviewWorkspace>()
                 .As<IBaseWorkspace>()

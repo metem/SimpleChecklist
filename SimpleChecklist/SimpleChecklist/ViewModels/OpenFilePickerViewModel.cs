@@ -10,16 +10,16 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class FilePickerViewModel : Screen
+    public class OpenFilePickerViewModel : Screen
     {
-        public Action<string> FileChoosen { get; set; }
-
         private IDirectory _currentDirectory;
 
-        public FilePickerViewModel()
+        public OpenFilePickerViewModel()
         {
             FilesList = new ObservableCollection<KeyValuePair<FileType, string>>();
         }
+
+        public Action<string> FileChoosen { get; set; }
 
         public ICommand FileChoosenCommand => new Command(item =>
         {
