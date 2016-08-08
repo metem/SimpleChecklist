@@ -2,6 +2,7 @@
 using SimpleChecklist.Models.Utils;
 using SimpleChecklist.Models.Workspaces;
 using SimpleChecklist.Views;
+using Xamarin.Forms;
 
 namespace SimpleChecklist
 {
@@ -10,16 +11,24 @@ namespace SimpleChecklist
         private readonly IDialogUtils _dialogUtils;
         private readonly IAppUtils _appUtils;
         private readonly WorkspacesManager _workspacesManager;
+        private readonly MainView _mainView;
 
         public PortableApp(WorkspacesManager workspacesManager, MainView mainView, IDialogUtils dialogUtils,
             IAppUtils appUtils)
         {
             _workspacesManager = workspacesManager;
+            _mainView = mainView;
             _dialogUtils = dialogUtils;
             _appUtils = appUtils;
-            MainPage = mainView;
 
             Initialize();
+
+            DisplayRootView<TabbedView>();
+        }
+
+        protected override NavigationPage CreateApplicationPage()
+        {
+            return _mainView;
         }
 
         protected override async void OnStart()

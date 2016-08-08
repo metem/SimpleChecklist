@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Caliburn.Micro.Xamarin.Forms;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Workspaces;
 using SimpleChecklist.ViewModels;
@@ -14,8 +15,13 @@ namespace SimpleChecklist
             builder.RegisterType<PortableApp>().SingleInstance();
 
             builder.RegisterType<MainView>().SingleInstance();
+            builder.RegisterType<TabbedView>().SingleInstance();
 
             builder.RegisterType<WorkspacesManager>().SingleInstance();
+
+            builder.Register(context => new NavigationPageAdapter(context.Resolve<MainView>()))
+                .As<INavigationService>()
+                .SingleInstance();
 
             builder.RegisterType<TaskListView>()
                 .AsSelf()

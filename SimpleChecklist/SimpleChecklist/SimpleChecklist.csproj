@@ -97,6 +97,9 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TabbedView.xaml.cs">
+      <DependentUpon>TabbedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TaskListView.xaml.cs">
       <DependentUpon>TaskListView.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SaveFilePickerView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\TabbedView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -21,14 +21,14 @@ namespace SimpleChecklist.ViewModels
             _dialogUtils = dialogUtils;
         }
 
-        public ICommand AddClickCommand => new Command(() =>
+        public void AddClick()
         {
             if (!string.IsNullOrEmpty(EntryText))
             {
                 TaskListObservableCollection.Add(EntryText);
                 EntryText = string.Empty;
             }
-        });
+        }
 
         public ICommand RemoveClickCommand => new Command(async item =>
         {
