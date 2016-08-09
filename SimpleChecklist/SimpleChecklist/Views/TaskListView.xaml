@@ -19,7 +19,7 @@
                                 ColumnSpacing="10"
                                 RowSpacing="10"
                                 HorizontalOptions="FillAndExpand"
-                                VerticalOptions="Start">
+                                VerticalOptions="CenterAndExpand">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="20" />
                                     <ColumnDefinition Width="Auto" />

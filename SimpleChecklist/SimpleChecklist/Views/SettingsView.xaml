@@ -12,9 +12,10 @@
             Text="{x:Static simpleChecklist:AppTexts.LoadTasksFromTextFileButtonText}"
             FontSize="20"
             HorizontalOptions="StartAndExpand"
-            VerticalOptions="Center"
+            VerticalOptions="Start"
             IsEnabled="{Binding AddTasksFromTextFileButtonIsEnabled}"
-            Command="{Binding AddTasksFromTextFileClickCommand}" />
+            Command="{Binding AddTasksFromTextFileClickCommand}"
+            BackgroundColor="Transparent"/>
 
         <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
 
@@ -22,16 +23,18 @@
             Text="{x:Static simpleChecklist:AppTexts.CreateBackupButtonText}"
             FontSize="20"
             HorizontalOptions="StartAndExpand"
-            VerticalOptions="Center"
+            VerticalOptions="Start"
             IsEnabled="{Binding CreateBackupButtonIsEnabled}"
-            Command="{Binding CreateBackupClickCommand}" />
+            Command="{Binding CreateBackupClickCommand}"
+            BackgroundColor="Transparent"/>
 
         <Button
             Text="{x:Static simpleChecklist:AppTexts.LoadBackupButtonText}"
             FontSize="20"
             HorizontalOptions="StartAndExpand"
-            VerticalOptions="Center"
+            VerticalOptions="Start"
             IsEnabled="{Binding LoadBackupButtonIsEnabled}"
-            Command="{Binding LoadBackupClickCommand}" />
+            Command="{Binding LoadBackupClickCommand}"
+            BackgroundColor="Transparent"/>
     </StackLayout>
 </ContentPage>

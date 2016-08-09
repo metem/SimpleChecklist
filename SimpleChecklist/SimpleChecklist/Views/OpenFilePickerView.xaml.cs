@@ -8,6 +8,7 @@ namespace SimpleChecklist.Views
     public partial class OpenFilePickerView : ContentPage
     {
         private TaskCompletionSource<string> _tcs;
+        private readonly OpenFilePickerViewModel _openFilePickerViewModel;
 
         public OpenFilePickerView(IDirectory directory, OpenFilePickerViewModel openFilePickerViewModel)
         {
@@ -15,6 +16,7 @@ namespace SimpleChecklist.Views
 
             openFilePickerViewModel.ChangeListedDirectory(directory);
             openFilePickerViewModel.FileChoosen += s => _tcs.SetResult(s);
+            _openFilePickerViewModel = openFilePickerViewModel;
             BindingContext = openFilePickerViewModel;
         }
 
@@ -37,6 +39,11 @@ namespace SimpleChecklist.Views
 
             if (!_tcs.Task.IsCompleted)
                 _tcs.SetResult(null);
+        }
+
+        private void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            _openFilePickerViewModel.FileChoosenCommand.Execute(e.Item);
         }
     }
 }

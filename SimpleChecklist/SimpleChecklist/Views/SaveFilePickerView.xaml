@@ -6,7 +6,7 @@
              x:Class="SimpleChecklist.Views.SaveFilePickerView">
 
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <ListView ItemsSource="{Binding FilesList}" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+        <ListView ItemsSource="{Binding FilesList}" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -15,13 +15,7 @@
                                 Text="{Binding Value}"
                                 FontSize="20"
                                 HorizontalOptions="Start"
-                                VerticalOptions="CenterAndExpand">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding Path=BindingContext.FileChoosenCommand, Source={x:Reference ParentContext}}"
-                                        CommandParameter="{Binding}" />
-                                </Label.GestureRecognizers>
-                            </Label>
+                                VerticalOptions="CenterAndExpand"/>
                         </ViewCell.View>
                     </ViewCell>
                 </DataTemplate>

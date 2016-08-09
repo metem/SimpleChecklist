@@ -48,5 +48,10 @@ namespace SimpleChecklist.Views
             if (!_tcs.Task.IsCompleted)
                 _tcs.SetResult(null);
         }
+
+        private void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            _saveFilePickerViewModel.FileChoosenCommand.Execute(e.Item);
+        }
     }
 }

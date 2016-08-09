@@ -11,18 +11,21 @@
         <Label
             Text="{x:Static simpleChecklist:AppTexts.AboutPageText}"
             HorizontalOptions="Center"
-            FontSize="20" />
+            FontSize="20"
+            TextColor="White"/>
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
             <Label
                 Text="{x:Static simpleChecklist:AppTexts.AboutPageVersionText}"
                 HorizontalOptions="Center"
-                FontSize="20" />
+                FontSize="20"
+                TextColor="White"/>
 
             <Label
                 Text="{x:Static simpleChecklist:AppSettings.VersionNumber}"
                 HorizontalOptions="Center"
-                FontSize="20" />
+                FontSize="20"
+                TextColor="White"/>
         </StackLayout>
 
         <Label
@@ -30,7 +33,8 @@
             HorizontalOptions="Center"
             Margin="0,50,0,0"
             FontSize="20"
-            FontAttributes="Italic">
+            FontAttributes="Italic"
+            TextColor="White">
             <Label.GestureRecognizers>
               <TapGestureRecognizer
                 Command="{Binding Path=BindingContext.UrlClickCommand, Source={x:Reference ParentContext}}"
@@ -42,12 +46,14 @@
             Text="{x:Static simpleChecklist:AppTexts.AboutPageTranslatorsText}"
             HorizontalOptions="StartAndExpand"
             Margin="0,50,0,0"
-            FontSize="20" />
+            FontSize="20"
+            TextColor="White"/>
 
         <Label
             Text="{x:Static simpleChecklist:AppTexts.AboutPageTranslatorsListText}"
             HorizontalOptions="StartAndExpand"
-            FontSize="20" />
+            FontSize="20"
+            TextColor="White"/>
     </StackLayout>
   </StackLayout>
 </ContentPage>
