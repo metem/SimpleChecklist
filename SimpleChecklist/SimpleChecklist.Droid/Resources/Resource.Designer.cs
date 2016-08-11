@@ -3520,6 +3520,9 @@ namespace SimpleChecklist.Droid
 			// aapt resource value: 0x7f0a001a
 			public const int CardView_Light = 2131361818;
 			
+			// aapt resource value: 0x7f0a0172
+			public const int MainTheme = 2131362162;
+			
 			// aapt resource value: 0x7f0a0032
 			public const int Platform_AppCompat = 2131361842;
 			
@@ -4173,6 +4176,9 @@ namespace SimpleChecklist.Droid
 			
 			// aapt resource value: 0x7f0a0016
 			public const int Widget_MediaRouter_MediaRouteButton = 2131361814;
+			
+			// aapt resource value: 0x7f0a0173
+			public const int actionBarTabStyle = 2131362163;
 			
 			static Style()
 			{

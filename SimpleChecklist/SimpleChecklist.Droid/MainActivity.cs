@@ -8,7 +8,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace SimpleChecklist.Droid
 {
-    [Activity(Label = "SimpleChecklist", Icon = "@drawable/icon", MainLauncher = true,
+    [Activity(Label = "Simple Checklist", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsApplicationActivity
     {

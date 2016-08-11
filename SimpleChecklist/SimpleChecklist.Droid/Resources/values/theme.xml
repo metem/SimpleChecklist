@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="MainTheme" parent="@android:style/Theme.Holo">
+    <item name="android:windowBackground">@drawable/PageGradient</item>
+
+    <item name="android:actionBarStyle">@style/actionBarTabStyle</item>
+  </style>
+
+  <!-- Style actual tabs -->
+  <style name="actionBarTabStyle" parent="@android:Widget.Holo.ActionBar">
+    <item name="android:background">#60003668</item>
+  </style>
+  
+</resources>
