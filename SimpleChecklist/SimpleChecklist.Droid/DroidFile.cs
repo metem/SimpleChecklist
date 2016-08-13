@@ -11,7 +11,7 @@ namespace SimpleChecklist.Droid
 
         public DroidFile(string fileName)
         {
-            FullName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), fileName);
+            FullName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), fileName);
         }
 
         public DroidFile(FileInfo file)
