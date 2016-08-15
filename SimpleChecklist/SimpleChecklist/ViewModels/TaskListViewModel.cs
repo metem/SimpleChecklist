@@ -66,6 +66,7 @@ namespace SimpleChecklist.ViewModels
             get { return _entryText; }
             set
             {
+                if (value == _entryText) return;
                 _entryText = value;
                 NotifyOfPropertyChange(() => EntryText);
             }

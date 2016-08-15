@@ -33,6 +33,7 @@ namespace SimpleChecklist.ViewModels
             get { return _addTasksFromTextFileButtonIsEnabled; }
             set
             {
+                if (value == _addTasksFromTextFileButtonIsEnabled) return;
                 _addTasksFromTextFileButtonIsEnabled = value;
                 NotifyOfPropertyChange(() => AddTasksFromTextFileButtonIsEnabled);
             }
@@ -43,6 +44,7 @@ namespace SimpleChecklist.ViewModels
             get { return _createBackupButtonIsEnabled; }
             set
             {
+                if (value == _createBackupButtonIsEnabled) return;
                 _createBackupButtonIsEnabled = value;
                 NotifyOfPropertyChange(() => CreateBackupButtonIsEnabled);
             }
@@ -53,6 +55,7 @@ namespace SimpleChecklist.ViewModels
             get { return _loadBackupButtonIsEnabled; }
             set
             {
+                if (value == _loadBackupButtonIsEnabled) return;
                 _loadBackupButtonIsEnabled = value;
                 NotifyOfPropertyChange(() => LoadBackupButtonIsEnabled);
             }
