@@ -13,6 +13,7 @@ namespace SimpleChecklist.ViewModels
     public class SaveFilePickerViewModel : Screen
     {
         private IDirectory _currentDirectory;
+        private string _fileName;
 
         public SaveFilePickerViewModel()
         {
@@ -21,7 +22,16 @@ namespace SimpleChecklist.ViewModels
 
         public Action<string> FileChoosen { get; set; }
 
-        public string FileName { get; set; }
+        public string FileName
+        {
+            get { return _fileName; }
+            set
+            {
+                if (value == _fileName) return;
+                _fileName = value;
+                NotifyOfPropertyChange(() => FileName);
+            }
+        }
 
         public ICommand AddClickCommand
             => new Command(() => { FileChoosen?.Invoke(Path.Combine(_currentDirectory.Path, FileName)); });

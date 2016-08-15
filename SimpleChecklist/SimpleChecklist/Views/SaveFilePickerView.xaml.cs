@@ -23,7 +23,7 @@ namespace SimpleChecklist.Views
 
         public async Task<string> ShowAsync(string defaultFileName)
         {
-            InputEntry.Text = defaultFileName;
+            _saveFilePickerViewModel.FileName = defaultFileName;
 
             _tcs = new TaskCompletionSource<string>();
 
