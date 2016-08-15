@@ -15,7 +15,7 @@
                             FontSize="20"
                             TextColor="White"
                             HorizontalOptions="Start"
-                            VerticalOptions="CenterAndExpand"/>
+                            VerticalOptions="CenterAndExpand" />
                     </ViewCell.View>
                 </ViewCell>
             </DataTemplate>

@@ -5,46 +5,47 @@
              xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
              x:Class="SimpleChecklist.Views.SaveFilePickerView">
 
-  <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-    <ListView ItemsSource="{Binding FilesList}" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" ItemTapped="OnItemTapped">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <ViewCell.View>
-              <Label
-                  Text="{Binding Value}"
-                  FontSize="20"
-                  HorizontalOptions="Start"
-                  TextColor="White"
-                  VerticalOptions="CenterAndExpand"/>
-            </ViewCell.View>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-    <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
-    <Grid
-        HeightRequest="40"
-        VerticalOptions="End"
-        HorizontalOptions="FillAndExpand">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="Auto"/>
-      </Grid.ColumnDefinitions>
-      <Entry
-          Grid.Column="0"
-          HorizontalOptions="FillAndExpand"
-          VerticalOptions="CenterAndExpand"
-          Text="{Binding FileName, Mode=TwoWay}"
-          Completed="SaveEntryOnCompleted" />
-      <Button
-          Grid.Column="1"
-          Text="{x:Static simpleChecklist:AppTexts.SaveButtonText}"
-          HorizontalOptions="End"
-          HeightRequest="36"
-          VerticalOptions="CenterAndExpand"
-          BackgroundColor="#20FFFFFF"
-          Command="{Binding AddClickCommand}" />
-    </Grid>
-  </StackLayout>
+    <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <ListView ItemsSource="{Binding FilesList}" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand"
+                  ItemTapped="OnItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Label
+                                Text="{Binding Value}"
+                                FontSize="20"
+                                HorizontalOptions="Start"
+                                TextColor="White"
+                                VerticalOptions="CenterAndExpand" />
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
+        <Grid
+            HeightRequest="40"
+            VerticalOptions="End"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Entry
+                Grid.Column="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Text="{Binding FileName, Mode=TwoWay}"
+                Completed="SaveEntryOnCompleted" />
+            <Button
+                Grid.Column="1"
+                Text="{x:Static simpleChecklist:AppTexts.SaveButtonText}"
+                HorizontalOptions="End"
+                HeightRequest="36"
+                VerticalOptions="CenterAndExpand"
+                BackgroundColor="#20FFFFFF"
+                Command="{Binding AddClickCommand}" />
+        </Grid>
+    </StackLayout>
 </ContentPage>

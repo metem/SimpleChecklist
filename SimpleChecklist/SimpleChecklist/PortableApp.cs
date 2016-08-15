@@ -8,10 +8,10 @@ namespace SimpleChecklist
 {
     public class PortableApp : FormsApplication
     {
-        private readonly IDialogUtils _dialogUtils;
         private readonly IAppUtils _appUtils;
-        private readonly WorkspacesManager _workspacesManager;
+        private readonly IDialogUtils _dialogUtils;
         private readonly MainView _mainView;
+        private readonly WorkspacesManager _workspacesManager;
 
         public PortableApp(WorkspacesManager workspacesManager, MainView mainView, IDialogUtils dialogUtils,
             IAppUtils appUtils)

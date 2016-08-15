@@ -8,27 +8,19 @@ namespace SimpleChecklist.ViewModels
 {
     public class TaskListViewModel : Screen
     {
-        private readonly DoneListObservableCollection _doneList;
         private readonly IDialogUtils _dialogUtils;
+        private readonly DoneListObservableCollection _doneList;
         private string _entryText;
 
-        public TaskListObservableCollection TaskListObservableCollection { get; }
-
-        public TaskListViewModel(TaskListObservableCollection taskList, DoneListObservableCollection doneList, IDialogUtils dialogUtils)
+        public TaskListViewModel(TaskListObservableCollection taskList, DoneListObservableCollection doneList,
+            IDialogUtils dialogUtils)
         {
             TaskListObservableCollection = taskList;
             _doneList = doneList;
             _dialogUtils = dialogUtils;
         }
 
-        public void AddClick()
-        {
-            if (!string.IsNullOrEmpty(EntryText))
-            {
-                TaskListObservableCollection.Add(EntryText);
-                EntryText = string.Empty;
-            }
-        }
+        public TaskListObservableCollection TaskListObservableCollection { get; }
 
         public ICommand RemoveClickCommand => new Command(async item =>
         {
@@ -69,6 +61,15 @@ namespace SimpleChecklist.ViewModels
                 if (value == _entryText) return;
                 _entryText = value;
                 NotifyOfPropertyChange(() => EntryText);
+            }
+        }
+
+        public void AddClick()
+        {
+            if (!string.IsNullOrEmpty(EntryText))
+            {
+                TaskListObservableCollection.Add(EntryText);
+                EntryText = string.Empty;
             }
         }
     }

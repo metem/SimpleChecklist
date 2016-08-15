@@ -28,7 +28,7 @@ namespace SimpleChecklist.Models.Workspaces
 
         public async Task LoadWorkspacesStateAsync(bool forceLoad = false)
         {
-            bool loadingResult = true;
+            var loadingResult = true;
 
             try
             {

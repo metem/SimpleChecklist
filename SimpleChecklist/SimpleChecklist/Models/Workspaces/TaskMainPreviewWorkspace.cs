@@ -9,23 +9,22 @@ namespace SimpleChecklist.Models.Workspaces
 {
     public class TaskMainPreviewWorkspace : BaseWorkspace
     {
-        private readonly Func<string, IFile> _fileFunc;
         private readonly IDialogUtils _dialogUtils;
-        private readonly TaskListObservableCollection _taskListObservableCollection;
-
-        public TaskListObservableCollection TaskListObservableCollection => _taskListObservableCollection;
+        private readonly Func<string, IFile> _fileFunc;
 
         public TaskMainPreviewWorkspace(Func<string, IFile> fileFunc, IDialogUtils dialogUtils,
             TaskListObservableCollection taskList) : base(ViewsId.TaskList)
         {
             _fileFunc = fileFunc;
             _dialogUtils = dialogUtils;
-            _taskListObservableCollection = taskList;
+            TaskListObservableCollection = taskList;
         }
+
+        public TaskListObservableCollection TaskListObservableCollection { get; }
 
         public override async Task<bool> SaveCurrentStateAsync()
         {
-            var data = XmlBinarySerializer.Serialize(_taskListObservableCollection.ToDoItems);
+            var data = XmlBinarySerializer.Serialize(TaskListObservableCollection.ToDoItems);
 
             try
             {
@@ -56,7 +55,7 @@ namespace SimpleChecklist.Models.Workspaces
                 if (!file.Exist)
                     return true;
 
-                    data = await file.ReadBytesAsync();
+                data = await file.ReadBytesAsync();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -69,7 +68,7 @@ namespace SimpleChecklist.Models.Workspaces
                 try
                 {
                     var result = XmlBinarySerializer.Deserialize<ObservableCollection<ToDoItem>>(data);
-                    _taskListObservableCollection.Load(result);
+                    TaskListObservableCollection.Load(result);
                     return true;
                 }
                 catch (Exception)

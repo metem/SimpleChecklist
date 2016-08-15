@@ -4,15 +4,15 @@ namespace SimpleChecklist.Models.Utils
 {
     public interface IDirectory
     {
-        IEnumerable<IFile> GetFiles();
-
-        IEnumerable<IDirectory> GetDirectories();
-
         string Path { get; }
 
         string Name { get; }
 
         bool Exist { get; }
+
+        IEnumerable<IFile> GetFiles();
+
+        IEnumerable<IDirectory> GetDirectories();
 
         IDirectory GetChild(string name);
 

@@ -15,7 +15,7 @@
             VerticalOptions="Start"
             IsEnabled="{Binding AddTasksFromTextFileButtonIsEnabled}"
             Command="{Binding AddTasksFromTextFileClickCommand}"
-            BackgroundColor="Transparent"/>
+            BackgroundColor="Transparent" />
 
         <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
 
@@ -26,7 +26,7 @@
             VerticalOptions="Start"
             IsEnabled="{Binding CreateBackupButtonIsEnabled}"
             Command="{Binding CreateBackupClickCommand}"
-            BackgroundColor="Transparent"/>
+            BackgroundColor="Transparent" />
 
         <Button
             Text="{x:Static simpleChecklist:AppTexts.LoadBackupButtonText}"
@@ -35,6 +35,6 @@
             VerticalOptions="Start"
             IsEnabled="{Binding LoadBackupButtonIsEnabled}"
             Command="{Binding LoadBackupClickCommand}"
-            BackgroundColor="Transparent"/>
+            BackgroundColor="Transparent" />
     </StackLayout>
 </ContentPage>

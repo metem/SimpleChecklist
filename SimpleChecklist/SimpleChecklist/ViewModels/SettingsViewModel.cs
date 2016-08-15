@@ -11,14 +11,15 @@ namespace SimpleChecklist.ViewModels
 {
     public class SettingsViewModel : Screen
     {
-        private readonly TaskListObservableCollection _taskListObservableCollection;
-        private readonly DoneListObservableCollection _doneListObservableCollection;
         private readonly IDialogUtils _dialogUtils;
+        private readonly DoneListObservableCollection _doneListObservableCollection;
+        private readonly TaskListObservableCollection _taskListObservableCollection;
         private bool _addTasksFromTextFileButtonIsEnabled;
         private bool _createBackupButtonIsEnabled;
         private bool _loadBackupButtonIsEnabled;
 
-        public SettingsViewModel(TaskListObservableCollection taskListObservableCollection, DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
+        public SettingsViewModel(TaskListObservableCollection taskListObservableCollection,
+            DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
         {
             _taskListObservableCollection = taskListObservableCollection;
             _doneListObservableCollection = doneListObservableCollection;
@@ -68,6 +69,26 @@ namespace SimpleChecklist.ViewModels
                 LoadBackupButtonIsEnabled = false;
                 await LoadBackup();
                 LoadBackupButtonIsEnabled = true;
+            }
+        });
+
+        public ICommand CreateBackupClickCommand => new Command(async () =>
+        {
+            if (CreateBackupButtonIsEnabled)
+            {
+                CreateBackupButtonIsEnabled = false;
+                await CreateBackup();
+                CreateBackupButtonIsEnabled = true;
+            }
+        });
+
+        public ICommand AddTasksFromTextFileClickCommand => new Command(async () =>
+        {
+            if (AddTasksFromTextFileButtonIsEnabled)
+            {
+                AddTasksFromTextFileButtonIsEnabled = false;
+                await AddTasksFromTextFile();
+                AddTasksFromTextFileButtonIsEnabled = true;
             }
         });
 
@@ -129,16 +150,6 @@ namespace SimpleChecklist.ViewModels
             return false;
         }
 
-        public ICommand CreateBackupClickCommand => new Command(async () =>
-        {
-            if (CreateBackupButtonIsEnabled)
-            {
-                CreateBackupButtonIsEnabled = false;
-                await CreateBackup();
-                CreateBackupButtonIsEnabled = true;
-            }
-        });
-
         private async Task CreateBackup()
         {
             var backupData = new BackupData
@@ -169,16 +180,6 @@ namespace SimpleChecklist.ViewModels
                 await _dialogUtils.DisplayAlertAsync(AppTexts.Error, ex.Message, AppTexts.Close);
             }
         }
-
-        public ICommand AddTasksFromTextFileClickCommand => new Command(async () =>
-        {
-            if (AddTasksFromTextFileButtonIsEnabled)
-            {
-                AddTasksFromTextFileButtonIsEnabled = false;
-                await AddTasksFromTextFile();
-                AddTasksFromTextFileButtonIsEnabled = true;
-            }
-        });
 
         private async Task AddTasksFromTextFile()
         {

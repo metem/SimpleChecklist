@@ -7,9 +7,7 @@ namespace SimpleChecklist.ViewModels
 {
     public class AboutViewModel : Screen
     {
-        public ICommand UrlClickCommand => new Command(() =>
-        {
-            Device.OpenUri(new Uri($"http://{AppSettings.WebsiteUrl}"));
-        });
+        public ICommand UrlClickCommand
+            => new Command(() => { Device.OpenUri(new Uri($"http://{AppSettings.WebsiteUrl}")); });
     }
 }

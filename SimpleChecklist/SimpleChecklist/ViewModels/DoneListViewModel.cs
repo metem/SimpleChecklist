@@ -8,16 +8,18 @@ namespace SimpleChecklist.ViewModels
 {
     public class DoneListViewModel : Screen
     {
-        public DoneListObservableCollection DoneList { get; }
-        private readonly TaskListObservableCollection _taskList;
         private readonly IDialogUtils _dialogUtils;
+        private readonly TaskListObservableCollection _taskList;
 
-        public DoneListViewModel(DoneListObservableCollection doneList, TaskListObservableCollection taskList, IDialogUtils dialogUtils)
+        public DoneListViewModel(DoneListObservableCollection doneList, TaskListObservableCollection taskList,
+            IDialogUtils dialogUtils)
         {
             DoneList = doneList;
             _taskList = taskList;
             _dialogUtils = dialogUtils;
         }
+
+        public DoneListObservableCollection DoneList { get; }
 
         public ICommand RemoveClickCommand => new Command(async item =>
         {
@@ -29,7 +31,7 @@ namespace SimpleChecklist.ViewModels
 
             if (accepted)
             {
-                DoneList.RemoveDoneItem((DoneItem)item);
+                DoneList.RemoveDoneItem((DoneItem) item);
             }
         });
 
@@ -43,8 +45,8 @@ namespace SimpleChecklist.ViewModels
 
             if (accepted)
             {
-                var doneItem = (DoneItem)item;
-                _taskList.Add((ToDoItem)item);
+                var doneItem = (DoneItem) item;
+                _taskList.Add((ToDoItem) item);
                 DoneList.RemoveDoneItem(doneItem);
             }
         });

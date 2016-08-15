@@ -4,6 +4,12 @@ namespace SimpleChecklist.Models.Utils
 {
     public interface IFile
     {
+        string Name { get; }
+
+        string FullName { get; }
+
+        bool Exist { get; }
+
         Task CreateAsync();
 
         Task<string> ReadTextAsync();
@@ -15,11 +21,5 @@ namespace SimpleChecklist.Models.Utils
         Task SaveBytesAsync(byte[] content);
 
         Task CopyFileAsync(IFile destinationFile);
-
-        string Name { get; }
-
-        string FullName { get; }
-
-        bool Exist { get; }
     }
 }

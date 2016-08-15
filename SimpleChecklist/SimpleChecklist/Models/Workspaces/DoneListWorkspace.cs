@@ -9,12 +9,11 @@ namespace SimpleChecklist.Models.Workspaces
 {
     public class DoneListWorkspace : BaseWorkspace
     {
-        private readonly Func<string, IFile> _fileFunc;
         private readonly IDialogUtils _dialogUtils;
+        private readonly Func<string, IFile> _fileFunc;
 
-        public DoneListObservableCollection DoneListObservableCollection { get; }
-
-        public DoneListWorkspace(Func<string, IFile> fileFunc, IDialogUtils dialogUtils, DoneListObservableCollection doneList)
+        public DoneListWorkspace(Func<string, IFile> fileFunc, IDialogUtils dialogUtils,
+            DoneListObservableCollection doneList)
             : base(ViewsId.DoneList)
         {
             _fileFunc = fileFunc;
@@ -22,6 +21,8 @@ namespace SimpleChecklist.Models.Workspaces
 
             DoneListObservableCollection = doneList;
         }
+
+        public DoneListObservableCollection DoneListObservableCollection { get; }
 
         public override async Task<bool> SaveCurrentStateAsync()
         {
@@ -86,7 +87,6 @@ namespace SimpleChecklist.Models.Workspaces
             await
                 _fileFunc(AppSettings.DoneListFileName)
                     .CopyFileAsync(_fileFunc(AppSettings.DoneListFileName + AppSettings.PartialBackupFileExtension));
-
         }
 
         public override async Task RestoreBackup()
