@@ -4180,6 +4180,9 @@ namespace SimpleChecklist.Droid
 			// aapt resource value: 0x7f0a0173
 			public const int actionBarTabStyle = 2131362163;
 			
+			// aapt resource value: 0x7f0a0174
+			public const int actionBarTabTextStyle = 2131362164;
+			
 			static Style()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

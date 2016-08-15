@@ -5,6 +5,7 @@
              xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
              x:Class="SimpleChecklist.Views.AboutView"
              Title="{x:Static simpleChecklist:AppTexts.AboutPageTitle}">
+  
   <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
     <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
     <StackLayout VerticalOptions="CenterAndExpand">

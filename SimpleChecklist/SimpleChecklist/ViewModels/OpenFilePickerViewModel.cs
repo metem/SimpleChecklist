@@ -28,7 +28,7 @@ namespace SimpleChecklist.ViewModels
             switch (data.Key)
             {
                 case FileType.Directory:
-                    ChangeListedDirectory(data.Value == "..."
+                    ChangeListedDirectory(data.Value == AppSettings.ParentDirectory
                         ? _currentDirectory.GetParent()
                         : _currentDirectory.GetChild(data.Value));
                     break;
@@ -51,7 +51,7 @@ namespace SimpleChecklist.ViewModels
 
                 var filesList = new List<KeyValuePair<FileType, string>>
                 {
-                    new KeyValuePair<FileType, string>(FileType.Directory, "...")
+                    new KeyValuePair<FileType, string>(FileType.Directory, AppSettings.ParentDirectory)
                 };
 
                 filesList.AddRange(

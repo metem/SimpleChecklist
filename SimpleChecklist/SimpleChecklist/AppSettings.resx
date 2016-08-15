@@ -144,4 +144,7 @@
   <data name="PartialBackupFileExtension" xml:space="preserve">
     <value>.bcp</value>
   </data>
+  <data name="ParentDirectory" xml:space="preserve">
+    <value>...</value>
+  </data>
 </root>

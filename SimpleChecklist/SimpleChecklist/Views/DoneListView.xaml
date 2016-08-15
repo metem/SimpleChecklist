@@ -36,7 +36,8 @@
                                     Source="Resources/Icons/BackIcon.png"
                                     HorizontalOptions="Start"
                                     VerticalOptions="CenterAndExpand"
-                                    Opacity=".8">
+                                    Opacity=".8"
+                                    Margin="0,1,0,0">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding Path=BindingContext.UndoneClickCommand, Source={x:Reference ParentContext}}"
@@ -50,7 +51,8 @@
                                     Source="Resources/Icons/RemoveIcon.png"
                                     HorizontalOptions="Start"
                                     VerticalOptions="CenterAndExpand"
-                                    Opacity=".8">
+                                    Opacity=".8"
+                                    Margin="0,1,0,0">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding Path=BindingContext.RemoveClickCommand, Source={x:Reference ParentContext}}"

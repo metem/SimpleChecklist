@@ -15,6 +15,7 @@
                                 Text="{Binding Value}"
                                 FontSize="20"
                                 HorizontalOptions="Start"
+                                TextColor="White"
                                 VerticalOptions="CenterAndExpand"/>
                         </ViewCell.View>
                     </ViewCell>

@@ -98,6 +98,15 @@ namespace SimpleChecklist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ....
+        /// </summary>
+        internal static string ParentDirectory {
+            get {
+                return ResourceManager.GetString("ParentDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .bcp.
         /// </summary>
         internal static string PartialBackupFileExtension {
