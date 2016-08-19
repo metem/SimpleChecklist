@@ -6,7 +6,7 @@
              x:Class="SimpleChecklist.Views.SettingsView"
              Title="{x:Static simpleChecklist:AppTexts.SettingsPageTitle}">
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
+        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
 
         <Button
             Text="{x:Static simpleChecklist:AppTexts.LoadTasksFromTextFileButtonText}"
@@ -17,7 +17,7 @@
             Command="{Binding AddTasksFromTextFileClickCommand}"
             BackgroundColor="Transparent" />
 
-        <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
+        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
 
         <Button
             Text="{x:Static simpleChecklist:AppTexts.CreateBackupButtonText}"

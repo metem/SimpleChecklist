@@ -23,7 +23,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <BoxView Opacity=".3" HeightRequest="1" BackgroundColor="White" />
+        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
         <Grid
             HeightRequest="40"
             VerticalOptions="End"
