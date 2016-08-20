@@ -40,6 +40,8 @@ namespace SimpleChecklist.ViewModels
 
         public ObservableCollection<KeyValuePair<FileType, string>> FilesList { get; }
 
+        public IEnumerable<string> AllowedFileTypes { get; set; }
+
         public void ChangeListedDirectory(IDirectory directory)
         {
             if (!directory.Exist)
@@ -57,7 +59,9 @@ namespace SimpleChecklist.ViewModels
                 filesList.AddRange(
                     directories.Select(dir => new KeyValuePair<FileType, string>(FileType.Directory, dir.Name)));
 
-                var files = directory.GetFiles();
+                var files =
+                    directory.GetFiles()
+                        .Where(file => AllowedFileTypes.Any(allowedFileType => file.Name.EndsWith(allowedFileType)));
 
                 _currentDirectory = directory;
 
@@ -66,9 +70,7 @@ namespace SimpleChecklist.ViewModels
                 FilesList.Clear();
 
                 foreach (var keyValuePair in filesList)
-                {
                     FilesList.Add(keyValuePair);
-                }
             }
             catch (Exception)
             {

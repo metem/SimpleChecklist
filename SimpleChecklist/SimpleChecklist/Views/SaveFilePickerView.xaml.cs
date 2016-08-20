@@ -21,7 +21,7 @@ namespace SimpleChecklist.Views
             BindingContext = saveFilePickerViewModel;
         }
 
-        public async Task<string> ShowAsync(string defaultFileName)
+        public async Task<string> ShowAsync(string defaultFileName, string extension)
         {
             _saveFilePickerViewModel.FileName = defaultFileName;
 
@@ -32,6 +32,11 @@ namespace SimpleChecklist.Views
             var result = await _tcs.Task;
 
             Navigation.RemovePage(this);
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                result = $"{result}{extension}";
+            }
 
             return result;
         }

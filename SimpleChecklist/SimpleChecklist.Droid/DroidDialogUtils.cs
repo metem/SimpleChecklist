@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using SimpleChecklist.Models.Utils;
 using SimpleChecklist.Views;
@@ -27,7 +28,7 @@ namespace SimpleChecklist.Droid
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var filePickerDialog = _openFilePicker(MainPage.Value.Navigation, new DroidDirectory(folderPath));
 
-            var path = await filePickerDialog.ShowAsync();
+            var path = await filePickerDialog.ShowAsync(allowedFileTypes);
 
             return path != null ? new DroidFile(new FileInfo(path)) : null;
         }
@@ -38,7 +39,7 @@ namespace SimpleChecklist.Droid
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var filePickerDialog = _saveFilePicker(MainPage.Value.Navigation, new DroidDirectory(folderPath));
 
-            var path = await filePickerDialog.ShowAsync(defaultFileName);
+            var path = await filePickerDialog.ShowAsync(defaultFileName, allowedFileTypes.FirstOrDefault());
 
             return path != null ? new DroidFile(new FileInfo(path)) : null;
         }

@@ -162,7 +162,7 @@ namespace SimpleChecklist.ViewModels
             var file =
                 await
                     _dialogUtils.SaveFileDialogAsync(
-                        $"{AppSettings.BackupFileName}-{DateTime.Now.ToString("yy.MM.dd_HH_mm_ss")}",
+                        $"{AppSettings.BackupFileName}-{DateTime.Now:yy.MM.dd_HH_mm_ss}",
                         new[] {AppSettings.BackupFileExtension});
 
             if (file == null)
