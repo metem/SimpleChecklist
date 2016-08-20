@@ -7,7 +7,7 @@
 
   <ContentPage.Resources>
     <ResourceDictionary>
-      <converters:FileTypeToColorConverter x:Key="fileTypeToColorConverter"/>
+      <converters:FileTypeToColorConverter x:Key="FileTypeToColorConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
 
@@ -22,7 +22,7 @@
                 FontSize="20"
                 HorizontalOptions="Start"
                 VerticalOptions="CenterAndExpand"
-                TextColor="{Binding Key, Converter={StaticResource fileTypeToColorConverter}}"/>
+                TextColor="{Binding Key, Converter={StaticResource FileTypeToColorConverter}}"/>
           </ViewCell.View>
         </ViewCell>
       </DataTemplate>
