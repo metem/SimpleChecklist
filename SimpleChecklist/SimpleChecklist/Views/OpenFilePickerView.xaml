@@ -2,23 +2,30 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:SimpleChecklist.Models.Converters;assembly=SimpleChecklist"
              x:Class="SimpleChecklist.Views.OpenFilePickerView">
 
-    <ListView x:Name="ParentContext" ItemsSource="{Binding FilesList}" VerticalOptions="FillAndExpand"
-              HorizontalOptions="FillAndExpand" ItemTapped="OnItemTapped">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <ViewCell.View>
-                        <Label
-                            Text="{Binding Value}"
-                            FontSize="20"
-                            TextColor="White"
-                            HorizontalOptions="Start"
-                            VerticalOptions="CenterAndExpand" />
-                    </ViewCell.View>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:FileTypeToColorConverter x:Key="fileTypeToColorConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ListView x:Name="ParentContext" ItemsSource="{Binding FilesList}" VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand" ItemTapped="OnItemTapped">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <ViewCell.View>
+            <Label
+                Text="{Binding Value}"
+                FontSize="20"
+                HorizontalOptions="Start"
+                VerticalOptions="CenterAndExpand"
+                TextColor="{Binding Key, Converter={StaticResource fileTypeToColorConverter}}"/>
+          </ViewCell.View>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
 </ContentPage>

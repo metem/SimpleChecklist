@@ -72,6 +72,7 @@
     <Compile Include="Models\Collections\DoneItemsGroup.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\DoneListViewModel.cs" />
+    <Compile Include="Models\Converters\FileTypeToColorConverter.cs" />
     <Compile Include="ViewModels\OpenFilePickerViewModel.cs" />
     <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\Utils\IDirectory.cs" />
