@@ -10,7 +10,7 @@
   <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
     <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
     <ListView x:Name="ToDoListView" ItemsSource="{Binding TaskListObservableCollection.ToDoItems}"
-              VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+              VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
