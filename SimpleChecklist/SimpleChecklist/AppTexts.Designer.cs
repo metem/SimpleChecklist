@@ -170,6 +170,15 @@ namespace SimpleChecklist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A file with the name &apos;{0}&apos; already exists. Do you want to overwrite this file?.
+        /// </summary>
+        internal static string FileAlreadyExist {
+            get {
+                return ResourceManager.GetString("FileAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load backup from file....
         /// </summary>
         internal static string LoadBackupButtonText {

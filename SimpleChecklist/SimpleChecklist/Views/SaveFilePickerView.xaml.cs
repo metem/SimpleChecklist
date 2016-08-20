@@ -38,7 +38,7 @@ namespace SimpleChecklist.Views
 
         private void SaveEntryOnCompleted(object sender, EventArgs e)
         {
-            _saveFilePickerViewModel.AddClickCommand.Execute(e);
+            _saveFilePickerViewModel.SaveClick();
         }
 
         protected override void OnDisappearing()
