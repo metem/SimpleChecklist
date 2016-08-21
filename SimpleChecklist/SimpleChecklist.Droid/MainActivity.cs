@@ -9,7 +9,7 @@ using Xamarin.Forms.Platform.Android;
 namespace SimpleChecklist.Droid
 {
     [Activity(Label = "Simple Checklist", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -21,9 +21,9 @@ namespace SimpleChecklist.Droid
             LoadApplication(IoC.Get<PortableApp>());
         }
 
-        protected override void OnStop()
+        protected override void OnPause()
         {
-            base.OnStop();
+            base.OnPause();
 
             Task.Run(async () => await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync()).Wait();
         }

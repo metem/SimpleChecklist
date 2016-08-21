@@ -33,6 +33,8 @@ namespace SimpleChecklist
 
         protected override async void OnStart()
         {
+            await _workspacesManager.LoadWorkspacesStateAsync();
+
             if (_workspacesManager.WorkspacesLoaded)
             {
                 await _workspacesManager.CreateBackup();

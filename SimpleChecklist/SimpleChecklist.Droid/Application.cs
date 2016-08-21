@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Android.Runtime;
 using Caliburn.Micro;
 using Android.App;
 using Autofac;
-using SimpleChecklist.Models.Workspaces;
 
 namespace SimpleChecklist.Droid
 {
@@ -13,7 +11,6 @@ namespace SimpleChecklist.Droid
     public class Application : CaliburnApplication
     {
         private IContainer _container;
-        private WorkspacesManager _workspacesManager;
 
         public Application(IntPtr javaReference, JniHandleOwnership transfer)
             : base(javaReference, transfer)
@@ -26,14 +23,11 @@ namespace SimpleChecklist.Droid
             base.OnCreate();
 
             Initialize();
-
-            Task.Run(async () => await _workspacesManager.LoadWorkspacesStateAsync()).Wait();
         }
 
         protected override void Configure()
         {
             _container = BootstrapperDroid.Configure();
-            _workspacesManager = _container.Resolve<WorkspacesManager>();
         }
 
         protected override object GetInstance(Type service, string key)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -45,7 +46,7 @@ namespace SimpleChecklist.Universal
         ///     will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (Debugger.IsAttached)
@@ -65,8 +66,6 @@ namespace SimpleChecklist.Universal
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Forms.Init(e); // requires the `e` parameter
-
-                await IoC.Get<WorkspacesManager>().LoadWorkspacesStateAsync();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
@@ -103,15 +102,17 @@ namespace SimpleChecklist.Universal
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        protected override async void OnSuspending(object sender, SuspendingEventArgs e)
+        protected override void OnSuspending(object sender, SuspendingEventArgs e)
         {
             base.OnSuspending(sender, e);
 
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync();
-
-            deferral.Complete();
+            Task.Run(async () =>
+            {
+                await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync();
+                deferral.Complete();
+            });
         }
 
         protected override object GetInstance(Type service, string key)
