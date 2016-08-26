@@ -11,12 +11,12 @@ namespace SimpleChecklist.Droid
 {
     public class DroidDialogUtils : DialogUtils
     {
-        private readonly Func<INavigation, IDirectory, OpenFilePickerView> _openFilePicker;
-        private readonly Func<INavigation, IDirectory, SaveFilePickerView> _saveFilePicker;
+        private readonly Func<IDirectory, OpenFilePickerView> _openFilePicker;
+        private readonly Func<IDirectory, SaveFilePickerView> _saveFilePicker;
 
         public DroidDialogUtils(Lazy<MainView> mainPage,
-            Func<INavigation, IDirectory, OpenFilePickerView> openFilePicker,
-            Func<INavigation, IDirectory, SaveFilePickerView> saveFilePicker)
+            Func<IDirectory, OpenFilePickerView> openFilePicker,
+            Func<IDirectory, SaveFilePickerView> saveFilePicker)
             : base(mainPage)
         {
             _openFilePicker = openFilePicker;
@@ -26,7 +26,7 @@ namespace SimpleChecklist.Droid
         public override async Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes)
         {
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePickerDialog = _openFilePicker(MainPage.Value.Navigation, new DroidDirectory(folderPath));
+            var filePickerDialog = _openFilePicker(new DroidDirectory(folderPath));
 
             var path = await filePickerDialog.ShowAsync(allowedFileTypes);
 
@@ -37,7 +37,7 @@ namespace SimpleChecklist.Droid
             IEnumerable<string> allowedFileTypes)
         {
             var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePickerDialog = _saveFilePicker(MainPage.Value.Navigation, new DroidDirectory(folderPath));
+            var filePickerDialog = _saveFilePicker(new DroidDirectory(folderPath));
 
             var path = await filePickerDialog.ShowAsync(defaultFileName, allowedFileTypes.FirstOrDefault());
 

@@ -10,7 +10,8 @@
     <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
     <ListView ItemsSource="{Binding DoneList.DoneItemsGroups}" IsGroupingEnabled="true"
               GroupShortNameBinding="{Binding ShortName}"
-              GroupDisplayBinding="{Binding Title}">
+              GroupDisplayBinding="{Binding Title}"
+              HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>

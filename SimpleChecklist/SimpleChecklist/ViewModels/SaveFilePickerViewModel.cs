@@ -26,6 +26,8 @@ namespace SimpleChecklist.ViewModels
 
         public Action<string> FileChoosen { get; set; }
 
+        public string Extension { get; set; }
+
         public string FileName
         {
             get { return _fileName; }
@@ -55,6 +57,9 @@ namespace SimpleChecklist.ViewModels
         public async void SaveClick()
         {
             var file = Path.Combine(_currentDirectory.Path, FileName);
+
+            file = $"{file}{Extension}";
+
             var fileExist = _file(file).Exist;
 
             var alertResult = false;

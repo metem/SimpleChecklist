@@ -10,15 +10,17 @@ namespace SimpleChecklist.Views
     {
         private readonly IDirectory _directory;
         private readonly OpenFilePickerViewModel _openFilePickerViewModel;
+        private readonly MainView _mainView;
         private TaskCompletionSource<string> _tcs;
 
-        public OpenFilePickerView(IDirectory directory, OpenFilePickerViewModel openFilePickerViewModel)
+        public OpenFilePickerView(IDirectory directory, OpenFilePickerViewModel openFilePickerViewModel, MainView mainView)
         {
             InitializeComponent();
 
             openFilePickerViewModel.FileChoosen += s => _tcs.SetResult(s);
             _directory = directory;
             _openFilePickerViewModel = openFilePickerViewModel;
+            _mainView = mainView;
             BindingContext = openFilePickerViewModel;
         }
 
@@ -29,7 +31,7 @@ namespace SimpleChecklist.Views
 
             _tcs = new TaskCompletionSource<string>();
 
-            await Navigation.PushAsync(this);
+            await _mainView.Navigation.PushAsync(this);
 
             var result = await _tcs.Task;
 

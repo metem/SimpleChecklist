@@ -9,34 +9,32 @@ namespace SimpleChecklist.Views
     public partial class SaveFilePickerView : ContentPage
     {
         private readonly SaveFilePickerViewModel _saveFilePickerViewModel;
+        private readonly MainView _mainView;
         private TaskCompletionSource<string> _tcs;
 
-        public SaveFilePickerView(IDirectory directory, SaveFilePickerViewModel saveFilePickerViewModel)
+        public SaveFilePickerView(IDirectory directory, SaveFilePickerViewModel saveFilePickerViewModel, MainView mainView)
         {
             InitializeComponent();
 
             saveFilePickerViewModel.ChangeListedDirectory(directory);
             saveFilePickerViewModel.FileChoosen += s => _tcs.SetResult(s);
             _saveFilePickerViewModel = saveFilePickerViewModel;
+            _mainView = mainView;
             BindingContext = saveFilePickerViewModel;
         }
 
         public async Task<string> ShowAsync(string defaultFileName, string extension)
         {
+            _saveFilePickerViewModel.Extension = extension;
             _saveFilePickerViewModel.FileName = defaultFileName;
 
             _tcs = new TaskCompletionSource<string>();
 
-            await Navigation.PushAsync(this);
+            await _mainView.Navigation.PushAsync(this);
 
             var result = await _tcs.Task;
 
             Navigation.RemovePage(this);
-
-            if (!string.IsNullOrEmpty(result))
-            {
-                result = $"{result}{extension}";
-            }
 
             return result;
         }
