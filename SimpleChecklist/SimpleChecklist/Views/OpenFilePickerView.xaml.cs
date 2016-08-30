@@ -35,7 +35,7 @@ namespace SimpleChecklist.Views
 
             var result = await _tcs.Task;
 
-            Navigation.RemovePage(this);
+            await _mainView.Navigation.PopAsync();
 
             return result;
         }

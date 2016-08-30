@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using Caliburn.Micro;
 using SimpleChecklist.Models;
@@ -80,16 +81,29 @@ namespace SimpleChecklist.ViewModels
             if (!directory.Exist)
                 return;
 
-            FilesList.Clear();
+            try
+            {
+                var directories = directory.GetDirectories();
 
-            _currentDirectory = directory;
+                var filesList = new List<KeyValuePair<FileType, string>>
+                {
+                    new KeyValuePair<FileType, string>(FileType.Directory, AppSettings.ParentDirectory)
+                };
 
-            var directories = directory.GetDirectories();
+                filesList.AddRange(
+                    directories.Select(dir => new KeyValuePair<FileType, string>(FileType.Directory, dir.Name)));
 
-            FilesList.Add(new KeyValuePair<FileType, string>(FileType.Directory, AppSettings.ParentDirectory));
+                _currentDirectory = directory;
 
-            foreach (var dir in directories)
-                FilesList.Add(new KeyValuePair<FileType, string>(FileType.Directory, dir.Name));
+                FilesList.Clear();
+
+                foreach (var keyValuePair in filesList)
+                    FilesList.Add(keyValuePair);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
     }
 }
