@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using SimpleChecklist.Models.Utils;
 using SimpleChecklist.Views;
-using Xamarin.Forms;
 
 namespace SimpleChecklist.Droid
 {
@@ -25,7 +24,7 @@ namespace SimpleChecklist.Droid
 
         public override async Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes)
         {
-            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var folderPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
             var filePickerDialog = _openFilePicker(new DroidDirectory(folderPath));
 
             var path = await filePickerDialog.ShowAsync(allowedFileTypes);
@@ -36,7 +35,7 @@ namespace SimpleChecklist.Droid
         public override async Task<IFile> SaveFileDialogAsync(string defaultFileName,
             IEnumerable<string> allowedFileTypes)
         {
-            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var folderPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
             var filePickerDialog = _saveFilePicker(new DroidDirectory(folderPath));
 
             var path = await filePickerDialog.ShowAsync(defaultFileName, allowedFileTypes.FirstOrDefault());

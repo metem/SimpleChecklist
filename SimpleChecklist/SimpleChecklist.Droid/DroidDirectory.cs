@@ -36,7 +36,8 @@ namespace SimpleChecklist.Droid
 
         public IDirectory GetParent()
         {
-            return new DroidDirectory(Directory.GetParent(Path).FullName);
+            var parent = Directory.GetParent(Path);
+            return parent == null ? this : new DroidDirectory(parent.FullName);
         }
     }
 }
