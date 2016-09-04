@@ -21,7 +21,11 @@ namespace SimpleChecklist.Droid
 
         public Task CreateAsync()
         {
-            return Task.Run(() => File.Create(FullName));
+            return Task.Run(() =>
+            {
+                var fileStream = File.Open(FullName, FileMode.OpenOrCreate, FileAccess.Read);
+                fileStream.Close();
+            });
         }
 
         public Task<string> ReadTextAsync()
