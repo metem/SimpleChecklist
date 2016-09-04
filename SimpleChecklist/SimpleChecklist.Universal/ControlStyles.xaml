@@ -4,7 +4,7 @@
 
     <Style x:Key="DefaultEntry" TargetType="TextBox" >
         <Setter Property="TabIndex" Value="-1"/>
-        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Background" Value="#70000000"/>
         <Setter Property="SelectionHighlightColor" Value="White"/>
     </Style>
     

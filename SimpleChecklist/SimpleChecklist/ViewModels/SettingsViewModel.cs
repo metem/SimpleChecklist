@@ -214,7 +214,8 @@ namespace SimpleChecklist.ViewModels
 
             if (accepted)
             {
-                var tasks = text.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+                text = text.Replace("\t", string.Empty).Replace("\r", string.Empty);
+                var tasks = text.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
                 var tasksReversed = tasks.Reverse();
                 foreach (var task in tasksReversed)
                 {
