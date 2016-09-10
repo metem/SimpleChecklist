@@ -1,30 +1,26 @@
 ﻿using System;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Caliburn.Micro;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Properties;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class SettingsPageViewModel : INotifyPropertyChanged
+    public class SettingsViewModel : Screen
     {
-        private readonly IFileUtils _fileUtils;
-        private readonly TaskListObservableCollection _taskListObservableCollection;
-        private readonly DoneListObservableCollection _doneListObservableCollection;
         private readonly IDialogUtils _dialogUtils;
+        private readonly DoneListObservableCollection _doneListObservableCollection;
+        private readonly TaskListObservableCollection _taskListObservableCollection;
         private bool _addTasksFromTextFileButtonIsEnabled;
         private bool _createBackupButtonIsEnabled;
         private bool _loadBackupButtonIsEnabled;
 
-        public SettingsPageViewModel(IFileUtils fileUtils, TaskListObservableCollection taskListObservableCollection, DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
+        public SettingsViewModel(TaskListObservableCollection taskListObservableCollection,
+            DoneListObservableCollection doneListObservableCollection, IDialogUtils dialogUtils)
         {
-            _fileUtils = fileUtils;
             _taskListObservableCollection = taskListObservableCollection;
             _doneListObservableCollection = doneListObservableCollection;
             _dialogUtils = dialogUtils;
@@ -38,8 +34,9 @@ namespace SimpleChecklist.ViewModels
             get { return _addTasksFromTextFileButtonIsEnabled; }
             set
             {
+                if (value == _addTasksFromTextFileButtonIsEnabled) return;
                 _addTasksFromTextFileButtonIsEnabled = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => AddTasksFromTextFileButtonIsEnabled);
             }
         }
 
@@ -48,8 +45,9 @@ namespace SimpleChecklist.ViewModels
             get { return _createBackupButtonIsEnabled; }
             set
             {
+                if (value == _createBackupButtonIsEnabled) return;
                 _createBackupButtonIsEnabled = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => CreateBackupButtonIsEnabled);
             }
         }
 
@@ -58,8 +56,9 @@ namespace SimpleChecklist.ViewModels
             get { return _loadBackupButtonIsEnabled; }
             set
             {
+                if (value == _loadBackupButtonIsEnabled) return;
                 _loadBackupButtonIsEnabled = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => LoadBackupButtonIsEnabled);
             }
         }
 
@@ -73,19 +72,41 @@ namespace SimpleChecklist.ViewModels
             }
         });
 
+        public ICommand CreateBackupClickCommand => new Command(async () =>
+        {
+            if (CreateBackupButtonIsEnabled)
+            {
+                CreateBackupButtonIsEnabled = false;
+                await CreateBackup();
+                CreateBackupButtonIsEnabled = true;
+            }
+        });
+
+        public ICommand AddTasksFromTextFileClickCommand => new Command(async () =>
+        {
+            if (AddTasksFromTextFileButtonIsEnabled)
+            {
+                AddTasksFromTextFileButtonIsEnabled = false;
+                await AddTasksFromTextFile();
+                AddTasksFromTextFileButtonIsEnabled = true;
+            }
+        });
+
         private async Task<bool> LoadBackup()
         {
             var file = await _dialogUtils.OpenFileDialogAsync(new[] {AppSettings.BackupFileExtension});
+
+            if (file == null)
+            {
+                // Cancelled
+                return false;
+            }
 
             string text;
 
             try
             {
-                text = await _fileUtils.ReadTextAsync(file);
-            }
-            catch (FileNotFoundException)
-            {
-                text = string.Empty;
+                text = file.Exist ? await file.ReadTextAsync() : string.Empty;
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -129,16 +150,6 @@ namespace SimpleChecklist.ViewModels
             return false;
         }
 
-        public ICommand CreateBackupClickCommand => new Command(async () =>
-        {
-            if (CreateBackupButtonIsEnabled)
-            {
-                CreateBackupButtonIsEnabled = false;
-                await CreateBackup();
-                CreateBackupButtonIsEnabled = true;
-            }
-        });
-
         private async Task CreateBackup()
         {
             var backupData = new BackupData
@@ -151,12 +162,18 @@ namespace SimpleChecklist.ViewModels
             var file =
                 await
                     _dialogUtils.SaveFileDialogAsync(
-                        $"{AppSettings.BackupFileName}-{DateTime.Now.ToString("yy.MM.dd_HH_mm_ss")}",
+                        $"{AppSettings.BackupFileName}-{DateTime.Now:yy.MM.dd_HH_mm_ss}",
                         new[] {AppSettings.BackupFileExtension});
+
+            if (file == null)
+            {
+                // Cancelled
+                return;
+            }
 
             try
             {
-                await _fileUtils.SaveTextAsync(file, data);
+                await file.SaveTextAsync(data);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -164,29 +181,21 @@ namespace SimpleChecklist.ViewModels
             }
         }
 
-        public ICommand AddTasksFromTextFileClickCommand => new Command(async () =>
-        {
-            if (AddTasksFromTextFileButtonIsEnabled)
-            {
-                AddTasksFromTextFileButtonIsEnabled = false;
-                await AddTasksFromTextFile();
-                AddTasksFromTextFileButtonIsEnabled = true;
-            }
-        });
-
         private async Task AddTasksFromTextFile()
         {
             var file = await _dialogUtils.OpenFileDialogAsync(new[] {AppSettings.TextFileExtension});
+
+            if (file == null)
+            {
+                // Cancelled
+                return;
+            }
 
             string text;
 
             try
             {
-                text = await _fileUtils.ReadTextAsync(file);
-            }
-            catch (FileNotFoundException)
-            {
-                text = string.Empty;
+                text = file.Exist ? await file.ReadTextAsync() : string.Empty;
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -205,21 +214,14 @@ namespace SimpleChecklist.ViewModels
 
             if (accepted)
             {
-                var tasks = text.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+                text = text.Replace("\t", string.Empty).Replace("\r", string.Empty);
+                var tasks = text.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
                 var tasksReversed = tasks.Reverse();
                 foreach (var task in tasksReversed)
                 {
                     _taskListObservableCollection.Add(task);
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

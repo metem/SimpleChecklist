@@ -1,12 +1,11 @@
 ﻿using Autofac.Features.Indexed;
-using SimpleChecklist.Models.Workspaces;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.Views
 {
-    public partial class MainPage : TabbedPage
+    public partial class TabbedView : TabbedPage
     {
-        public MainPage(IIndex<ViewsId, ContentPage> pages)
+        public TabbedView(IIndex<ViewsId, ContentPage> pages)
         {
             InitializeComponent();
 

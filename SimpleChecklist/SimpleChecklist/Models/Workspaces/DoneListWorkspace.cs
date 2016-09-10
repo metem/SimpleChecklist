@@ -1,26 +1,28 @@
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Threading.Tasks;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Views;
 
 namespace SimpleChecklist.Models.Workspaces
 {
     public class DoneListWorkspace : BaseWorkspace
     {
-        private readonly IFileUtils _fileUtils;
         private readonly IDialogUtils _dialogUtils;
+        private readonly Func<string, IFile> _fileFunc;
 
-        public DoneListObservableCollection DoneListObservableCollection { get; }
-
-        public DoneListWorkspace(IFileUtils fileUtils, IDialogUtils dialogUtils, DoneListObservableCollection doneList) : base(ViewsId.DoneList)
+        public DoneListWorkspace(Func<string, IFile> fileFunc, IDialogUtils dialogUtils,
+            DoneListObservableCollection doneList)
+            : base(ViewsId.DoneList)
         {
-            _fileUtils = fileUtils;
+            _fileFunc = fileFunc;
             _dialogUtils = dialogUtils;
 
             DoneListObservableCollection = doneList;
         }
+
+        public DoneListObservableCollection DoneListObservableCollection { get; }
 
         public override async Task<bool> SaveCurrentStateAsync()
         {
@@ -28,7 +30,12 @@ namespace SimpleChecklist.Models.Workspaces
 
             try
             {
-                await _fileUtils.SaveBytesAsync(AppSettings.DoneListFileName, data, true);
+                var file = _fileFunc(AppSettings.DoneListFileName);
+
+                if (!file.Exist)
+                    await file.CreateAsync();
+
+                await file.SaveBytesAsync(data);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -45,11 +52,12 @@ namespace SimpleChecklist.Models.Workspaces
 
             try
             {
-                data = await _fileUtils.ReadBytesAsync(AppSettings.DoneListFileName, true);
-            }
-            catch (FileNotFoundException)
-            {
-                return true;
+                var file = _fileFunc(AppSettings.DoneListFileName);
+
+                if (!file.Exist)
+                    return true;
+
+                data = await file.ReadBytesAsync();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -72,6 +80,20 @@ namespace SimpleChecklist.Models.Workspaces
             }
 
             return false;
+        }
+
+        public override async Task CreateBackup()
+        {
+            await
+                _fileFunc(AppSettings.DoneListFileName)
+                    .CopyFileAsync(_fileFunc(AppSettings.DoneListFileName + AppSettings.PartialBackupFileExtension));
+        }
+
+        public override async Task RestoreBackup()
+        {
+            await
+                _fileFunc(AppSettings.DoneListFileName + AppSettings.PartialBackupFileExtension)
+                    .CopyFileAsync(_fileFunc(AppSettings.DoneListFileName));
         }
     }
 }

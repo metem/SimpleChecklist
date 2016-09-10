@@ -10,8 +10,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SimpleChecklist</RootNamespace>
     <AssemblyName>SimpleChecklist</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <NuGetPackageImportStamp>
@@ -40,6 +40,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppSettings.resx</DependentUpon>
     </Compile>
+    <Compile Include="AppTexts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppTexts.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Utils\IAppUtils.cs" />
     <Compile Include="Models\Utils\XmlBinarySerializer.cs" />
     <Compile Include="Models\Utils\DialogUtils.cs" />
@@ -50,18 +55,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppTexts.pl-PL.resx</DependentUpon>
     </Compile>
-    <Compile Include="AppTexts.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppTexts.resx</DependentUpon>
-    </Compile>
     <Compile Include="Models\Collections\BackupData.cs" />
     <Compile Include="Models\Collections\DoneListObservableCollection.cs" />
     <Compile Include="Models\Collections\DoneItem.cs" />
     <Compile Include="Models\Collections\TaskListColor.cs" />
     <Compile Include="Models\Workspaces\BaseWorkspace.cs" />
     <Compile Include="Models\Workspaces\IBaseWorkspace.cs" />
-    <Compile Include="Models\Utils\IFileUtils.cs" />
+    <Compile Include="Models\Utils\IFile.cs" />
     <Compile Include="Models\Workspaces\DoneListWorkspace.cs" />
     <Compile Include="Models\Utils\XmlStringSerializer.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -70,50 +70,42 @@
     <Compile Include="SimpleChecklistModule.cs" />
     <Compile Include="Models\Collections\TaskListObservableCollection.cs" />
     <Compile Include="Models\Collections\DoneItemsGroup.cs" />
-    <Compile Include="ViewModels\AboutPageViewModel.cs" />
-    <Compile Include="ViewModels\DoneListPageViewModel.cs" />
-    <Compile Include="ViewModels\SettingsPageViewModel.cs" />
-    <Compile Include="ViewModels\TaskListPageViewModel.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\DoneListViewModel.cs" />
+    <Compile Include="Models\Converters\FileTypeToColorConverter.cs" />
+    <Compile Include="ViewModels\OpenFilePickerViewModel.cs" />
+    <Compile Include="Models\FileType.cs" />
+    <Compile Include="Models\Utils\IDirectory.cs" />
+    <Compile Include="ViewModels\SaveFilePickerViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\TaskListViewModel.cs" />
     <Compile Include="Models\Collections\ToDoItem.cs" />
-    <Compile Include="Views\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DoneListPage.xaml.cs">
-      <DependentUpon>DoneListPage.xaml</DependentUpon>
+    <Compile Include="Views\DoneListView.xaml.cs">
+      <DependentUpon>DoneListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Views\SaveFilePickerView.xaml.cs">
+      <DependentUpon>SaveFilePickerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    <Compile Include="Views\OpenFilePickerView.xaml.cs">
+      <DependentUpon>OpenFilePickerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TaskListPage.xaml.cs">
-      <DependentUpon>TaskListPage.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Workspaces\WorkspacesId.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.0.49\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.0.49\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.0.49\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabbedView.xaml.cs">
+      <DependentUpon>TabbedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskListView.xaml.cs">
+      <DependentUpon>TaskListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewIds.cs" />
+    <Compile Include="Models\Workspaces\WorkspacesManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppTexts.pl-PL.resx">
@@ -123,51 +115,65 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AppTexts.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppTexts.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>AppTexts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="AppSettings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>AppSettings.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\TaskListPage.xaml">
+    <EmbeddedResource Include="Views\TaskListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\AboutPage.xaml">
+    <EmbeddedResource Include="Views\AboutView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\MainPage.xaml">
+    <EmbeddedResource Include="Views\MainView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\SettingsPage.xaml">
+    <EmbeddedResource Include="Views\SettingsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\DoneListPage.xaml">
+    <EmbeddedResource Include="Views\DoneListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\OpenFilePickerView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SaveFilePickerView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\TabbedView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Import Project="..\..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

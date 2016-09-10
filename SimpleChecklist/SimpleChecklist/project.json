@@ -1,0 +1,12 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "Autofac": "4.1.0",
+    "Caliburn.Micro.Core": "3.0.1",
+    "Caliburn.Micro.Xamarin.Forms": "3.0.1",
+    "Xamarin.Forms": "2.3.1.114"
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.6,Profile=Profile44": {}
+  }
+}

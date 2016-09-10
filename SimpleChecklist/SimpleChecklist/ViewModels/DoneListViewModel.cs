@@ -1,25 +1,25 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using Caliburn.Micro;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Properties;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class DoneListPageViewModel : INotifyPropertyChanged
+    public class DoneListViewModel : Screen
     {
-        public DoneListObservableCollection DoneList { get; }
-        private readonly TaskListObservableCollection _taskList;
         private readonly IDialogUtils _dialogUtils;
+        private readonly TaskListObservableCollection _taskList;
 
-        public DoneListPageViewModel(DoneListObservableCollection doneList, TaskListObservableCollection taskList, IDialogUtils dialogUtils)
+        public DoneListViewModel(DoneListObservableCollection doneList, TaskListObservableCollection taskList,
+            IDialogUtils dialogUtils)
         {
             DoneList = doneList;
             _taskList = taskList;
             _dialogUtils = dialogUtils;
         }
+
+        public DoneListObservableCollection DoneList { get; }
 
         public ICommand RemoveClickCommand => new Command(async item =>
         {
@@ -31,7 +31,7 @@ namespace SimpleChecklist.ViewModels
 
             if (accepted)
             {
-                DoneList.RemoveDoneItem((DoneItem)item);
+                DoneList.RemoveDoneItem((DoneItem) item);
             }
         });
 
@@ -45,18 +45,10 @@ namespace SimpleChecklist.ViewModels
 
             if (accepted)
             {
-                var doneItem = (DoneItem)item;
-                _taskList.Add((ToDoItem)item);
+                var doneItem = (DoneItem) item;
+                _taskList.Add((ToDoItem) item);
                 DoneList.RemoveDoneItem(doneItem);
             }
         });
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

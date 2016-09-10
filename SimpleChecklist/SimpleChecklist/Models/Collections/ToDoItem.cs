@@ -7,6 +7,7 @@ using SimpleChecklist.Properties;
 namespace SimpleChecklist.Models.Collections
 {
     [DataContract]
+    [KnownType(typeof(DoneItem))]
     public class ToDoItem : INotifyPropertyChanged
     {
         public ToDoItem()

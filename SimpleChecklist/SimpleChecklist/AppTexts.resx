@@ -192,4 +192,10 @@ Do you want to stop initialization?</value>
   <data name="LoadBackupConfirmationText" xml:space="preserve">
     <value>Are you sure you want to replace current data using backup?</value>
   </data>
+  <data name="SaveButtonText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>A file with the name '{0}' already exists. Do you want to overwrite this file?</value>
+  </data>
 </root>

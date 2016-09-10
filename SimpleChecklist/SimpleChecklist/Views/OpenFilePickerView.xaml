@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:SimpleChecklist.Models.Converters;assembly=SimpleChecklist"
+             x:Class="SimpleChecklist.Views.OpenFilePickerView">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:FileTypeToColorConverter x:Key="FileTypeToColorConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ListView x:Name="ParentContext" ItemsSource="{Binding FilesList}" VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand" ItemTapped="OnItemTapped">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <ViewCell.View>
+            <Label
+                Text="{Binding Value}"
+                FontSize="20"
+                HorizontalOptions="Start"
+                VerticalOptions="CenterAndExpand"
+                TextColor="{Binding Key, Converter={StaticResource FileTypeToColorConverter}}"/>
+          </ViewCell.View>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+</ContentPage>

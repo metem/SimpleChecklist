@@ -7,25 +7,25 @@ namespace SimpleChecklist.Models.Utils
 {
     public abstract class DialogUtils : IDialogUtils
     {
-        private readonly Lazy<MainPage> _mainPage;
+        protected readonly Lazy<MainView> MainPage;
 
-        protected DialogUtils(Lazy<MainPage> mainPage)
+        protected DialogUtils(Lazy<MainView> mainPage)
         {
-            _mainPage = mainPage;
+            MainPage = mainPage;
         }
 
         public Task DisplayAlertAsync(string title, string message, string cancel)
         {
-            return _mainPage.Value.DisplayAlert(title, message, cancel);
+            return MainPage.Value.DisplayAlert(title, message, cancel);
         }
 
         public Task<bool> DisplayAlertAsync(string title, string message, string accept, string cancel)
         {
-            return _mainPage.Value.DisplayAlert(title, message, accept, cancel);
+            return MainPage.Value.DisplayAlert(title, message, accept, cancel);
         }
 
-        public abstract Task<object> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes);
+        public abstract Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes);
 
-        public abstract Task<object> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes);
+        public abstract Task<IFile> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes);
     }
 }

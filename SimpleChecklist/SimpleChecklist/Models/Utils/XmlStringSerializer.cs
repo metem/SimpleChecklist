@@ -11,7 +11,7 @@ namespace SimpleChecklist.Models.Utils
             using (var memoryStream = new MemoryStream())
             using (var reader = new StreamReader(memoryStream))
             {
-                DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+                var serializer = new DataContractSerializer(typeof(T));
                 serializer.WriteObject(memoryStream, obj);
                 memoryStream.Position = 0;
                 return reader.ReadToEnd();
@@ -22,10 +22,10 @@ namespace SimpleChecklist.Models.Utils
         {
             using (Stream stream = new MemoryStream())
             {
-                byte[] buffer = Encoding.UTF8.GetBytes(data);
+                var buffer = Encoding.UTF8.GetBytes(data);
                 stream.Write(buffer, 0, buffer.Length);
                 stream.Position = 0;
-                DataContractSerializer deserializer = new DataContractSerializer(typeof(T));
+                var deserializer = new DataContractSerializer(typeof(T));
                 return (T) deserializer.ReadObject(stream);
             }
         }

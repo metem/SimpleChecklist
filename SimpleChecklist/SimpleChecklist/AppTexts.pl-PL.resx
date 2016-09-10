@@ -186,4 +186,10 @@ Proszę użyć kodowania UTF-8 oraz zapisać każde zadanie w osobnej linii.</va
 
 Czy chcesz zatrzymać inicjalizację?</value>
   </data>
+  <data name="SaveButtonText" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Plik o nazwie '{0}' już istnieje. Czy chcesz go nadpisać?</value>
+  </data>
 </root>

@@ -1,34 +1,39 @@
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Threading.Tasks;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Views;
 
 namespace SimpleChecklist.Models.Workspaces
 {
     public class TaskMainPreviewWorkspace : BaseWorkspace
     {
-        private readonly IFileUtils _fileUtils;
         private readonly IDialogUtils _dialogUtils;
-        private readonly TaskListObservableCollection _taskListObservableCollection;
+        private readonly Func<string, IFile> _fileFunc;
 
-        public TaskListObservableCollection TaskListObservableCollection => _taskListObservableCollection;
-
-        public TaskMainPreviewWorkspace(IFileUtils fileUtils, IDialogUtils dialogUtils, TaskListObservableCollection taskList) : base(ViewsId.TaskList)
+        public TaskMainPreviewWorkspace(Func<string, IFile> fileFunc, IDialogUtils dialogUtils,
+            TaskListObservableCollection taskList) : base(ViewsId.TaskList)
         {
-            _fileUtils = fileUtils;
+            _fileFunc = fileFunc;
             _dialogUtils = dialogUtils;
-            _taskListObservableCollection = taskList;
+            TaskListObservableCollection = taskList;
         }
+
+        public TaskListObservableCollection TaskListObservableCollection { get; }
 
         public override async Task<bool> SaveCurrentStateAsync()
         {
-            var data = XmlBinarySerializer.Serialize(_taskListObservableCollection.ToDoItems);
+            var data = XmlBinarySerializer.Serialize(TaskListObservableCollection.ToDoItems);
 
             try
             {
-                await _fileUtils.SaveBytesAsync(AppSettings.TaskListFileName, data, true);
+                var file = _fileFunc(AppSettings.TaskListFileName);
+
+                if (!file.Exist)
+                    await file.CreateAsync();
+
+                await file.SaveBytesAsync(data);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -45,12 +50,12 @@ namespace SimpleChecklist.Models.Workspaces
 
             try
             {
-                data = await _fileUtils.ReadBytesAsync(AppSettings.TaskListFileName, true);
+                var file = _fileFunc(AppSettings.TaskListFileName);
 
-            }
-            catch (FileNotFoundException)
-            {
-                return true;
+                if (!file.Exist)
+                    return true;
+
+                data = await file.ReadBytesAsync();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -63,7 +68,7 @@ namespace SimpleChecklist.Models.Workspaces
                 try
                 {
                     var result = XmlBinarySerializer.Deserialize<ObservableCollection<ToDoItem>>(data);
-                    _taskListObservableCollection.Load(result);
+                    TaskListObservableCollection.Load(result);
                     return true;
                 }
                 catch (Exception)
@@ -73,6 +78,20 @@ namespace SimpleChecklist.Models.Workspaces
             }
 
             return false;
+        }
+
+        public override async Task CreateBackup()
+        {
+            await
+                _fileFunc(AppSettings.TaskListFileName)
+                    .CopyFileAsync(_fileFunc(AppSettings.TaskListFileName + AppSettings.PartialBackupFileExtension));
+        }
+
+        public override async Task RestoreBackup()
+        {
+            await
+                _fileFunc(AppSettings.TaskListFileName + AppSettings.PartialBackupFileExtension)
+                    .CopyFileAsync(_fileFunc(AppSettings.TaskListFileName));
         }
     }
 }

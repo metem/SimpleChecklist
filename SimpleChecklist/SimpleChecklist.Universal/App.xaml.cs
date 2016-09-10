@@ -1,71 +1,71 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Autofac;
+using Caliburn.Micro;
+using Microsoft.ApplicationInsights;
+using SimpleChecklist.Models.Workspaces;
+using Xamarin.Forms;
 
 namespace SimpleChecklist.Universal
 {
     /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
+    ///     Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : CaliburnApplication
     {
-        private readonly Lazy<MainWindowsPage> _mainWindowsPage;
-        private readonly Lazy<PortableApp> _portableApp;
+        private IContainer _container;
 
         /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
+        ///     Initializes the singleton application object.  This is the first line of authored code
+        ///     executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public App(Lazy<MainWindowsPage> mainWindowsPage, Lazy<PortableApp> portableApp)
+        public App()
         {
-            _mainWindowsPage = mainWindowsPage;
-            _portableApp = portableApp;
-
-            Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
-                Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
-                Microsoft.ApplicationInsights.WindowsCollectors.Session);
+            WindowsAppInitializer.InitializeAsync(
+                WindowsCollectors.Metadata |
+                WindowsCollectors.Session);
 
             InitializeComponent();
 
-            Suspending += OnSuspending;
-            UnhandledException += OnUnhandledException;
+            Initialize();
         }
 
-        private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        protected override void Configure()
         {
-            await _portableApp.Value.SaveWorkspacesStateAsync();
+            _container = BootstrapperUniversal.Configure();
         }
 
         /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
+        ///     Invoked when the application is launched normally by the end user.  Other entry points
+        ///     will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+            if (Debugger.IsAttached)
             {
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            var rootFrame = Window.Current.Content as Frame;
+            var rootFrame = Window.Current.Content as Windows.UI.Xaml.Controls.Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                rootFrame = new Windows.UI.Xaml.Controls.Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Xamarin.Forms.Forms.Init(e); // requires the `e` parameter
-
-                await _portableApp.Value.LoadWorkspacesStateAsync();
+                Forms.Init(e); // requires the `e` parameter
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
@@ -78,7 +78,7 @@ namespace SimpleChecklist.Universal
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Content = _mainWindowsPage.Value;
+                    rootFrame.Content = IoC.Get<MainWindowsPage>();
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
@@ -86,29 +86,58 @@ namespace SimpleChecklist.Universal
         }
 
         /// <summary>
-        /// Invoked when Navigation to a certain page fails
+        ///     Invoked when Navigation to a certain page fails
         /// </summary>
         /// <param name="sender">The Frame which failed navigation</param>
         /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
         /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
+        ///     Invoked when application execution is being suspended.  Application state is saved
+        ///     without knowing whether the application will be terminated or resumed with the contents
+        ///     of memory still intact.
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private async void OnSuspending(object sender, SuspendingEventArgs e)
+        protected override void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            base.OnSuspending(sender, e);
+
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            await _portableApp.Value.SaveWorkspacesStateAsync();
+            Task.Run(async () =>
+            {
+                await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync();
+                deferral.Complete();
+            });
+        }
 
-            deferral.Complete();
+        protected override object GetInstance(Type service, string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                if (_container.IsRegistered(service))
+                    return _container.Resolve(service);
+            }
+            else
+            {
+                if (_container.IsRegisteredWithName(key, service))
+                    return _container.ResolveNamed(key, service);
+            }
+            throw new Exception($"Could not resolve {key ?? service.Name}.");
+        }
+
+        protected override IEnumerable<object> GetAllInstances(Type service)
+        {
+            return _container.Resolve(typeof(IEnumerable<>).MakeGenericType(service)) as IEnumerable<object>;
+        }
+
+        protected override void BuildUp(object instance)
+        {
+            _container.InjectProperties(instance);
         }
     }
 }

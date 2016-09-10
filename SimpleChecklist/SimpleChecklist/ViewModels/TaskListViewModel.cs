@@ -1,36 +1,26 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using Caliburn.Micro;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Properties;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.ViewModels
 {
-    public class TaskListPageViewModel : INotifyPropertyChanged
+    public class TaskListViewModel : Screen
     {
-        private readonly DoneListObservableCollection _doneList;
         private readonly IDialogUtils _dialogUtils;
+        private readonly DoneListObservableCollection _doneList;
         private string _entryText;
 
-        public TaskListObservableCollection TaskListObservableCollection { get; }
-
-        public TaskListPageViewModel(TaskListObservableCollection taskList, DoneListObservableCollection doneList, IDialogUtils dialogUtils)
+        public TaskListViewModel(TaskListObservableCollection taskList, DoneListObservableCollection doneList,
+            IDialogUtils dialogUtils)
         {
             TaskListObservableCollection = taskList;
             _doneList = doneList;
             _dialogUtils = dialogUtils;
         }
 
-        public ICommand AddClickCommand => new Command(() =>
-        {
-            if (!string.IsNullOrEmpty(EntryText))
-            {
-                TaskListObservableCollection.Add(EntryText);
-                EntryText = string.Empty;
-            }
-        });
+        public TaskListObservableCollection TaskListObservableCollection { get; }
 
         public ICommand RemoveClickCommand => new Command(async item =>
         {
@@ -68,17 +58,19 @@ namespace SimpleChecklist.ViewModels
             get { return _entryText; }
             set
             {
+                if (value == _entryText) return;
                 _entryText = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => EntryText);
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void AddClick()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (!string.IsNullOrEmpty(EntryText))
+            {
+                TaskListObservableCollection.Add(EntryText);
+                EntryText = string.Empty;
+            }
         }
     }
 }

@@ -98,6 +98,24 @@ namespace SimpleChecklist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ....
+        /// </summary>
+        internal static string ParentDirectory {
+            get {
+                return ResourceManager.GetString("ParentDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .bcp.
+        /// </summary>
+        internal static string PartialBackupFileExtension {
+            get {
+                return ResourceManager.GetString("PartialBackupFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to tasklist.xml.
         /// </summary>
         internal static string TaskListFileName {
@@ -116,7 +134,7 @@ namespace SimpleChecklist {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.1.
+        ///   Looks up a localized string similar to 1.3.
         /// </summary>
         internal static string VersionNumber {
             get {

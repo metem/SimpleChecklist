@@ -9,8 +9,8 @@ namespace SimpleChecklist.Models.Utils
 
         Task<bool> DisplayAlertAsync(string title, string message, string accept, string cancel);
 
-        Task<object> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes);
+        Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes);
 
-        Task<object> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes);
+        Task<IFile> SaveFileDialogAsync(string defaultFileName, IEnumerable<string> allowedFileTypes);
     }
 }

@@ -3,13 +3,13 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist.Views
 {
-    public partial class AboutPage : ContentPage
+    public partial class AboutView : ContentPage
     {
-        public AboutPage(AboutPageViewModel aboutPageViewModel)
+        public AboutView(AboutViewModel aboutViewModel)
         {
             InitializeComponent();
 
-            BindingContext = aboutPageViewModel;
+            BindingContext = aboutViewModel;
         }
     }
 }
