@@ -3,12 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="DefaultEntry" TargetType="TextBox" >
-        <Setter Property="TabIndex" Value="-1"/>
         <Setter Property="Background" Value="#70000000"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="SelectionHighlightColor" Value="White"/>
+        <Setter Property="IsTextPredictionEnabled" Value="True"/>
+        <Setter Property="IsSpellCheckEnabled" Value="True"/>
     </Style>
-    
-    <SolidColorBrush x:Key="DefaultEntryForeground">White</SolidColorBrush>
 
     <DataTemplate x:Key="MainTabbedPageHeaderTemplate">
         <TextBlock
