@@ -1,12 +1,10 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using SimpleChecklist.Properties;
+using Caliburn.Micro;
 
 namespace SimpleChecklist.Models.Collections
 {
-    public class DoneListObservableCollection : INotifyPropertyChanged
+    public class DoneListObservableCollection : PropertyChangedBase
     {
         private ObservableCollection<DoneItemsGroup> _doneItemsGroups;
 
@@ -32,8 +30,9 @@ namespace SimpleChecklist.Models.Collections
             get { return _doneItemsGroups; }
             private set
             {
+                if (_doneItemsGroups == value) return;
                 _doneItemsGroups = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => DoneItemsGroups);
             }
         }
 
@@ -44,7 +43,7 @@ namespace SimpleChecklist.Models.Collections
 
         public void Add(string text)
         {
-            var doneItem = new DoneItem { Description = text };
+            var doneItem = new DoneItem {Description = text};
             Add(doneItem);
         }
 
@@ -69,14 +68,6 @@ namespace SimpleChecklist.Models.Collections
             var doneItems = doneItemsGroup.FirstOrDefault(doneItem => doneItem.FinishDateTime > item.FinishDateTime);
             var index = doneItems == null ? 0 : doneItemsGroup.IndexOf(doneItems);
             doneItemsGroup.Insert(index, item);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

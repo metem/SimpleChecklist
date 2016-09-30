@@ -1,15 +1,12 @@
-﻿using SimpleChecklist.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace SimpleChecklist.Views
 {
     public partial class AboutView : ContentPage
     {
-        public AboutView(AboutViewModel aboutViewModel)
+        public AboutView()
         {
             InitializeComponent();
-
-            BindingContext = aboutViewModel;
         }
     }
 }

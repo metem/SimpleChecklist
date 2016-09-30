@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -10,6 +11,7 @@ using Autofac;
 using Caliburn.Micro;
 using Microsoft.ApplicationInsights;
 using SimpleChecklist.Models.Workspaces;
+using SimpleChecklist.ViewModels;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.Universal
@@ -113,6 +115,15 @@ namespace SimpleChecklist.Universal
                 await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync();
                 deferral.Complete();
             });
+        }
+
+        protected override IEnumerable<Assembly> SelectAssemblies()
+        {
+            return new[]
+            {
+                GetType().GetTypeInfo().Assembly,
+                typeof(TabbedViewModel).GetTypeInfo().Assembly
+            };
         }
 
         protected override object GetInstance(Type service, string key)

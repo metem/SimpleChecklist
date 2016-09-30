@@ -8,11 +8,12 @@ namespace SimpleChecklist.Views
 {
     public partial class SaveFilePickerView : ContentPage
     {
-        private readonly SaveFilePickerViewModel _saveFilePickerViewModel;
         private readonly MainView _mainView;
+        private readonly SaveFilePickerViewModel _saveFilePickerViewModel;
         private TaskCompletionSource<string> _tcs;
 
-        public SaveFilePickerView(IDirectory directory, SaveFilePickerViewModel saveFilePickerViewModel, MainView mainView)
+        public SaveFilePickerView(IDirectory directory, SaveFilePickerViewModel saveFilePickerViewModel,
+            MainView mainView)
         {
             InitializeComponent();
 

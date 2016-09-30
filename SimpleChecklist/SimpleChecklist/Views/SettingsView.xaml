@@ -4,7 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
              x:Class="SimpleChecklist.Views.SettingsView"
-             Title="{x:Static simpleChecklist:AppTexts.SettingsPageTitle}">
+             Title="{x:Static simpleChecklist:AppTexts.SettingsPageTitle}"
+             BindingContext="{Binding SettingsViewModel}">
+
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
 

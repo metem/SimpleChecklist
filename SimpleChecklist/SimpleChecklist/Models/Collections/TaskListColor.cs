@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using SimpleChecklist.Properties;
+using Caliburn.Micro;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.Models.Collections
 {
     [DataContract]
-    public class TaskListColor : INotifyPropertyChanged
+    public class TaskListColor : PropertyChangedBase
     {
         private static readonly List<Color> Colors = new List<Color>
         {
@@ -43,22 +41,15 @@ namespace SimpleChecklist.Models.Collections
             get { return _currentColor; }
             set
             {
+                if (_currentColor == value) return;
                 _currentColor = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange(() => CurrentColor);
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void MoveToNext()
         {
             CurrentColorIndex++;
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

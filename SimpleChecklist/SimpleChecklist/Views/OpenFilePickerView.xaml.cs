@@ -9,11 +9,12 @@ namespace SimpleChecklist.Views
     public partial class OpenFilePickerView : ContentPage
     {
         private readonly IDirectory _directory;
-        private readonly OpenFilePickerViewModel _openFilePickerViewModel;
         private readonly MainView _mainView;
+        private readonly OpenFilePickerViewModel _openFilePickerViewModel;
         private TaskCompletionSource<string> _tcs;
 
-        public OpenFilePickerView(IDirectory directory, OpenFilePickerViewModel openFilePickerViewModel, MainView mainView)
+        public OpenFilePickerView(IDirectory directory, OpenFilePickerViewModel openFilePickerViewModel,
+            MainView mainView)
         {
             InitializeComponent();
 

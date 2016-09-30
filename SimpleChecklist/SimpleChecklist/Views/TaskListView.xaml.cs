@@ -1,15 +1,12 @@
-﻿using SimpleChecklist.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace SimpleChecklist.Views
 {
     public partial class TaskListView : ContentPage
     {
-        public TaskListView(TaskListViewModel taskListViewModel)
+        public TaskListView()
         {
             InitializeComponent();
-
-            BindingContext = taskListViewModel;
         }
     }
 }

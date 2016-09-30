@@ -5,103 +5,104 @@
              xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
              xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Platform.Xamarin.Forms"
              x:Class="SimpleChecklist.Views.TaskListView"
-             Title="{x:Static simpleChecklist:AppTexts.TaskListPageTitle}">
+             Title="{x:Static simpleChecklist:AppTexts.TaskListPageTitle}"
+             BindingContext="{Binding TaskListViewModel}">
 
-  <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-    <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
-    <ListView x:Name="ToDoListView" ItemsSource="{Binding TaskListObservableCollection.ToDoItems}"
-              VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HasUnevenRows="True">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Frame Padding="0">
-              <Grid
-                  ColumnSpacing="10"
-                  RowSpacing="10"
-                  HorizontalOptions="FillAndExpand"
-                  VerticalOptions="CenterAndExpand">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="20" />
-                  <ColumnDefinition Width="Auto" />
-                  <ColumnDefinition Width="Auto" />
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="20" />
-                </Grid.ColumnDefinitions>
-                <Image
-                    Grid.Column="0"
-                    Source="Resources/Icons/RemoveIcon.png"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center"
-                    Opacity=".8">
-                  <Image.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Command="{Binding Path=BindingContext.RemoveClickCommand, Source={x:Reference ParentContext}}"
-                        CommandParameter="{Binding}" />
-                  </Image.GestureRecognizers>
-                </Image>
+    <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
+        <ListView x:Name="ToDoListView" ItemsSource="{Binding TaskListObservableCollection.ToDoItems}"
+                  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="0">
+                            <Grid
+                                ColumnSpacing="10"
+                                RowSpacing="10"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="CenterAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="0"
+                                    Source="Resources/Icons/RemoveIcon.png"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"
+                                    Opacity=".8">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Path=BindingContext.RemoveClickCommand, Source={x:Reference ParentContext}}"
+                                            CommandParameter="{Binding}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
 
-                <Label
-                    Grid.Column="1"
-                    Text="◆"
-                    FontSize="20"
-                    TextColor="{Binding TaskListColor.CurrentColor}"
-                    Opacity=".5"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center">
-                  <Label.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Command="{Binding Path=BindingContext.ChangeColorClickCommand, Source={x:Reference ParentContext}}"
-                        CommandParameter="{Binding}" />
-                  </Label.GestureRecognizers>
-                </Label>
+                                <Label
+                                    Grid.Column="1"
+                                    Text="◆"
+                                    FontSize="20"
+                                    TextColor="{Binding TaskListColor.CurrentColor}"
+                                    Opacity=".5"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Path=BindingContext.ChangeColorClickCommand, Source={x:Reference ParentContext}}"
+                                            CommandParameter="{Binding}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
 
-                <Label
-                    Grid.Column="2"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Center"
-                    Text="{Binding Description}"
-                    LineBreakMode="WordWrap"
-                    FontSize="20"
-                    TextColor="{Binding TaskListColor.CurrentColor}" />
+                                <Label
+                                    Grid.Column="2"
+                                    HorizontalOptions="CenterAndExpand"
+                                    VerticalOptions="Center"
+                                    Text="{Binding Description}"
+                                    LineBreakMode="WordWrap"
+                                    FontSize="20"
+                                    TextColor="{Binding TaskListColor.CurrentColor}" />
 
-                <Image
-                    Grid.Column="4"
-                    Source="Resources/Icons/DoneIcon.png"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center"
-                    Opacity=".8">
-                  <Image.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Command="{Binding Path=BindingContext.DoneClickCommand, Source={x:Reference ParentContext}}"
-                        CommandParameter="{Binding}" />
-                  </Image.GestureRecognizers>
-                </Image>
-              </Grid>
-            </Frame>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-    <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
-    <StackLayout
-        Orientation="Horizontal"
-        HeightRequest="40"
-        VerticalOptions="End"
-        HorizontalOptions="FillAndExpand">
-      <Entry
-          x:Name="InputEntry"
-          HorizontalOptions="FillAndExpand"
-          VerticalOptions="CenterAndExpand"
-          Text="{Binding EntryText}"
-          forms:Message.Attach="[Event Completed] = [Action AddClick]" />
-      <Button
-          Text="{x:Static simpleChecklist:AppTexts.AddTaskButtonText}"
-          HorizontalOptions="End"
-          HeightRequest="36"
-          VerticalOptions="CenterAndExpand"
-          BackgroundColor="#20FFFFFF"
-          forms:Message.Attach="AddClick" />
+                                <Image
+                                    Grid.Column="4"
+                                    Source="Resources/Icons/DoneIcon.png"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    Opacity=".8">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Path=BindingContext.DoneClickCommand, Source={x:Reference ParentContext}}"
+                                            CommandParameter="{Binding}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
+        <StackLayout
+            Orientation="Horizontal"
+            HeightRequest="40"
+            VerticalOptions="End"
+            HorizontalOptions="FillAndExpand">
+            <Entry
+                x:Name="InputEntry"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Text="{Binding EntryText}"
+                forms:Message.Attach="[Event Completed] = [Action AddClick]" />
+            <Button
+                Text="{x:Static simpleChecklist:AppTexts.AddTaskButtonText}"
+                HorizontalOptions="End"
+                HeightRequest="36"
+                VerticalOptions="CenterAndExpand"
+                BackgroundColor="#20FFFFFF"
+                forms:Message.Attach="AddClick" />
+        </StackLayout>
     </StackLayout>
-  </StackLayout>
 
 </ContentPage>

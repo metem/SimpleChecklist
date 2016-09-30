@@ -3,17 +3,16 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Views;
 
 namespace SimpleChecklist.Models.Workspaces
 {
-    public class TaskMainPreviewWorkspace : BaseWorkspace
+    public class TaskMainPreviewWorkspace : IWorkspace
     {
         private readonly IDialogUtils _dialogUtils;
         private readonly Func<string, IFile> _fileFunc;
 
         public TaskMainPreviewWorkspace(Func<string, IFile> fileFunc, IDialogUtils dialogUtils,
-            TaskListObservableCollection taskList) : base(ViewsId.TaskList)
+            TaskListObservableCollection taskList)
         {
             _fileFunc = fileFunc;
             _dialogUtils = dialogUtils;
@@ -22,7 +21,7 @@ namespace SimpleChecklist.Models.Workspaces
 
         public TaskListObservableCollection TaskListObservableCollection { get; }
 
-        public override async Task<bool> SaveCurrentStateAsync()
+        public async Task<bool> SaveCurrentStateAsync()
         {
             var data = XmlBinarySerializer.Serialize(TaskListObservableCollection.ToDoItems);
 
@@ -44,7 +43,7 @@ namespace SimpleChecklist.Models.Workspaces
             return true;
         }
 
-        public sealed override async Task<bool> LoadCurrentStateAsync()
+        public async Task<bool> LoadCurrentStateAsync()
         {
             byte[] data;
 
@@ -80,14 +79,14 @@ namespace SimpleChecklist.Models.Workspaces
             return false;
         }
 
-        public override async Task CreateBackup()
+        public async Task CreateBackup()
         {
             await
                 _fileFunc(AppSettings.TaskListFileName)
                     .CopyFileAsync(_fileFunc(AppSettings.TaskListFileName + AppSettings.PartialBackupFileExtension));
         }
 
-        public override async Task RestoreBackup()
+        public async Task RestoreBackup()
         {
             await
                 _fileFunc(AppSettings.TaskListFileName + AppSettings.PartialBackupFileExtension)

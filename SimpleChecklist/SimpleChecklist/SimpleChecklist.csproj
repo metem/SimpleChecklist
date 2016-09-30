@@ -59,8 +59,7 @@
     <Compile Include="Models\Collections\DoneListObservableCollection.cs" />
     <Compile Include="Models\Collections\DoneItem.cs" />
     <Compile Include="Models\Collections\TaskListColor.cs" />
-    <Compile Include="Models\Workspaces\BaseWorkspace.cs" />
-    <Compile Include="Models\Workspaces\IBaseWorkspace.cs" />
+    <Compile Include="Models\Workspaces\IWorkspace.cs" />
     <Compile Include="Models\Utils\IFile.cs" />
     <Compile Include="Models\Workspaces\DoneListWorkspace.cs" />
     <Compile Include="Models\Utils\XmlStringSerializer.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="Models\Utils\IDirectory.cs" />
     <Compile Include="ViewModels\SaveFilePickerViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\TabbedViewModel.cs" />
     <Compile Include="ViewModels\TaskListViewModel.cs" />
     <Compile Include="Models\Collections\ToDoItem.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
@@ -104,7 +104,6 @@
     <Compile Include="Views\TaskListView.xaml.cs">
       <DependentUpon>TaskListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewIds.cs" />
     <Compile Include="Models\Workspaces\WorkspacesManager.cs" />
   </ItemGroup>
   <ItemGroup>

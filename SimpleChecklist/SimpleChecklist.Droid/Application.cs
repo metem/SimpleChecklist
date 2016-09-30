@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Android.Runtime;
 using Caliburn.Micro;
 using Android.App;
 using Autofac;
+using SimpleChecklist.ViewModels;
 
 namespace SimpleChecklist.Droid
 {
@@ -53,6 +55,15 @@ namespace SimpleChecklist.Droid
         protected override void BuildUp(object instance)
         {
             _container.InjectProperties(instance);
+        }
+
+        protected override IEnumerable<Assembly> SelectAssemblies()
+        {
+            return new[]
+            {
+                GetType().GetTypeInfo().Assembly,
+                typeof(TabbedViewModel).GetTypeInfo().Assembly
+            };
         }
     }
 }

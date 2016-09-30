@@ -6,9 +6,9 @@ namespace SimpleChecklist.Models.Workspaces
 {
     public class WorkspacesManager
     {
-        private readonly IList<IBaseWorkspace> _workspaces;
+        private readonly IList<IWorkspace> _workspaces;
 
-        public WorkspacesManager(IList<IBaseWorkspace> workspaces)
+        public WorkspacesManager(IList<IWorkspace> workspaces)
         {
             _workspaces = workspaces;
         }

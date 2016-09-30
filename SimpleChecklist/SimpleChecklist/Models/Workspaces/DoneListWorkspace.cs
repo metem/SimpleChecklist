@@ -3,18 +3,16 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using SimpleChecklist.Models.Collections;
 using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Views;
 
 namespace SimpleChecklist.Models.Workspaces
 {
-    public class DoneListWorkspace : BaseWorkspace
+    public class DoneListWorkspace : IWorkspace
     {
         private readonly IDialogUtils _dialogUtils;
         private readonly Func<string, IFile> _fileFunc;
 
         public DoneListWorkspace(Func<string, IFile> fileFunc, IDialogUtils dialogUtils,
             DoneListObservableCollection doneList)
-            : base(ViewsId.DoneList)
         {
             _fileFunc = fileFunc;
             _dialogUtils = dialogUtils;
@@ -24,7 +22,7 @@ namespace SimpleChecklist.Models.Workspaces
 
         public DoneListObservableCollection DoneListObservableCollection { get; }
 
-        public override async Task<bool> SaveCurrentStateAsync()
+        public async Task<bool> SaveCurrentStateAsync()
         {
             var data = XmlBinarySerializer.Serialize(DoneListObservableCollection.DoneItemsGroups);
 
@@ -46,7 +44,7 @@ namespace SimpleChecklist.Models.Workspaces
             return true;
         }
 
-        public sealed override async Task<bool> LoadCurrentStateAsync()
+        public async Task<bool> LoadCurrentStateAsync()
         {
             byte[] data;
 
@@ -82,14 +80,14 @@ namespace SimpleChecklist.Models.Workspaces
             return false;
         }
 
-        public override async Task CreateBackup()
+        public async Task CreateBackup()
         {
             await
                 _fileFunc(AppSettings.DoneListFileName)
                     .CopyFileAsync(_fileFunc(AppSettings.DoneListFileName + AppSettings.PartialBackupFileExtension));
         }
 
-        public override async Task RestoreBackup()
+        public async Task RestoreBackup()
         {
             await
                 _fileFunc(AppSettings.DoneListFileName + AppSettings.PartialBackupFileExtension)

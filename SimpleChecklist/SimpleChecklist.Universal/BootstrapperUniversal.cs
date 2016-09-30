@@ -13,7 +13,7 @@ namespace SimpleChecklist.Universal
             containerBuilder.RegisterType<AppUtils>().AsImplementedInterfaces();
             containerBuilder.RegisterType<UniversalFile>().AsImplementedInterfaces();
 
-            containerBuilder.RegisterType<MainWindowsPage>().SingleInstance();
+            containerBuilder.RegisterType<MainWindowsPage>();
 
             return containerBuilder.Build();
         }

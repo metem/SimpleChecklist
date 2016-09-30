@@ -14,7 +14,7 @@ namespace SimpleChecklist.Droid
             containerBuilder.RegisterType<DroidFile>().AsImplementedInterfaces();
             containerBuilder.RegisterType<DroidDirectory>().AsImplementedInterfaces();
 
-            containerBuilder.RegisterType<MainActivity>().SingleInstance();
+            containerBuilder.RegisterType<MainActivity>();
 
             return containerBuilder.Build();
         }

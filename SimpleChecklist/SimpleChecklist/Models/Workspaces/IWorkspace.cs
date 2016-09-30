@@ -1,12 +1,9 @@
 using System.Threading.Tasks;
-using SimpleChecklist.Views;
 
 namespace SimpleChecklist.Models.Workspaces
 {
-    public interface IBaseWorkspace
+    public interface IWorkspace
     {
-        ViewsId ViewId { get; }
-
         Task<bool> SaveCurrentStateAsync();
 
         Task<bool> LoadCurrentStateAsync();

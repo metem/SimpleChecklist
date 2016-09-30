@@ -1,15 +1,12 @@
-﻿using SimpleChecklist.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace SimpleChecklist.Views
 {
     public partial class DoneListView : ContentPage
     {
-        public DoneListView(DoneListViewModel doneListViewModel)
+        public DoneListView()
         {
             InitializeComponent();
-
-            BindingContext = doneListViewModel;
         }
     }
 }
