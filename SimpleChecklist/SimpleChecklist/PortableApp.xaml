@@ -2,8 +2,11 @@
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Platform.Xamarin.Forms"
                         x:Class="SimpleChecklist.PortableApp">
-    <Application.Resources>
+  <forms:FormsApplication.Resources>
         <ResourceDictionary>
+            <Color x:Key="FileColor">Color.White</Color>
+            <Color x:Key="DirectoryColor">#B8D3FE</Color>
+
             <Style x:Key="DefaultButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#20FFFFFF" />
             </Style>
@@ -13,12 +16,12 @@
                 <Setter Property="VerticalOptions" Value="Start" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
             </Style>
-          
+
             <Style x:Key="LineSeparatorStyle" TargetType="BoxView">
                 <Setter Property="HeightRequest" Value="1" />
                 <Setter Property="BackgroundColor" Value="#55FFFFFF" />
             </Style>
-          
+
             <Style x:Key="DefaultLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="20" />
@@ -37,5 +40,5 @@
                 <Setter Property="HorizontalOptions" Value="Start" />
             </Style>
         </ResourceDictionary>
-    </Application.Resources>
+    </forms:FormsApplication.Resources>
 </forms:FormsApplication>
