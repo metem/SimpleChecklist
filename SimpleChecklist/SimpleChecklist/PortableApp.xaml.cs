@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace SimpleChecklist
 {
-    public class PortableApp : FormsApplication
+    public partial class PortableApp : FormsApplication
     {
         private readonly IAppUtils _appUtils;
         private readonly IDialogUtils _dialogUtils;
@@ -16,6 +16,8 @@ namespace SimpleChecklist
         public PortableApp(WorkspacesManager workspacesManager, MainView mainView, IDialogUtils dialogUtils,
             IAppUtils appUtils)
         {
+            InitializeComponent();
+
             _workspacesManager = workspacesManager;
             _mainView = mainView;
             _dialogUtils = dialogUtils;

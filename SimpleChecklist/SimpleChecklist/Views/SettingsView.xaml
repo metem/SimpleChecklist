@@ -8,35 +8,26 @@
              BindingContext="{Binding SettingsViewModel}">
 
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
         <Button
+            Style="{DynamicResource SettingsButtonStyle}"
             Text="{x:Static simpleChecklist:AppTexts.LoadTasksFromTextFileButtonText}"
-            FontSize="20"
-            HorizontalOptions="StartAndExpand"
-            VerticalOptions="Start"
             IsEnabled="{Binding AddTasksFromTextFileButtonIsEnabled}"
-            Command="{Binding AddTasksFromTextFileClickCommand}"
-            BackgroundColor="Transparent" />
+            Command="{Binding AddTasksFromTextFileClickCommand}" />
 
-        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
         <Button
+            Style="{DynamicResource SettingsButtonStyle}"
             Text="{x:Static simpleChecklist:AppTexts.CreateBackupButtonText}"
-            FontSize="20"
-            HorizontalOptions="StartAndExpand"
-            VerticalOptions="Start"
             IsEnabled="{Binding CreateBackupButtonIsEnabled}"
-            Command="{Binding CreateBackupClickCommand}"
-            BackgroundColor="Transparent" />
+            Command="{Binding CreateBackupClickCommand}" />
 
         <Button
+            Style="{DynamicResource SettingsButtonStyle}"
             Text="{x:Static simpleChecklist:AppTexts.LoadBackupButtonText}"
-            FontSize="20"
-            HorizontalOptions="StartAndExpand"
-            VerticalOptions="Start"
             IsEnabled="{Binding LoadBackupButtonIsEnabled}"
-            Command="{Binding LoadBackupClickCommand}"
-            BackgroundColor="Transparent" />
+            Command="{Binding LoadBackupClickCommand}" />
     </StackLayout>
 </ContentPage>

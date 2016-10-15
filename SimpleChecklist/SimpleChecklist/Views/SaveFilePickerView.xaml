@@ -13,18 +13,13 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <Label
-                                Text="{Binding Value}"
-                                FontSize="20"
-                                HorizontalOptions="Start"
-                                TextColor="White"
-                                VerticalOptions="CenterAndExpand" />
+                            <Label Style="{DynamicResource SaveFilePickerLabelStyle}" Text="{Binding Value}" />
                         </ViewCell.View>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
         <Grid
             HeightRequest="40"
             VerticalOptions="End"
@@ -41,11 +36,11 @@
                 Completed="SaveEntryOnCompleted" />
             <Button
                 Grid.Column="1"
+                Style="{DynamicResource DefaultButtonStyle}"
                 Text="{x:Static simpleChecklist:AppTexts.SaveButtonText}"
                 HorizontalOptions="End"
                 HeightRequest="36"
                 VerticalOptions="CenterAndExpand"
-                BackgroundColor="#20FFFFFF"
                 forms:Message.Attach="SaveClick" />
         </Grid>
     </StackLayout>

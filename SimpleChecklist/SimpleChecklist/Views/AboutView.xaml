@@ -8,35 +8,31 @@
              BindingContext="{Binding AboutViewModel}">
 
     <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <BoxView HeightRequest="1" BackgroundColor="#55FFFFFF" />
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
         <StackLayout VerticalOptions="CenterAndExpand">
             <Label
+                Style="{DynamicResource DefaultLabelStyle}"
                 Text="{x:Static simpleChecklist:AppTexts.AboutPageText}"
-                HorizontalOptions="Center"
-                FontSize="20"
-                TextColor="White" />
+                HorizontalOptions="Center" />
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Label
+                    Style="{DynamicResource DefaultLabelStyle}"
                     Text="{x:Static simpleChecklist:AppTexts.AboutPageVersionText}"
-                    HorizontalOptions="Center"
-                    FontSize="20"
-                    TextColor="White" />
+                    HorizontalOptions="Center" />
 
                 <Label
+                    Style="{DynamicResource DefaultLabelStyle}"
                     Text="{x:Static simpleChecklist:AppSettings.VersionNumber}"
-                    HorizontalOptions="Center"
-                    FontSize="20"
-                    TextColor="White" />
+                    HorizontalOptions="Center" />
             </StackLayout>
 
             <Label
+                Style="{DynamicResource DefaultLabelStyle}"
                 Text="{x:Static simpleChecklist:AppSettings.WebsiteUrl}"
                 HorizontalOptions="Center"
                 Margin="0,50,0,0"
-                FontSize="20"
-                FontAttributes="Italic"
-                TextColor="White">
+                FontAttributes="Italic">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
                         Command="{Binding Path=BindingContext.UrlClickCommand, Source={x:Reference ParentContext}}"
@@ -45,17 +41,15 @@
             </Label>
 
             <Label
+                Style="{DynamicResource DefaultLabelStyle}"
                 Text="{x:Static simpleChecklist:AppTexts.AboutPageTranslatorsText}"
                 HorizontalOptions="StartAndExpand"
-                Margin="0,50,0,0"
-                FontSize="20"
-                TextColor="White" />
+                Margin="0,50,0,0" />
 
             <Label
+                Style="{DynamicResource DefaultLabelStyle}"
                 Text="{x:Static simpleChecklist:AppTexts.AboutPageTranslatorsListText}"
-                HorizontalOptions="StartAndExpand"
-                FontSize="20"
-                TextColor="White" />
+                HorizontalOptions="StartAndExpand" />
         </StackLayout>
     </StackLayout>
 </ContentPage>

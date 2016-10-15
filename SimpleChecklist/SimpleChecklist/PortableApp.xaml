@@ -1,0 +1,41 @@
+﻿<forms:FormsApplication xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Platform.Xamarin.Forms"
+                        x:Class="SimpleChecklist.PortableApp">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DefaultButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#20FFFFFF" />
+            </Style>
+            <Style x:Key="SettingsButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
+          
+            <Style x:Key="LineSeparatorStyle" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="BackgroundColor" Value="#55FFFFFF" />
+            </Style>
+          
+            <Style x:Key="DefaultLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="ToDoTaskLabelStyle" TargetType="Label" BasedOn="{StaticResource DefaultLabelStyle}">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+            </Style>
+            <Style x:Key="DoneTaskLabelStyle" TargetType="Label" BasedOn="{StaticResource DefaultLabelStyle}">
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+            </Style>
+            <Style x:Key="SaveFilePickerLabelStyle" TargetType="Label" BasedOn="{StaticResource DefaultLabelStyle}">
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</forms:FormsApplication>
