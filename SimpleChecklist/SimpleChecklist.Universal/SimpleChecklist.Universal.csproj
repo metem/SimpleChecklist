@@ -151,9 +151,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleChecklist\SimpleChecklist.csproj">
+    <ProjectReference Include="..\SimpleChecklist.Core\SimpleChecklist.Core.csproj">
+      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
+      <Name>SimpleChecklist.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleChecklist\SimpleChecklist.UI.csproj">
       <Project>{5467c47e-8844-489b-a712-aab650accd22}</Project>
-      <Name>SimpleChecklist</Name>
+      <Name>SimpleChecklist.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

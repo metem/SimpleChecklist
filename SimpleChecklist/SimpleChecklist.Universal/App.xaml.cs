@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -10,8 +9,8 @@ using Windows.UI.Xaml.Navigation;
 using Autofac;
 using Caliburn.Micro;
 using Microsoft.ApplicationInsights;
-using SimpleChecklist.Models.Workspaces;
-using SimpleChecklist.ViewModels;
+using SimpleChecklist.Core.Messages;
+using SimpleChecklist.UI.ViewModels;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.Universal
@@ -109,12 +108,9 @@ namespace SimpleChecklist.Universal
             base.OnSuspending(sender, e);
 
             var deferral = e.SuspendingOperation.GetDeferral();
+            IoC.Get<MessagesStream>().PutToStream(new EventMessage(EventType.Closing));
 
-            Task.Run(async () =>
-            {
-                await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync();
-                deferral.Complete();
-            });
+            deferral.Complete();
         }
 
         protected override IEnumerable<Assembly> SelectAssemblies()

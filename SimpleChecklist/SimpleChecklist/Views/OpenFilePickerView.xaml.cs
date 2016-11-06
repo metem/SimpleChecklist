@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SimpleChecklist.Models.Utils;
-using SimpleChecklist.ViewModels;
+using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.UI.ViewModels;
 using Xamarin.Forms;
 
-namespace SimpleChecklist.Views
+namespace SimpleChecklist.UI.Views
 {
     public partial class OpenFilePickerView : ContentPage
     {

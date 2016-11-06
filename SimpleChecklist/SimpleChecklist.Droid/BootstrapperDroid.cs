@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using SimpleChecklist.UI;
 
 namespace SimpleChecklist.Droid
 {
@@ -7,7 +8,7 @@ namespace SimpleChecklist.Droid
         public static IContainer Configure()
         {
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterModule<SimpleChecklistModule>();
+            containerBuilder.RegisterModule<SimpleChecklistUIModule>();
 
             containerBuilder.RegisterType<DroidDialogUtils>().AsImplementedInterfaces();
             containerBuilder.RegisterType<AppUtils>().AsImplementedInterfaces();

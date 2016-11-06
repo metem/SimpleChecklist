@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using SimpleChecklist.UI;
 
 namespace SimpleChecklist.Universal
 {
@@ -7,7 +8,7 @@ namespace SimpleChecklist.Universal
         public static IContainer Configure()
         {
             ContainerBuilder containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterModule<SimpleChecklistModule>();
+            containerBuilder.RegisterModule<SimpleChecklistUIModule>();
 
             containerBuilder.RegisterType<UniversalDialogUtils>().AsImplementedInterfaces();
             containerBuilder.RegisterType<AppUtils>().AsImplementedInterfaces();

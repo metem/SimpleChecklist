@@ -1,10 +1,10 @@
 ﻿<forms:FormsApplication xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Platform.Xamarin.Forms"
-                        x:Class="SimpleChecklist.PortableApp">
+                        x:Class="SimpleChecklist.UI.PortableApp">
   <forms:FormsApplication.Resources>
         <ResourceDictionary>
-            <Color x:Key="FileColor">Color.White</Color>
+          <Color x:Key="FileColor">Color.White</Color>
             <Color x:Key="DirectoryColor">#B8D3FE</Color>
 
             <Style x:Key="DefaultButtonStyle" TargetType="Button">

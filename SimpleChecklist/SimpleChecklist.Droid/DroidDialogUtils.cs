@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Views;
+using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.UI.Utils;
+using SimpleChecklist.UI.Views;
 
 namespace SimpleChecklist.Droid
 {

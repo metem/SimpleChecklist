@@ -2,32 +2,37 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
-             x:Class="SimpleChecklist.Views.SettingsView"
-             Title="{x:Static simpleChecklist:AppTexts.SettingsPageTitle}"
-             BindingContext="{Binding SettingsViewModel}">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
+             mc:Ignorable="d"
+             xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
+             x:Class="SimpleChecklist.UI.Views.SettingsView"
+             Title="{x:Static core:AppTexts.SettingsPageTitle}"
+             BindingContext="{Binding SettingsViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel, IsDesignTimeCreatable=False}">
 
-    <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+  <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
-        <Button
-            Style="{DynamicResource SettingsButtonStyle}"
-            Text="{x:Static simpleChecklist:AppTexts.LoadTasksFromTextFileButtonText}"
-            IsEnabled="{Binding AddTasksFromTextFileButtonIsEnabled}"
-            Command="{Binding AddTasksFromTextFileClickCommand}" />
+    <Button
+        Style="{DynamicResource SettingsButtonStyle}"
+        Text="{x:Static core:AppTexts.LoadTasksFromTextFileButtonText}"
+        IsEnabled="{Binding AddTasksFromTextFileButtonIsEnabled}"
+        Command="{Binding AddTasksFromTextFileClickCommand}" />
 
-        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+    <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
-        <Button
-            Style="{DynamicResource SettingsButtonStyle}"
-            Text="{x:Static simpleChecklist:AppTexts.CreateBackupButtonText}"
-            IsEnabled="{Binding CreateBackupButtonIsEnabled}"
-            Command="{Binding CreateBackupClickCommand}" />
+    <Button
+        Style="{DynamicResource SettingsButtonStyle}"
+        Text="{x:Static core:AppTexts.CreateBackupButtonText}"
+        IsEnabled="{Binding CreateBackupButtonIsEnabled}"
+        Command="{Binding CreateBackupClickCommand}" />
 
-        <Button
-            Style="{DynamicResource SettingsButtonStyle}"
-            Text="{x:Static simpleChecklist:AppTexts.LoadBackupButtonText}"
-            IsEnabled="{Binding LoadBackupButtonIsEnabled}"
-            Command="{Binding LoadBackupClickCommand}" />
-    </StackLayout>
+    <Button
+        Style="{DynamicResource SettingsButtonStyle}"
+        Text="{x:Static core:AppTexts.LoadBackupButtonText}"
+        IsEnabled="{Binding LoadBackupButtonIsEnabled}"
+        Command="{Binding LoadBackupClickCommand}" />
+  </StackLayout>
 </ContentPage>

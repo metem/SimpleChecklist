@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Core.Interfaces.Utils;
 
 namespace SimpleChecklist.Droid
 {

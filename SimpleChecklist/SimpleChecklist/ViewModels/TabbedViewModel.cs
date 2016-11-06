@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 
-namespace SimpleChecklist.ViewModels
+namespace SimpleChecklist.UI.ViewModels
 {
     public class TabbedViewModel : Screen
     {

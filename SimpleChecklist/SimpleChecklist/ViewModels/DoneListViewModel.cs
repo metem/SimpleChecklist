@@ -1,54 +1,65 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Caliburn.Micro;
-using SimpleChecklist.Models.Collections;
-using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Core.Messages;
+using SimpleChecklist.UI.Converters;
+using SimpleChecklist.UI.Extensions;
 using Xamarin.Forms;
 
-namespace SimpleChecklist.ViewModels
+namespace SimpleChecklist.UI.ViewModels
 {
     public class DoneListViewModel : Screen
     {
-        private readonly IDialogUtils _dialogUtils;
-        private readonly TaskListObservableCollection _taskList;
+        private readonly IApplicationRepository _applicationRepository;
+        private readonly MessagesStream _messagesStream;
+        private ObservableCollection<DoneItemsGroup> _doneItemsGroup;
 
-        public DoneListViewModel(DoneListObservableCollection doneList, TaskListObservableCollection taskList,
-            IDialogUtils dialogUtils)
+        public DoneListViewModel(IApplicationRepository applicationRepository, MessagesStream messagesStream)
         {
-            DoneList = doneList;
-            _taskList = taskList;
-            _dialogUtils = dialogUtils;
+            _applicationRepository = applicationRepository;
+            _messagesStream = messagesStream;
+            var stream = _messagesStream.GetStream();
+            stream.Subscribe(OnNext);
         }
 
-        public DoneListObservableCollection DoneList { get; }
-
-        public ICommand RemoveClickCommand => new Command(async item =>
+        public ObservableCollection<DoneItemsGroup> DoneItemsGroup
         {
-            var accepted = await _dialogUtils.DisplayAlertAsync(
-                AppTexts.Alert,
-                AppTexts.RemoveTaskConfirmationText,
-                AppTexts.Yes,
-                AppTexts.No);
-
-            if (accepted)
+            get { return _doneItemsGroup; }
+            private set
             {
-                DoneList.RemoveDoneItem((DoneItem) item);
+                if (_doneItemsGroup != value)
+                {
+                    _doneItemsGroup = value;
+                    NotifyOfPropertyChange();
+                }
             }
-        });
+        }
 
-        public ICommand UndoneClickCommand => new Command(async item =>
+        public ICommand RemoveClickCommand
+            =>
+            new Command(
+                item =>
+                {
+                    _messagesStream.PutToStream(new DoneItemActionMessage((IDoneItem) item, DoneItemAction.Remove));
+                })
+            ;
+
+        public ICommand UndoneClickCommand
+            =>
+            new Command(
+                item =>
+                {
+                    _messagesStream.PutToStream(new DoneItemActionMessage((IDoneItem) item, DoneItemAction.Undone));
+                })
+            ;
+
+        private void OnNext(IMessage message)
         {
-            var accepted = await _dialogUtils.DisplayAlertAsync(
-                AppTexts.Alert,
-                AppTexts.UndoneTaskConfirmationText,
-                AppTexts.Yes,
-                AppTexts.No);
-
-            if (accepted)
-            {
-                var doneItem = (DoneItem) item;
-                _taskList.Add((ToDoItem) item);
-                DoneList.RemoveDoneItem(doneItem);
-            }
-        });
+            var eventMessage = message as EventMessage;
+            if (eventMessage?.EventType == EventType.DoneListRefreshRequested)
+                DoneItemsGroup = _applicationRepository.DoneItems.ToDoneItemsGroups();
+        }
     }
 }

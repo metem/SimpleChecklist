@@ -1,57 +1,47 @@
 ﻿using System.Windows.Input;
 using Caliburn.Micro;
-using SimpleChecklist.Models.Collections;
-using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Core.Entities;
+using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Core.Messages;
 using Xamarin.Forms;
 
-namespace SimpleChecklist.ViewModels
+namespace SimpleChecklist.UI.ViewModels
 {
     public class TaskListViewModel : Screen
     {
-        private readonly IDialogUtils _dialogUtils;
-        private readonly DoneListObservableCollection _doneList;
+        private readonly MessagesStream _messagesStream;
         private string _entryText;
 
-        public TaskListViewModel(TaskListObservableCollection taskList, DoneListObservableCollection doneList,
-            IDialogUtils dialogUtils)
+        public TaskListViewModel(IApplicationRepository applicationRepository, MessagesStream messagesStream)
         {
-            TaskListObservableCollection = taskList;
-            _doneList = doneList;
-            _dialogUtils = dialogUtils;
+            _messagesStream = messagesStream;
+            ApplicationRepository = applicationRepository;
         }
 
-        public TaskListObservableCollection TaskListObservableCollection { get; }
+        public IApplicationRepository ApplicationRepository { get; }
 
-        public ICommand RemoveClickCommand => new Command(async item =>
+        public ICommand RemoveClickCommand => new Command(item =>
         {
-            var accepted =
-                await
-                    _dialogUtils.DisplayAlertAsync(
-                        AppTexts.Alert,
-                        AppTexts.RemoveTaskConfirmationText,
-                        AppTexts.Yes,
-                        AppTexts.No);
-
-            if (accepted)
-            {
-                TaskListObservableCollection.ToDoItems.Remove((ToDoItem) item);
-            }
+            _messagesStream.PutToStream(new ToDoItemActionMessage((IToDoItem) item,
+                ToDoItemAction.Remove));
         });
 
-        public ICommand DoneClickCommand => new Command(item =>
-        {
-            var toDoItem = (ToDoItem) item;
+        public ICommand DoneClickCommand
+            =>
+            new Command(
+                item =>
+                {
+                    _messagesStream.PutToStream(new ToDoItemActionMessage((IToDoItem) item,
+                        ToDoItemAction.MoveToDoneList));
+                });
 
-            _doneList.Add(toDoItem);
-            TaskListObservableCollection.ToDoItems.Remove(toDoItem);
-        });
-
-        public ICommand ChangeColorClickCommand => new Command(item =>
-        {
-            var toDoItem = (ToDoItem) item;
-
-            toDoItem.TaskListColor.MoveToNext();
-        });
+        public ICommand ChangeColorClickCommand
+            =>
+            new Command(
+                item =>
+                {
+                    _messagesStream.PutToStream(new ToDoItemActionMessage((IToDoItem) item, ToDoItemAction.SwitchColor));
+                });
 
         public string EntryText
         {
@@ -60,7 +50,7 @@ namespace SimpleChecklist.ViewModels
             {
                 if (value == _entryText) return;
                 _entryText = value;
-                NotifyOfPropertyChange(() => EntryText);
+                NotifyOfPropertyChange();
             }
         }
 
@@ -68,7 +58,8 @@ namespace SimpleChecklist.ViewModels
         {
             if (!string.IsNullOrEmpty(EntryText))
             {
-                TaskListObservableCollection.Add(EntryText);
+                _messagesStream.PutToStream(new ToDoItemActionMessage(new ToDoItem {Description = EntryText},
+                    ToDoItemAction.Add));
                 EntryText = string.Empty;
             }
         }

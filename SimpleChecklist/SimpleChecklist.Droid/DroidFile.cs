@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Core.Interfaces.Utils;
 
 namespace SimpleChecklist.Droid
 {
@@ -40,7 +40,7 @@ namespace SimpleChecklist.Droid
 
         public Task CopyFileAsync(IFile destinationFile)
         {
-            return Task.Run(() => File.Copy(FullName, destinationFile.FullName));
+            return Task.Run(() => File.Copy(FullName, destinationFile.FullName, true));
         }
 
         public string Name => Path.GetFileName(FullName);

@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Caliburn.Micro;
-using SimpleChecklist.Models.Workspaces;
+using SimpleChecklist.Core.Messages;
+using SimpleChecklist.UI;
 using Xamarin.Forms.Platform.Android;
 
 namespace SimpleChecklist.Droid
@@ -25,7 +25,8 @@ namespace SimpleChecklist.Droid
         {
             base.OnPause();
 
-            Task.Run(async () => await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync()).Wait();
+            IoC.Get<MessagesStream>().PutToStream(new EventMessage(EventType.Closing));
+            //Task.Run(async () => await IoC.Get<WorkspacesManager>().SaveWorkspacesStateAsync()).Wait();
         }
     }
 }

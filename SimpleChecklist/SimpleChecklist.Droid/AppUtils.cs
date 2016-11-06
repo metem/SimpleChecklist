@@ -1,5 +1,5 @@
 ﻿using Android.OS;
-using SimpleChecklist.Models.Utils;
+using SimpleChecklist.Core.Interfaces.Utils;
 
 namespace SimpleChecklist.Droid
 {

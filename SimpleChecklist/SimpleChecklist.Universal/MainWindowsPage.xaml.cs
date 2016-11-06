@@ -1,4 +1,5 @@
 ﻿using Windows.UI.ViewManagement;
+using SimpleChecklist.UI;
 using Xamarin.Forms.Platform.UWP;
 
 namespace SimpleChecklist.Universal

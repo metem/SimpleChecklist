@@ -5,7 +5,7 @@ using Android.Runtime;
 using Caliburn.Micro;
 using Android.App;
 using Autofac;
-using SimpleChecklist.ViewModels;
+using SimpleChecklist.UI.ViewModels;
 
 namespace SimpleChecklist.Droid
 {

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace SimpleChecklist.Views
+namespace SimpleChecklist.UI.Views
 {
     public partial class TabbedView : TabbedPage
     {

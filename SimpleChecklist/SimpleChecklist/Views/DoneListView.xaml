@@ -2,80 +2,86 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:simpleChecklist="clr-namespace:SimpleChecklist;assembly=SimpleChecklist"
-             x:Class="SimpleChecklist.Views.DoneListView"
-             Title="{x:Static simpleChecklist:AppTexts.DonePageTitle}"
-             BindingContext="{Binding DoneListViewModel}">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
+             mc:Ignorable="d"
+             xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
+             x:Class="SimpleChecklist.UI.Views.DoneListView"
+             Title="{x:Static core:AppTexts.DonePageTitle}"
+             BindingContext="{Binding DoneListViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewModels:DoneListViewModel, IsDesignTimeCreatable=False}">
 
-    <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
-        <ListView ItemsSource="{Binding DoneList.DoneItemsGroups}" IsGroupingEnabled="true"
-                  GroupShortNameBinding="{Binding ShortName}"
-                  GroupDisplayBinding="{Binding Title}"
-                  HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Frame Padding="0">
-                            <StackLayout Spacing="0">
-                                <Grid
-                                    ColumnSpacing="10"
-                                    RowSpacing="10"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="CenterAndExpand">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20" />
-                                        <ColumnDefinition Width="20" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="1" />
-                                    </Grid.ColumnDefinitions>
+  <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+    <ListView ItemsSource="{Binding DoneItemsGroup}"
+              IsGroupingEnabled="true"
+              GroupShortNameBinding="{Binding ShortName}"
+              GroupDisplayBinding="{Binding Title}"
+              HasUnevenRows="True">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Frame Padding="0">
+              <StackLayout Spacing="0">
+                <Grid
+                    ColumnSpacing="10"
+                    RowSpacing="10"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1" />
+                  </Grid.ColumnDefinitions>
 
-                                    <Image
-                                        Grid.Column="0"
-                                        Source="Resources/Icons/BackIcon.png"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"
-                                        Opacity=".8">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer
-                                                Command="{Binding Path=BindingContext.UndoneClickCommand, Source={x:Reference ParentContext}}"
-                                                CommandParameter="{Binding}" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
+                  <Image
+                      Grid.Column="0"
+                      Source="Resources/Icons/BackIcon.png"
+                      HorizontalOptions="Start"
+                      VerticalOptions="Center"
+                      Opacity=".8">
+                    <Image.GestureRecognizers>
+                      <TapGestureRecognizer
+                          Command="{Binding Path=BindingContext.UndoneClickCommand, Source={x:Reference ParentContext}}"
+                          CommandParameter="{Binding}" />
+                    </Image.GestureRecognizers>
+                  </Image>
 
-                                    <Image
-                                        Grid.Column="1"
-                                        Source="Resources/Icons/RemoveIcon.png"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"
-                                        Opacity=".8">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer
-                                                Command="{Binding Path=BindingContext.RemoveClickCommand, Source={x:Reference ParentContext}}"
-                                                CommandParameter="{Binding}" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
+                  <Image
+                      Grid.Column="1"
+                      Source="Resources/Icons/RemoveIcon.png"
+                      HorizontalOptions="Start"
+                      VerticalOptions="Center"
+                      Opacity=".8">
+                    <Image.GestureRecognizers>
+                      <TapGestureRecognizer
+                          Command="{Binding Path=BindingContext.RemoveClickCommand, Source={x:Reference ParentContext}}"
+                          CommandParameter="{Binding}" />
+                    </Image.GestureRecognizers>
+                  </Image>
 
-                                    <Label
-                                        Style="{DynamicResource DoneTaskLabelStyle}"
-                                        Grid.Column="2"
-                                        HorizontalOptions="Start"
-                                        Text="{Binding FinishTime}" />
+                  <Label
+                      Style="{DynamicResource DoneTaskLabelStyle}"
+                      Grid.Column="2"
+                      HorizontalOptions="Start"
+                      Text="{Binding FinishTime}" />
 
-                                    <Label
-                                        Style="{DynamicResource DoneTaskLabelStyle}"
-                                        Grid.Column="3"
-                                        HorizontalOptions="StartAndExpand"
-                                        Text="{Binding Description}" />
-                                </Grid>
+                  <Label
+                      Style="{DynamicResource DoneTaskLabelStyle}"
+                      Grid.Column="3"
+                      HorizontalOptions="StartAndExpand"
+                      Text="{Binding Description}" />
+                </Grid>
 
-                                <BoxView Style="{DynamicResource LineSeparatorStyle}" />
-                            </StackLayout>
-                        </Frame>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
+                <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+              </StackLayout>
+            </Frame>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
 </ContentPage>

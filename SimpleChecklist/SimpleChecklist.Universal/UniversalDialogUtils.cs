@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
-using SimpleChecklist.Models.Utils;
-using SimpleChecklist.Views;
+using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.UI.Utils;
+using SimpleChecklist.UI.Views;
 
 namespace SimpleChecklist.Universal
 {
