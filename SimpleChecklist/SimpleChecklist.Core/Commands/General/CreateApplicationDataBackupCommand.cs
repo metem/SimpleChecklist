@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SimpleChecklist.Core.Interfaces.Utils;
+using System;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces.Utils;
 
 namespace SimpleChecklist.Core.Commands.General
 {
@@ -15,8 +15,13 @@ namespace SimpleChecklist.Core.Commands.General
 
         public async Task ExecuteAsync()
         {
-            await _fileFunc(AppSettings.ApplicationDataFileName)
-                .CopyFileAsync(_fileFunc(AppSettings.ApplicationDataFileName + AppSettings.PartialBackupFileExtension));
+            var file = _fileFunc(AppSettings.ApplicationDataFileName);
+            if (file.Exist)
+            {
+                await
+                    file.CopyFileAsync(
+                        _fileFunc(AppSettings.ApplicationDataFileName + AppSettings.PartialBackupFileExtension));
+            }
         }
     }
 }
