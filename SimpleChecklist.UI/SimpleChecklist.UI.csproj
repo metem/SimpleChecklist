@@ -138,7 +138,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SimpleChecklist.Common\SimpleChecklist.Common.csproj">
+    <ProjectReference Include="..\SimpleChecklist.Common\SimpleChecklist.Common.csproj">
       <Project>{E9BF5B38-877B-4623-83DC-2F1456F4CA7E}</Project>
       <Name>SimpleChecklist.Common</Name>
     </ProjectReference>

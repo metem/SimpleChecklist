@@ -112,11 +112,11 @@
     <Folder Include="Repositories\v1_0\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SimpleChecklist.Common\SimpleChecklist.Common.csproj">
+    <ProjectReference Include="..\SimpleChecklist.Common\SimpleChecklist.Common.csproj">
       <Project>{E9BF5B38-877B-4623-83DC-2F1456F4CA7E}</Project>
       <Name>SimpleChecklist.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SimpleChecklist.LegacyDataRepository\SimpleChecklist.LegacyDataRepository.csproj">
+    <ProjectReference Include="..\SimpleChecklist.LegacyDataRepository\SimpleChecklist.LegacyDataRepository.csproj">
       <Project>{A751F830-B82D-4778-9F3C-C0C1109015E0}</Project>
       <Name>SimpleChecklist.LegacyDataRepository</Name>
     </ProjectReference>

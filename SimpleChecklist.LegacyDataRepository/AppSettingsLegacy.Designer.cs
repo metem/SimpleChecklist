@@ -23,7 +23,7 @@ namespace SimpleChecklist.LegacyDataRepository {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppSettingsLegacy {
+    public class AppSettingsLegacy {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -37,7 +37,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleChecklist.LegacyDataRepository.AppSettingsLegacy", typeof(AppSettingsLegacy).GetTypeInfo().Assembly);
@@ -52,7 +52,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to .btd.
         /// </summary>
-        internal static string BackupFileExtension {
+        public static string BackupFileExtension {
             get {
                 return ResourceManager.GetString("BackupFileExtension", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to ChecklistBackup.
         /// </summary>
-        internal static string BackupFileName {
+        public static string BackupFileName {
             get {
                 return ResourceManager.GetString("BackupFileName", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to HH:mm.
         /// </summary>
-        internal static string DoneItemFinishTimeFormat {
+        public static string DoneItemFinishTimeFormat {
             get {
                 return ResourceManager.GetString("DoneItemFinishTimeFormat", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to donelist.xml.
         /// </summary>
-        internal static string DoneListFileName {
+        public static string DoneListFileName {
             get {
                 return ResourceManager.GetString("DoneListFileName", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to tasklist.xml.
         /// </summary>
-        internal static string TaskListFileName {
+        public static string TaskListFileName {
             get {
                 return ResourceManager.GetString("TaskListFileName", resourceCulture);
             }
@@ -109,7 +109,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to .txt.
         /// </summary>
-        internal static string TextFileExtension {
+        public static string TextFileExtension {
             get {
                 return ResourceManager.GetString("TextFileExtension", resourceCulture);
             }
@@ -118,7 +118,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to 1.1.
         /// </summary>
-        internal static string VersionNumber {
+        public static string VersionNumber {
             get {
                 return ResourceManager.GetString("VersionNumber", resourceCulture);
             }
@@ -127,7 +127,7 @@ namespace SimpleChecklist.LegacyDataRepository {
         /// <summary>
         ///   Looks up a localized string similar to www.facebook.com/SimpleChecklist.
         /// </summary>
-        internal static string WebsiteUrl {
+        public static string WebsiteUrl {
             get {
                 return ResourceManager.GetString("WebsiteUrl", resourceCulture);
             }
