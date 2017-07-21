@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Core.Repositories.v1_3;
+using SimpleChecklist.Common.Entities;
 
-namespace SimpleChecklist.Core.Interfaces
+namespace SimpleChecklist.Common.Interfaces
 {
     public interface IFileApplicationRepository : IApplicationRepository
     {

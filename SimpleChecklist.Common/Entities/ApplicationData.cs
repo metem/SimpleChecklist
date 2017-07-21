@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using SimpleChecklist.Core.Entities;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Interfaces;
 
-namespace SimpleChecklist.Core.Repositories.v1_3
+namespace SimpleChecklist.Common.Entities
 {
     [DataContract, KnownType(typeof(ToDoItem)), KnownType(typeof(DoneItem))]
     public class ApplicationData

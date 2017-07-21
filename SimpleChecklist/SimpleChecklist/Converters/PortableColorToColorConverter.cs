@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using SimpleChecklist.Core.Entities;
+using SimpleChecklist.Common.Entities;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.Converters

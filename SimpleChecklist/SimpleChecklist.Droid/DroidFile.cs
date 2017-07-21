@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Droid
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SimpleChecklist.Core.Interfaces.Utils
+namespace SimpleChecklist.Common.Interfaces.Utils
 {
     public interface IDirectory
     {

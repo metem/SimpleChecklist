@@ -1,9 +1,10 @@
 ﻿using Autofac;
+using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Core.Commands;
-using SimpleChecklist.Core.Interfaces;
 using SimpleChecklist.Core.Messages;
 using SimpleChecklist.Core.Repositories.v1_3;
 using SimpleChecklist.Core.Workflow;
+using SimpleChecklist.LegacyDataRepository;
 
 namespace SimpleChecklist.Core
 {
@@ -11,13 +12,15 @@ namespace SimpleChecklist.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterModule<LegacyDataRepositoryModule>();
+
             builder.RegisterType<WorkflowManager>()
                 .SingleInstance()
                 .AutoActivate();
 
             builder.RegisterType<XmlFileApplicationRepository>()
                 .As<IApplicationRepository>()
-                .As<IFileApplicationRepository>()
+                .Named<IFileApplicationRepository>("repository")
                 .SingleInstance();
 
             builder.RegisterAssemblyTypes(ThisAssembly)

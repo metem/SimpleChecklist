@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.UI.Views;
 
 namespace SimpleChecklist.UI.Utils

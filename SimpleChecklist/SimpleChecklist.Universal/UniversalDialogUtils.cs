@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.UI.Utils;
 using SimpleChecklist.UI.Views;
 

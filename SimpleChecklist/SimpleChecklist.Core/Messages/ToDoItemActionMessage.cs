@@ -1,4 +1,4 @@
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Interfaces;
 
 namespace SimpleChecklist.Core.Messages
 {

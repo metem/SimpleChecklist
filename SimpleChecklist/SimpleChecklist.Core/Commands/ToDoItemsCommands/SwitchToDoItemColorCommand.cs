@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Core.Entities;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces;
 
 namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 {

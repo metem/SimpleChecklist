@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Caliburn.Micro;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core;
-using SimpleChecklist.Core.Interfaces.Utils;
 using SimpleChecklist.UI.Converters;
 using Xamarin.Forms;
 

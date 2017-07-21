@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Interfaces;
 
 namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 {

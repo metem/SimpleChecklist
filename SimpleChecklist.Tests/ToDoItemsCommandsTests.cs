@@ -2,9 +2,9 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
+using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Commands.ToDoItemsCommands;
-using SimpleChecklist.Core.Entities;
-using SimpleChecklist.Core.Interfaces.Utils;
 using SimpleChecklist.Core.Messages;
 using SimpleChecklist.Core.Repositories.v1_3;
 

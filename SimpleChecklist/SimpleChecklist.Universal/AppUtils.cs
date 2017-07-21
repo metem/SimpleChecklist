@@ -1,5 +1,5 @@
 using Windows.UI.Xaml;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Universal
 {

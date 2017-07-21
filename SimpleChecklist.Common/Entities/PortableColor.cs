@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace SimpleChecklist.Core.Entities
+namespace SimpleChecklist.Common.Entities
 {
     [DataContract]
     public class PortableColor : IEquatable<PortableColor>

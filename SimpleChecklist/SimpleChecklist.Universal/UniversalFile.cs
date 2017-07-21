@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Storage;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Universal
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Interfaces;
 
 namespace SimpleChecklist.UI.Converters
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Messages;
 
 namespace SimpleChecklist.Core.Commands.General
@@ -12,7 +12,7 @@ namespace SimpleChecklist.Core.Commands.General
         private readonly IFileApplicationRepository _fileApplicationRepository;
         private readonly MessagesStream _messagesStream;
 
-        public LoadApplicationDataCommand(Func<string,IFile> fileFunc, IFileApplicationRepository fileApplicationRepository, MessagesStream messagesStream)
+        public LoadApplicationDataCommand(Func<string, IFile> fileFunc, IFileApplicationRepository fileApplicationRepository, MessagesStream messagesStream)
         {
             _fileFunc = fileFunc;
             _fileApplicationRepository = fileApplicationRepository;

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Caliburn.Micro;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Core.Messages;
 using SimpleChecklist.UI.Converters;
 using SimpleChecklist.UI.Extensions;

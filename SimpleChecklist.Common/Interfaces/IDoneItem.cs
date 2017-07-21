@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleChecklist.Core.Interfaces
+namespace SimpleChecklist.Common.Interfaces
 {
     public interface IDoneItem : IToDoItem
     {

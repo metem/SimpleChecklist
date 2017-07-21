@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Moq;
 using NUnit.Framework;
+using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Commands.General;
-using SimpleChecklist.Core.Entities;
-using SimpleChecklist.Core.Interfaces.Utils;
 using SimpleChecklist.Core.Repositories.v1_3;
 
 namespace SimpleChecklist.Tests

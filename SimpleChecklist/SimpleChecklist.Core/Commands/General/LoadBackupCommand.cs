@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces;
-using SimpleChecklist.Core.Interfaces.Utils;
-using SimpleChecklist.Core.Repositories.v1_3;
+using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Utils.Serializers;
 
 namespace SimpleChecklist.Core.Commands.General

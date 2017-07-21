@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Core.Commands.General
 {

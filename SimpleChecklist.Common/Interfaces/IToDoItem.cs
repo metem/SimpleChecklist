@@ -1,7 +1,7 @@
 ﻿using System;
-using SimpleChecklist.Core.Entities;
+using SimpleChecklist.Common.Entities;
 
-namespace SimpleChecklist.Core.Interfaces
+namespace SimpleChecklist.Common.Interfaces
 {
     public interface IToDoItem
     {

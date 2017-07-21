@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SimpleChecklist.Core.Interfaces.Utils
+namespace SimpleChecklist.Common.Interfaces.Utils
 {
     public interface IDialogUtils
     {

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Messages;
 
 namespace SimpleChecklist.Core.Commands.General

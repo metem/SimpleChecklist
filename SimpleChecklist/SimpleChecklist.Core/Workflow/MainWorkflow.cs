@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reactive.Linq;
+using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Core.Commands.DoneItemsCommands;
 using SimpleChecklist.Core.Commands.General;
 using SimpleChecklist.Core.Commands.ToDoItemsCommands;
-using SimpleChecklist.Core.Interfaces;
 using SimpleChecklist.Core.Messages;
 
 namespace SimpleChecklist.Core.Workflow

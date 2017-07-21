@@ -44,7 +44,6 @@
     <Compile Include="Commands\ToDoItemsCommands\MoveToDoneListCommand.cs" />
     <Compile Include="Commands\ToDoItemsCommands\RemoveToDoItemCommand.cs" />
     <Compile Include="Commands\ToDoItemsCommands\SwitchToDoItemColorCommand.cs" />
-    <Compile Include="Interfaces\IFileApplicationRepository.cs" />
     <Compile Include="Messages\DoneItemAction.cs" />
     <Compile Include="Messages\DoneItemActionMessage.cs" />
     <Compile Include="Messages\ToDoItemAction.cs" />
@@ -73,23 +72,12 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\General\LoadApplicationDataCommand.cs" />
     <Compile Include="Commands\General\SaveApplicationDataCommand.cs" />
-    <Compile Include="Entities\DoneItem.cs" />
-    <Compile Include="Interfaces\IApplicationRepository.cs" />
-    <Compile Include="Interfaces\IDoneItem.cs" />
-    <Compile Include="Interfaces\IToDoItem.cs" />
-    <Compile Include="Entities\PortableColor.cs" />
-    <Compile Include="Entities\ToDoItem.cs" />
     <Compile Include="Messages\EventMessage.cs" />
     <Compile Include="Messages\EventType.cs" />
     <Compile Include="Messages\MessagesStream.cs" />
     <Compile Include="Messages\IMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\v1_3\ApplicationData.cs" />
     <Compile Include="SimpleChecklistCoreModule.cs" />
-    <Compile Include="Interfaces\Utils\IAppUtils.cs" />
-    <Compile Include="Interfaces\Utils\IDialogUtils.cs" />
-    <Compile Include="Interfaces\Utils\IDirectory.cs" />
-    <Compile Include="Interfaces\Utils\IFile.cs" />
     <Compile Include="Workflow\InitializationFromBackupWorkflow.cs" />
     <Compile Include="Workflow\InitializationWorkflow.cs" />
     <Compile Include="Workflow\IWorkflow.cs" />
@@ -122,6 +110,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\v1_0\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimpleChecklist.Common\SimpleChecklist.Common.csproj">
+      <Project>{E9BF5B38-877B-4623-83DC-2F1456F4CA7E}</Project>
+      <Name>SimpleChecklist.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimpleChecklist.LegacyDataRepository\SimpleChecklist.LegacyDataRepository.csproj">
+      <Project>{A751F830-B82D-4778-9F3C-C0C1109015E0}</Project>
+      <Name>SimpleChecklist.LegacyDataRepository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

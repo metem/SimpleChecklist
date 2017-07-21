@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleChecklist.Core.Interfaces
+namespace SimpleChecklist.Common.Interfaces
 {
     public interface IApplicationRepository
     {

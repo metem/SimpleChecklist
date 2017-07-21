@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Caliburn.Micro;
-using SimpleChecklist.Core.Entities;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Core.Messages;
 using Xamarin.Forms;
 

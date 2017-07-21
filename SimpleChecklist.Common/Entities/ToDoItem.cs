@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Interfaces;
 
-namespace SimpleChecklist.Core.Entities
+namespace SimpleChecklist.Common.Entities
 {
     [DataContract]
     [KnownType(typeof(DoneItem))]

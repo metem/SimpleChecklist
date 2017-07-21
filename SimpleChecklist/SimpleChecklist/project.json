@@ -1,11 +1,11 @@
 ﻿{
   "supports": {},
   "dependencies": {
-    "Autofac": "4.2.1",
-    "Caliburn.Micro.Core": "3.0.2",
-    "Caliburn.Micro.Xamarin.Forms": "3.0.2",
+    "Autofac": "4.6.0",
+    "Caliburn.Micro.Core": "3.1.0",
+    "Caliburn.Micro.Xamarin.Forms": "3.1.0",
     "System.Reactive": "3.1.1",
-    "Xamarin.Forms": "2.3.3.180",
+    "Xamarin.Forms": "2.3.4.247",
     "xcc": "1.0.9"
   },
   "frameworks": {

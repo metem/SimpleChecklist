@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Interfaces;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Utils.Serializers;
 
 namespace SimpleChecklist.Core.Commands.General

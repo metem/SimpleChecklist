@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using SimpleChecklist.Core.Interfaces;
+using SimpleChecklist.Common.Interfaces;
 
-namespace SimpleChecklist.Core.Entities
+namespace SimpleChecklist.Common.Entities
 {
     [DataContract]
     public class DoneItem : ToDoItem, IDoneItem
@@ -23,6 +23,6 @@ namespace SimpleChecklist.Core.Entities
         [DataMember]
         public DateTime FinishDateTime { get; set; }
 
-        public string FinishTime => FinishDateTime.ToString(AppSettings.DoneItemFinishTimeFormat);
+        public string FinishTime => FinishDateTime.ToString("HH:mm"); //TODO: configuration provider
     }
 }

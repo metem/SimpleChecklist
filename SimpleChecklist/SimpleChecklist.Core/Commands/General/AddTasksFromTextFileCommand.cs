@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using SimpleChecklist.Core.Entities;
-using SimpleChecklist.Core.Interfaces;
-using SimpleChecklist.Core.Interfaces.Utils;
+using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Core.Commands.General
 {
