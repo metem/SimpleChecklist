@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Core.Commands.DoneItemsCommands;
 using SimpleChecklist.Core.Commands.General;
 using SimpleChecklist.Core.Commands.ToDoItemsCommands;
@@ -15,23 +15,23 @@ namespace SimpleChecklist.Core.Workflow
         private readonly CreateBackupCommand _createBackupCommand;
         private readonly LoadBackupCommand _loadBackupCommand;
         private readonly AddTasksFromTextFileCommand _addTasksFromTextFileCommand;
-        private readonly Func<IToDoItem, AddToDoItemCommand> _addToDoItemCommandFunc;
-        private readonly Func<IToDoItem, RemoveToDoItemCommand> _removeToDoItemCommandFunc;
-        private readonly Func<IToDoItem, MoveToDoneListCommand> _moveToDoneListCommandFunc;
-        private readonly Func<IToDoItem, SwitchToDoItemColorCommand> _switchToDoItemColorCommandFunc;
-        private readonly Func<IDoneItem, RemoveDoneItemCommand> _removeDoneItemCommandFunc;
-        private readonly Func<IDoneItem, UndoneDoneItemCommand> _undoneDoneItemCommandFunc;
+        private readonly Func<ToDoItem, AddToDoItemCommand> _addToDoItemCommandFunc;
+        private readonly Func<ToDoItem, RemoveToDoItemCommand> _removeToDoItemCommandFunc;
+        private readonly Func<ToDoItem, MoveToDoneListCommand> _moveToDoneListCommandFunc;
+        private readonly Func<ToDoItem, SwitchToDoItemColorCommand> _switchToDoItemColorCommandFunc;
+        private readonly Func<DoneItem, RemoveDoneItemCommand> _removeDoneItemCommandFunc;
+        private readonly Func<DoneItem, UndoneDoneItemCommand> _undoneDoneItemCommandFunc;
         private IDisposable _subscription;
 
         public MainWorkflow(MessagesStream messagesStream, SaveApplicationDataCommand saveApplicationDataCommand,
             CreateBackupCommand createBackupCommand, LoadBackupCommand loadBackupCommand,
             AddTasksFromTextFileCommand addTasksFromTextFileCommand,
-            Func<IToDoItem, AddToDoItemCommand> addToDoItemCommandFunc,
-            Func<IToDoItem, RemoveToDoItemCommand> removeToDoItemCommandFunc,
-            Func<IToDoItem, MoveToDoneListCommand> moveToDoneListCommandFunc,
-            Func<IToDoItem, SwitchToDoItemColorCommand> switchToDoItemColorCommandFunc,
-            Func<IDoneItem, RemoveDoneItemCommand> removeDoneItemCommandFunc,
-            Func<IDoneItem, UndoneDoneItemCommand> undoneDoneItemCommandFunc)
+            Func<ToDoItem, AddToDoItemCommand> addToDoItemCommandFunc,
+            Func<ToDoItem, RemoveToDoItemCommand> removeToDoItemCommandFunc,
+            Func<ToDoItem, MoveToDoneListCommand> moveToDoneListCommandFunc,
+            Func<ToDoItem, SwitchToDoItemColorCommand> switchToDoItemColorCommandFunc,
+            Func<DoneItem, RemoveDoneItemCommand> removeDoneItemCommandFunc,
+            Func<DoneItem, UndoneDoneItemCommand> undoneDoneItemCommandFunc)
         {
             _messagesStream = messagesStream;
             _saveApplicationDataCommand = saveApplicationDataCommand;

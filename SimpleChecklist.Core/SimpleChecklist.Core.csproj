@@ -39,6 +39,7 @@
     <Compile Include="Commands\DoneItemsCommands\RemoveDoneItemCommand.cs" />
     <Compile Include="Commands\General\AddTasksFromTextFileCommand.cs" />
     <Compile Include="Commands\General\CreateBackupCommand.cs" />
+    <Compile Include="Commands\General\LoadApplicationDataCommand.cs" />
     <Compile Include="Commands\General\LoadBackupCommand.cs" />
     <Compile Include="Commands\ToDoItemsCommands\AddToDoItemCommand.cs" />
     <Compile Include="Commands\ToDoItemsCommands\MoveToDoneListCommand.cs" />
@@ -48,6 +49,10 @@
     <Compile Include="Messages\DoneItemActionMessage.cs" />
     <Compile Include="Messages\ToDoItemAction.cs" />
     <Compile Include="Messages\ToDoItemActionMessage.cs" />
+    <Compile Include="Repositories\FileData.cs" />
+    <Compile Include="Repositories\RootRepository.cs" />
+    <Compile Include="Repositories\FileRepositoryCache.cs" />
+    <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="Workflow\WorkflowIds.cs" />
     <Compile Include="Commands\General\AskUserIfContinueAfterInitializationFailureCommand.cs" />
     <Compile Include="Commands\General\CloseApplicationCommand.cs" />
@@ -70,7 +75,6 @@
       <DependentUpon>AppTexts.pl-PL.resx</DependentUpon>
     </Compile>
     <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\General\LoadApplicationDataCommand.cs" />
     <Compile Include="Commands\General\SaveApplicationDataCommand.cs" />
     <Compile Include="Messages\EventMessage.cs" />
     <Compile Include="Messages\EventType.cs" />
@@ -85,7 +89,6 @@
     <Compile Include="Workflow\ShuttingDownWorkflow.cs" />
     <Compile Include="Workflow\WorkflowManager.cs" />
     <Compile Include="Utils\Serializers\XmlBinarySerializer.cs" />
-    <Compile Include="Repositories\v1_3\XmlFileApplicationRepository.cs" />
     <Compile Include="Utils\Serializers\XmlStringSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +111,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\v1_0\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\SimpleChecklist.Common\SimpleChecklist.Common.csproj">
       <Project>{E9BF5B38-877B-4623-83DC-2F1456F4CA7E}</Project>

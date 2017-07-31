@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Caliburn.Micro;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Core.Messages;
 using SimpleChecklist.UI.Converters;
 using SimpleChecklist.UI.Extensions;
@@ -12,13 +12,13 @@ namespace SimpleChecklist.UI.ViewModels
 {
     public class DoneListViewModel : Screen
     {
-        private readonly IApplicationRepository _applicationRepository;
+        private readonly ApplicationData _appData;
         private readonly MessagesStream _messagesStream;
         private ObservableCollection<DoneItemsGroup> _doneItemsGroup;
 
-        public DoneListViewModel(IApplicationRepository applicationRepository, MessagesStream messagesStream)
+        public DoneListViewModel(ApplicationData appData, MessagesStream messagesStream)
         {
-            _applicationRepository = applicationRepository;
+            _appData = appData;
             _messagesStream = messagesStream;
             var stream = _messagesStream.GetStream();
             stream.Subscribe(OnNext);
@@ -39,27 +39,29 @@ namespace SimpleChecklist.UI.ViewModels
 
         public ICommand RemoveClickCommand
             =>
-            new Command(
-                item =>
-                {
-                    _messagesStream.PutToStream(new DoneItemActionMessage((IDoneItem) item, DoneItemAction.Remove));
-                })
-            ;
+                new Command(
+                    item =>
+                    {
+                        _messagesStream.PutToStream(new DoneItemActionMessage((DoneItem) item, DoneItemAction.Remove));
+                    })
+        ;
 
         public ICommand UndoneClickCommand
             =>
-            new Command(
-                item =>
-                {
-                    _messagesStream.PutToStream(new DoneItemActionMessage((IDoneItem) item, DoneItemAction.Undone));
-                })
-            ;
+                new Command(
+                    item =>
+                    {
+                        _messagesStream.PutToStream(new DoneItemActionMessage((DoneItem) item, DoneItemAction.Undone));
+                    })
+        ;
 
         private void OnNext(IMessage message)
         {
             var eventMessage = message as EventMessage;
             if (eventMessage?.EventType == EventType.DoneListRefreshRequested)
-                DoneItemsGroup = _applicationRepository.DoneItems.ToDoneItemsGroups();
+            {
+                DoneItemsGroup = _appData.DoneItems.ToDoneItemsGroups();
+            }
         }
     }
 }

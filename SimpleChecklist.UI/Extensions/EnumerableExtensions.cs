@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.UI.Converters;
 
 namespace SimpleChecklist.UI.Extensions
 {
     public static class EnumerableExtensions
     {
-        public static ObservableCollection<DoneItemsGroup> ToDoneItemsGroups(this IEnumerable<IDoneItem> data)
+        public static ObservableCollection<DoneItemsGroup> ToDoneItemsGroups(this IEnumerable<DoneItem> data)
         {
             var result = new ObservableCollection<DoneItemsGroup>();
 

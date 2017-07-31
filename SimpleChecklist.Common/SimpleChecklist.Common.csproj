@@ -39,10 +39,7 @@
     <Compile Include="Entities\DoneItem.cs" />
     <Compile Include="Entities\PortableColor.cs" />
     <Compile Include="Entities\ToDoItem.cs" />
-    <Compile Include="Interfaces\IApplicationRepository.cs" />
-    <Compile Include="Interfaces\IDoneItem.cs" />
-    <Compile Include="Interfaces\IFileApplicationRepository.cs" />
-    <Compile Include="Interfaces\IToDoItem.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\Utils\IAppUtils.cs" />
     <Compile Include="Interfaces\Utils\IDialogUtils.cs" />
     <Compile Include="Interfaces\Utils\IDirectory.cs" />

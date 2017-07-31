@@ -17,10 +17,10 @@ namespace SimpleChecklist.LegacyDataRepository
                 expression.CreateMap<DoneItem, Common.Entities.DoneItem>().ReverseMap();
             });
 
-            builder.RegisterDecorator<IFileApplicationRepository>(
-                (c, inner) =>
-                    new LegacyFileApplicationRepositoryDecorator(inner, c.Resolve<Func<string, IFile>>()),
-                "repository");
+            builder.RegisterDecorator<IRepository>(
+                (c, repository) => new LegacyFileRepository(repository, c.Resolve<Func<string, IFile>>()),
+                "fileRepository",
+                "legacyFileRepository");
 
             builder.RegisterType<TaskListObservableCollection>().SingleInstance();
             builder.RegisterType<DoneListObservableCollection>().SingleInstance();

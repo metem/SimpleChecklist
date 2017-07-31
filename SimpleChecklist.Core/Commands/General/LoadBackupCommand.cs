@@ -1,21 +1,18 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SimpleChecklist.Common.Entities;
-using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
-using SimpleChecklist.Core.Utils.Serializers;
 
 namespace SimpleChecklist.Core.Commands.General
 {
     public class LoadBackupCommand : ICommand
     {
         private readonly IDialogUtils _dialogUtils;
-        private readonly IFileApplicationRepository _fileApplicationRepository;
+        private readonly ApplicationData _appData;
 
-        public LoadBackupCommand(IDialogUtils dialogUtils, IFileApplicationRepository fileApplicationRepository)
+        public LoadBackupCommand(IDialogUtils dialogUtils, ApplicationData appData)
         {
             _dialogUtils = dialogUtils;
-            _fileApplicationRepository = fileApplicationRepository;
+            _appData = appData;
         }
 
         public async Task ExecuteAsync()
@@ -28,21 +25,6 @@ namespace SimpleChecklist.Core.Commands.General
                 return;
             }
 
-            string text;
-
-            try
-            {
-                text = file.Exist ? await file.ReadTextAsync() : string.Empty;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                await _dialogUtils.DisplayAlertAsync(AppTexts.Error, AppTexts.BackupLoadError, AppTexts.Close);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(text))
-                return;
-
             var accepted = await _dialogUtils.DisplayAlertAsync(
                 AppTexts.Alert,
                 AppTexts.LoadBackupConfirmationText,
@@ -51,19 +33,7 @@ namespace SimpleChecklist.Core.Commands.General
 
             if (accepted)
             {
-                try
-                {
-                    var data = XmlStringSerializer.Deserialize<ApplicationData>(text);
-
-                    if (data != null)
-                    {
-                        await _fileApplicationRepository.Load(data);
-                    }
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
+                await _appData.LoadAsync(file);
             }
         }
     }

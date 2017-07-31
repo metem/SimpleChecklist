@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 {
     public class RemoveToDoItemCommand : ICommand
     {
-        private readonly IToDoItem _item;
-        private readonly IApplicationRepository _applicationRepository;
+        private readonly ToDoItem _item;
+        private readonly ApplicationData _appData;
         private readonly IDialogUtils _dialogUtils;
 
-        public RemoveToDoItemCommand(IToDoItem item, IApplicationRepository applicationRepository,
+        public RemoveToDoItemCommand(ToDoItem item, ApplicationData appData,
             IDialogUtils dialogUtils)
         {
             _item = item;
-            _applicationRepository = applicationRepository;
+            _appData = appData;
             _dialogUtils = dialogUtils;
         }
 
@@ -29,7 +29,7 @@ namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 
             if (accepted)
             {
-                _applicationRepository.RemoveItem(_item);
+                _appData.ToDoItems.Remove(_item);
             }
         }
     }

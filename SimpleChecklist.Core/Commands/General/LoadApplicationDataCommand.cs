@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Messages;
 
@@ -9,14 +9,14 @@ namespace SimpleChecklist.Core.Commands.General
     class LoadApplicationDataCommand : ICommand
     {
         private readonly Func<string, IFile> _fileFunc;
-        private readonly IFileApplicationRepository _fileApplicationRepository;
         private readonly MessagesStream _messagesStream;
+        private readonly ApplicationData _appData;
 
-        public LoadApplicationDataCommand(Func<string, IFile> fileFunc, IFileApplicationRepository fileApplicationRepository, MessagesStream messagesStream)
+        public LoadApplicationDataCommand(Func<string, IFile> fileFunc, MessagesStream messagesStream, ApplicationData appData)
         {
             _fileFunc = fileFunc;
-            _fileApplicationRepository = fileApplicationRepository;
             _messagesStream = messagesStream;
+            _appData = appData;
         }
 
         public async Task ExecuteAsync()
@@ -28,15 +28,7 @@ namespace SimpleChecklist.Core.Commands.General
                 return;
             }
 
-            bool result;
-            try
-            {
-                result = await _fileApplicationRepository.LoadFromFileAsync(AppSettings.ApplicationDataFileName);
-            }
-            catch (Exception)
-            {
-                result = false;
-            }
+            var result = await _appData.LoadAsync();
 
             _messagesStream.PutToStream(result
                 ? new EventMessage(EventType.ApplicationDataLoadFinished)

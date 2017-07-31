@@ -3,10 +3,10 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Commands.ToDoItemsCommands;
 using SimpleChecklist.Core.Messages;
-using SimpleChecklist.Core.Repositories.v1_3;
 
 namespace SimpleChecklist.Tests
 {
@@ -17,46 +17,43 @@ namespace SimpleChecklist.Tests
         public void AddToDoItem()
         {
             // given
-            var fileMock = Utils.CreateFileMock(true, null);
             var toDoItemToAdd = new ToDoItem();
-            var applicationRepository = new XmlFileApplicationRepository(s => fileMock.Object);
-            var addToDoItemCommand = new AddToDoItemCommand(toDoItemToAdd, applicationRepository);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>());
+            var addToDoItemCommand = new AddToDoItemCommand(toDoItemToAdd, applicationData);
 
             // when
             addToDoItemCommand.ExecuteAsync().Wait();
 
             // then
-            Assert.IsTrue(applicationRepository.ToDoItems.Contains(toDoItemToAdd));
+            Assert.IsTrue(applicationData.ToDoItems.Contains(toDoItemToAdd));
         }
 
         [Test]
         public void RemoveToDoItem()
         {
             // given
-            var fileMock = Utils.CreateFileMock(true, null);
             var toDoItemToRemove = new ToDoItem();
-            var applicationRepository = new XmlFileApplicationRepository(s => fileMock.Object);
-            applicationRepository.AddItem(toDoItemToRemove);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>());
+            applicationData.ToDoItems.Add(toDoItemToRemove);
             var dialogUtilsMock = Utils.CreateDialogUtilsMock(true, new Mock<IFile>().Object);
-            var removeToDoItemCommand = new RemoveToDoItemCommand(toDoItemToRemove, applicationRepository, dialogUtilsMock.Object);
+            var removeToDoItemCommand = new RemoveToDoItemCommand(toDoItemToRemove, applicationData, dialogUtilsMock.Object);
 
             // when
             removeToDoItemCommand.ExecuteAsync().Wait();
 
             // then
-            Assert.IsFalse(applicationRepository.ToDoItems.Contains(toDoItemToRemove));
+            Assert.IsFalse(applicationData.ToDoItems.Contains(toDoItemToRemove));
         }
 
         [Test]
         public void MoveToDoneListTest()
         {
             // given
-            var fileMock = Utils.CreateFileMock(true, null);
             var toDoItemToMove = new ToDoItem();
-            var applicationRepository = new XmlFileApplicationRepository(s => fileMock.Object);
-            applicationRepository.AddItem(toDoItemToMove);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>());
+            applicationData.ToDoItems.Add(toDoItemToMove);
             var messagesStream = new MessagesStream();
-            var moveToDoneListCommand = new MoveToDoneListCommand(toDoItemToMove, applicationRepository, messagesStream);
+            var moveToDoneListCommand = new MoveToDoneListCommand(toDoItemToMove, applicationData, messagesStream);
             var stream = messagesStream.GetStream();
             var doneRefreshRequested = false;
             stream.Subscribe(
@@ -68,8 +65,8 @@ namespace SimpleChecklist.Tests
             moveToDoneListCommand.ExecuteAsync().Wait();
 
             // then
-            Assert.IsFalse(applicationRepository.ToDoItems.Contains(toDoItemToMove));
-            Assert.IsTrue(applicationRepository.DoneItems.Any(item => item.Description == toDoItemToMove.Description));
+            Assert.IsFalse(applicationData.ToDoItems.Contains(toDoItemToMove));
+            Assert.IsTrue(applicationData.DoneItems.Any(item => item.Description == toDoItemToMove.Description));
             Assert.IsTrue(Utils.WaitFor(() => doneRefreshRequested, 1000));
         }
     }

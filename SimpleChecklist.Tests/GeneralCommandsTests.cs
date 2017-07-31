@@ -2,9 +2,8 @@
 using Moq;
 using NUnit.Framework;
 using SimpleChecklist.Common.Entities;
-using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Core.Commands.General;
-using SimpleChecklist.Core.Repositories.v1_3;
 
 namespace SimpleChecklist.Tests
 {
@@ -12,9 +11,11 @@ namespace SimpleChecklist.Tests
     public class GeneralCommandsTests
     {
         [Test]
-        [TestCase(true, new[] {"todo1", "todo2", "todo3"}, new[] {"newtodo1", "newtodo2"}, new[] {"todo1", "todo2", "todo3", "newtodo2", "newtodo1"})]
+        [TestCase(true, new[] {"todo1", "todo2", "todo3"}, new[] {"newtodo1", "newtodo2"},
+            new[] {"todo1", "todo2", "todo3", "newtodo2", "newtodo1"})]
         [TestCase(true, new string[0], new[] {"newtodo1", "newtodo2"}, new[] {"newtodo2", "newtodo1"})]
-        [TestCase(false, new[] {"todo1", "todo2", "todo3"}, new[] {"newtodo1", "newtodo2"}, new[] {"todo1", "todo2", "todo3"})]
+        [TestCase(false, new[] {"todo1", "todo2", "todo3"}, new[] {"newtodo1", "newtodo2"},
+            new[] {"todo1", "todo2", "todo3"})]
         public void AddTasksFromTestFileTest(bool loadAccepted, string[] toDoItemsDescriptionsInit,
             string[] toDoItemsDescriptionsToAdd, string[] toDoItemsDescriptionsExpected)
         {
@@ -22,29 +23,31 @@ namespace SimpleChecklist.Tests
             var fileMock = Utils.CreateFileMock(true,
                 toDoItemsDescriptionsToAdd.Aggregate(string.Empty, (current, s) => current + s + "\r\n"));
             var dialogUtilsMock = Utils.CreateDialogUtilsMock(loadAccepted, fileMock.Object);
-            var applicationRepository = new XmlFileApplicationRepository(s => new Mock<IFile>().Object);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>());
             foreach (var toDoItemDescription in toDoItemsDescriptionsInit)
             {
-                applicationRepository.AddItem(new ToDoItem {Description = toDoItemDescription});
+                applicationData.ToDoItems.Add(new ToDoItem {Description = toDoItemDescription});
             }
             var addTasksFromTextFileCommand = new AddTasksFromTextFileCommand(dialogUtilsMock.Object,
-                applicationRepository);
+                applicationData);
 
             // when
             addTasksFromTextFileCommand.ExecuteAsync().Wait();
 
             // then
-            for (int i = 0; i < applicationRepository.ToDoItems.Count(); i++)
+            var toDoItems = applicationData.ToDoItems;
+
+            for (int i = 0; i < toDoItems.Count(); i++)
             {
-                Assert.AreEqual(applicationRepository.ToDoItems.ElementAt(i).Description,
+                Assert.AreEqual(toDoItems[i].Description,
                     toDoItemsDescriptionsExpected[i]);
             }
         }
 
         [Test]
-        [TestCase(true, new[] { "todo1", "todo2", "todo3" }, new[] { "done1", "done2" }, 3, 2)]
-        [TestCase(true, new string[0], new[] { "done1" }, 0, 1)]
-        [TestCase(false, new[] { "todo1", "todo2", "todo3" }, new[] { "done1", "done2" }, 0, 0)]
+        [TestCase(true, new[] {"todo1", "todo2", "todo3"}, new[] {"done1", "done2"}, 3, 2)]
+        [TestCase(true, new string[0], new[] {"done1"}, 0, 1)]
+        [TestCase(false, new[] {"todo1", "todo2", "todo3"}, new[] {"done1", "done2"}, 0, 0)]
         public void LoadBackupCommandTest(bool loadAccepted, string[] toDoItemsDescriptions,
             string[] doneItemsDescriptions, int toDoItemsCountExpected, int doneItemsCountExpected)
         {
@@ -52,26 +55,26 @@ namespace SimpleChecklist.Tests
             string backupFileText = Utils.GenerateBackupFile(toDoItemsDescriptions, doneItemsDescriptions);
             var fileMock = Utils.CreateFileMock(true, backupFileText);
             var dialogUtilsMock = Utils.CreateDialogUtilsMock(loadAccepted, fileMock.Object);
-            var applicationRepository = new XmlFileApplicationRepository(s => new Mock<IFile>().Object);
-            var loadBackupCommand = new LoadBackupCommand(dialogUtilsMock.Object, applicationRepository);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>());
+            var loadBackupCommand = new LoadBackupCommand(dialogUtilsMock.Object, applicationData);
 
             // when
             loadBackupCommand.ExecuteAsync().Wait();
 
             // then
-            Assert.AreEqual(toDoItemsCountExpected, applicationRepository.ToDoItems.Count());
-            Assert.AreEqual(doneItemsCountExpected, applicationRepository.DoneItems.Count());
+            Assert.AreEqual(toDoItemsCountExpected, applicationData.ToDoItems.Count());
+            Assert.AreEqual(doneItemsCountExpected, applicationData.DoneItems.Count());
 
-            for (int index = 0; index < applicationRepository.ToDoItems.Count(); index++)
+            for (int index = 0; index < applicationData.ToDoItems.Count; index++)
             {
                 Assert.AreEqual(toDoItemsDescriptions[index],
-                    applicationRepository.ToDoItems.ElementAt(index).Description);
+                    applicationData.ToDoItems[index].Description);
             }
 
-            for (int index = 0; index < applicationRepository.DoneItems.Count(); index++)
+            for (int index = 0; index < applicationData.DoneItems.Count(); index++)
             {
                 Assert.AreEqual(doneItemsDescriptions[index],
-                    applicationRepository.DoneItems.ElementAt(index).Description);
+                    applicationData.DoneItems[index].Description);
             }
         }
     }

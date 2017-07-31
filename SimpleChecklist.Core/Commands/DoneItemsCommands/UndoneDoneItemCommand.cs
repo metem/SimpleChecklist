@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Messages;
 
@@ -7,16 +7,16 @@ namespace SimpleChecklist.Core.Commands.DoneItemsCommands
 {
     public class UndoneDoneItemCommand : ICommand
     {
-        private readonly IDoneItem _item;
-        private readonly IApplicationRepository _applicationRepository;
+        private readonly DoneItem _item;
+        private readonly ApplicationData _appData;
         private readonly IDialogUtils _dialogUtils;
         private readonly MessagesStream _messagesStream;
 
-        public UndoneDoneItemCommand(IDoneItem item, IApplicationRepository applicationRepository,
+        public UndoneDoneItemCommand(DoneItem item, ApplicationData appData,
             IDialogUtils dialogUtils, MessagesStream messagesStream)
         {
             _item = item;
-            _applicationRepository = applicationRepository;
+            _appData = appData;
             _dialogUtils = dialogUtils;
             _messagesStream = messagesStream;
         }
@@ -31,9 +31,8 @@ namespace SimpleChecklist.Core.Commands.DoneItemsCommands
 
             if (accepted)
             {
-
-                _applicationRepository.AddItem((IToDoItem) _item);
-                _applicationRepository.RemoveItem(_item);
+                _appData.ToDoItems.Add(_item);
+                _appData.DoneItems.Remove(_item);
                 _messagesStream.PutToStream(new EventMessage(EventType.DoneListRefreshRequested));
             }
         }

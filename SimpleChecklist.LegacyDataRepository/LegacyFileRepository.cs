@@ -4,53 +4,25 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.LegacyDataRepository.Models.Collections;
 using SimpleChecklist.LegacyDataRepository.Models.Utils;
-using DoneItem = SimpleChecklist.Common.Entities.DoneItem;
-using ToDoItem = SimpleChecklist.Common.Entities.ToDoItem;
 
 namespace SimpleChecklist.LegacyDataRepository
 {
-    public class LegacyFileApplicationRepositoryDecorator : IFileApplicationRepository
+    public class LegacyFileRepository : IRepository
     {
-        private readonly IFileApplicationRepository _inner;
+        private readonly IRepository _inner;
         private readonly Func<string, IFile> _fileUtils;
 
-        public LegacyFileApplicationRepositoryDecorator(IFileApplicationRepository inner, Func<string, IFile> fileUtils)
+        public LegacyFileRepository(IRepository inner, Func<string, IFile> fileUtils)
         {
-            this._inner = inner;
+            _inner = inner;
             _fileUtils = fileUtils;
         }
 
-        public IEnumerable<IToDoItem> ToDoItems => _inner.ToDoItems;
-
-        public IEnumerable<IDoneItem> DoneItems => _inner.DoneItems;
-
-        public int LoadPriority => _inner.LoadPriority;
-        public void AddItem(IToDoItem item)
-        {
-            _inner.AddItem(item);
-        }
-
-        public bool RemoveItem(IToDoItem item)
-        {
-            return _inner.RemoveItem(item);
-        }
-
-        public void AddItem(IDoneItem item)
-        {
-            _inner.AddItem(item);
-        }
-
-        public bool RemoveItem(IDoneItem item)
-        {
-            return _inner.RemoveItem(item);
-        }
-
-        public async Task<ObservableCollection<ToDoItem>> LoadToDoItems()
+        private async Task<ObservableCollection<ToDoItem>> LoadToDoItems()
         {
             try
             {
@@ -104,41 +76,63 @@ namespace SimpleChecklist.LegacyDataRepository
             return new ObservableCollection<DoneItemsGroup>();
         }
 
-        public async Task<bool> LoadFromFileAsync(string fileName)
+        public async Task<IEnumerable<Common.Entities.ToDoItem>> GetToDoItemsAsync()
         {
-            var result = await _inner.LoadFromFileAsync(fileName);
+            var toDoItems = (await _inner.GetToDoItemsAsync())?.ToList() ?? new List<Common.Entities.ToDoItem>();
 
-            var todoItems =
-                new ObservableCollection<IToDoItem>(
-                   (await LoadToDoItems()).Select(Mapper.Map<ToDoItem>));
+            var legacyToDoItems = (await LoadToDoItems()).Select(Mapper.Map<Common.Entities.ToDoItem>);
 
-            var doneItems = (from doneGroup in await LoadDoneItems()
+            toDoItems.AddRange(legacyToDoItems);
+
+            return toDoItems;
+        }
+
+        public async Task<IEnumerable<Common.Entities.DoneItem>> GetDoneItemsAsync()
+        {
+            var doneItems = (await _inner.GetDoneItemsAsync())?.ToList() ?? new List<Common.Entities.DoneItem>();
+
+            var legacyDoneItems = from doneGroup in await LoadDoneItems()
                 from doneItem in doneGroup
-                select Mapper.Map<DoneItem>(doneItem)).Cast<IDoneItem>();
+                select Mapper.Map<Common.Entities.DoneItem>(doneItem);
 
-            foreach (var item in todoItems)
-            {
-                ApplicationData.ToDoItems.Add(item);
-            }
+            doneItems.AddRange(legacyDoneItems);
 
-            foreach (var item in doneItems)
-            {
-                ApplicationData.DoneItems.Add(item);
-            }
-
-            return result;
+            return doneItems;
         }
 
-        public Task<bool> SaveToFileAsync(string fileName)
+        public Task AddItemAsync(Common.Entities.ToDoItem item)
         {
-            return _inner.SaveToFileAsync(fileName);
+            return _inner.AddItemAsync(item);
         }
 
-        public Task<bool> Load(ApplicationData applicationData)
+        public Task<bool> RemoveItemAsync(Common.Entities.ToDoItem item)
         {
-            return _inner.Load(applicationData);
+            return _inner.RemoveItemAsync(item);
         }
 
-        public ApplicationData ApplicationData => _inner.ApplicationData;
+        public Task SetDoneItemsAsync(IEnumerable<Common.Entities.DoneItem> doneItems)
+        {
+            return _inner.SetDoneItemsAsync(doneItems);
+        }
+
+        public Task SetToDoItemsAsync(IEnumerable<Common.Entities.ToDoItem> toDoItems)
+        {
+            return _inner.SetToDoItemsAsync(toDoItems);
+        }
+
+        public Task AddItemAsync(Common.Entities.DoneItem item)
+        {
+            return _inner.AddItemAsync(item);
+        }
+
+        public Task<bool> RemoveItemAsync(Common.Entities.DoneItem item)
+        {
+            return _inner.RemoveItemAsync(item);
+        }
+
+        public Task<bool> SaveChangesAsync()
+        {
+            return _inner.SaveChangesAsync();
+        }
     }
 }

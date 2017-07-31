@@ -3,10 +3,10 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Commands.DoneItemsCommands;
 using SimpleChecklist.Core.Messages;
-using SimpleChecklist.Core.Repositories.v1_3;
 
 namespace SimpleChecklist.Tests
 {
@@ -17,13 +17,12 @@ namespace SimpleChecklist.Tests
         public void RemoveDoneItem()
         {
             // given
-            var fileMock = Utils.CreateFileMock(true, null);
             var doneItemToRemove = new DoneItem();
-            var applicationRepository = new XmlFileApplicationRepository(s => fileMock.Object);
-            applicationRepository.AddItem(doneItemToRemove);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>());
+            applicationData.DoneItems.Add(doneItemToRemove);
             var dialogUtilsMock = Utils.CreateDialogUtilsMock(true, new Mock<IFile>().Object);
             var messagesStream = new MessagesStream();
-            var removeToDoItemCommand = new RemoveDoneItemCommand(doneItemToRemove, applicationRepository, dialogUtilsMock.Object, messagesStream);
+            var removeToDoItemCommand = new RemoveDoneItemCommand(doneItemToRemove, applicationData, dialogUtilsMock.Object, messagesStream);
             var stream = messagesStream.GetStream();
             var doneRefreshRequested = false;
             stream.Subscribe(
@@ -35,7 +34,7 @@ namespace SimpleChecklist.Tests
             removeToDoItemCommand.ExecuteAsync().Wait();
 
             // then
-            Assert.IsFalse(applicationRepository.DoneItems.Contains(doneItemToRemove));
+            Assert.IsFalse(applicationData.DoneItems.Contains(doneItemToRemove));
             Assert.IsTrue(Utils.WaitFor(() => doneRefreshRequested, 1000));
         }
 
@@ -43,13 +42,12 @@ namespace SimpleChecklist.Tests
         public void UndoneDoneItemTest()
         {
             // given
-            var fileMock = Utils.CreateFileMock(true, null);
             var doneItemToUndone = new DoneItem();
-            var applicationRepository = new XmlFileApplicationRepository(s => fileMock.Object);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>());
             var dialogUtilsMock = Utils.CreateDialogUtilsMock(true, new Mock<IFile>().Object);
-            applicationRepository.AddItem(doneItemToUndone);
+            applicationData.DoneItems.Add(doneItemToUndone);
             var messagesStream = new MessagesStream();
-            var undoneDoneItemCommand = new UndoneDoneItemCommand(doneItemToUndone, applicationRepository,
+            var undoneDoneItemCommand = new UndoneDoneItemCommand(doneItemToUndone, applicationData,
                 dialogUtilsMock.Object, messagesStream);
             var stream = messagesStream.GetStream();
             var doneRefreshRequested = false;
@@ -62,8 +60,8 @@ namespace SimpleChecklist.Tests
             undoneDoneItemCommand.ExecuteAsync().Wait();
 
             // then
-            Assert.IsFalse(applicationRepository.DoneItems.Contains(doneItemToUndone));
-            Assert.IsTrue(applicationRepository.ToDoItems.Any(item => item.Description == doneItemToUndone.Description));
+            Assert.IsFalse(applicationData.DoneItems.Contains(doneItemToUndone));
+            Assert.IsTrue(applicationData.ToDoItems.Any(item => item.Description == doneItemToUndone.Description));
             Assert.IsTrue(Utils.WaitFor(() => doneRefreshRequested, 1000));
         }
     }

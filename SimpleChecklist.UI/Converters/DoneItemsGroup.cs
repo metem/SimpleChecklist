@@ -1,11 +1,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 
 namespace SimpleChecklist.UI.Converters
 {
-    public class DoneItemsGroup : ObservableCollection<IDoneItem>
+    public class DoneItemsGroup : ObservableCollection<DoneItem>
     {
         public DateTime? FinishDateTime => Items?.FirstOrDefault()?.FinishDateTime;
 

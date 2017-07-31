@@ -62,7 +62,7 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright © Mateusz Ucher 2016.
+        ///   Looks up a localized string similar to Copyright © Mateusz Ucher 2017.
         /// </summary>
         public static string AboutPageText {
             get {

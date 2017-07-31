@@ -40,7 +40,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppSettingsLegacy.resx</DependentUpon>
     </Compile>
-    <Compile Include="LegacyFileApplicationRepositoryDecorator.cs" />
+    <Compile Include="LegacyFileRepository.cs" />
     <Compile Include="Models\Collections\BackupData.cs" />
     <Compile Include="Models\Collections\DoneItem.cs" />
     <Compile Include="Models\Collections\DoneItemsGroup.cs" />

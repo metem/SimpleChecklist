@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using SimpleChecklist.Common.Entities;
-using SimpleChecklist.Common.Interfaces;
 
 namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 {
@@ -14,9 +13,9 @@ namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
             PortableColor.FromRgb(0, 255, 255)
         };
 
-        private readonly IToDoItem _item;
+        private readonly ToDoItem _item;
 
-        public SwitchToDoItemColorCommand(IToDoItem item)
+        public SwitchToDoItemColorCommand(ToDoItem item)
         {
             _item = item;
         }

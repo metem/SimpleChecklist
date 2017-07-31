@@ -1,23 +1,23 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 
 namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 {
     public class AddToDoItemCommand : ICommand
     {
-        private readonly IToDoItem _item;
-        private readonly IApplicationRepository _applicationRepository;
+        private readonly ToDoItem _item;
+        private readonly ApplicationData _appData;
 
-        public AddToDoItemCommand(IToDoItem item, IApplicationRepository applicationRepository)
+        public AddToDoItemCommand(ToDoItem item, ApplicationData appData)
         {
             _item = item;
-            _applicationRepository = applicationRepository;
+            _appData = appData;
         }
 
-        public async Task ExecuteAsync()
+        public Task ExecuteAsync()
         {
-            _applicationRepository.AddItem(_item);
-            await Task.Yield();
+            _appData.ToDoItems.Add(_item);
+            return Task.FromResult(0);
         }
     }
 }

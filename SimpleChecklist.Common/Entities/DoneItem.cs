@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using SimpleChecklist.Common.Interfaces;
 
 namespace SimpleChecklist.Common.Entities
 {
     [DataContract]
-    public class DoneItem : ToDoItem, IDoneItem
+    public class DoneItem : ToDoItem
     {
         public DoneItem()
         {
             FinishDateTime = DateTime.Now;
         }
 
-        public DoneItem(IToDoItem toDoItem)
+        public DoneItem(ToDoItem toDoItem)
         {
             FinishDateTime = DateTime.Now;
             Description = toDoItem.Description;

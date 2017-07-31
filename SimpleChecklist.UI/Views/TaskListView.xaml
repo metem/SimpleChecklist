@@ -22,7 +22,7 @@
 
   <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
     <BoxView Style="{DynamicResource LineSeparatorStyle}" />
-    <ListView x:Name="ToDoListView" ItemsSource="{Binding ApplicationRepository.ToDoItems}"
+    <ListView x:Name="ToDoListView" ItemsSource="{Binding AppData.ToDoItems}"
               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>

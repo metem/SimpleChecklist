@@ -1,13 +1,10 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 
 namespace SimpleChecklist.LegacyDataRepository.Models.Collections
 {
     public class DoneListObservableCollection
     {
-        private ObservableCollection<DoneItemsGroup> _doneItemsGroups;
-
         public DoneListObservableCollection()
         {
             DoneItemsGroups = new ObservableCollection<DoneItemsGroup>();
@@ -25,14 +22,7 @@ namespace SimpleChecklist.LegacyDataRepository.Models.Collections
             }
         }
 
-        public ObservableCollection<DoneItemsGroup> DoneItemsGroups
-        {
-            get { return _doneItemsGroups; }
-            private set
-            {
-                _doneItemsGroups = value;
-            }
-        }
+        public ObservableCollection<DoneItemsGroup> DoneItemsGroups { get; private set; }
 
         public void Load(ObservableCollection<DoneItemsGroup> data)
         {

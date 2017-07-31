@@ -136,7 +136,7 @@
     <value>Yes</value>
   </data>
   <data name="AboutPageText" xml:space="preserve">
-    <value>Copyright © Mateusz Ucher 2016</value>
+    <value>Copyright © Mateusz Ucher 2017</value>
   </data>
   <data name="LoadTasksFromTextFileButtonText" xml:space="preserve">
     <value>Add tasks from text file...</value>

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using SimpleChecklist.Common.Entities;
-using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Core.Commands.General
@@ -10,12 +9,12 @@ namespace SimpleChecklist.Core.Commands.General
     public class AddTasksFromTextFileCommand : ICommand
     {
         private readonly IDialogUtils _dialogUtils;
-        private readonly IFileApplicationRepository _fileApplicationRepository;
+        private readonly ApplicationData _appData;
 
-        public AddTasksFromTextFileCommand(IDialogUtils dialogUtils, IFileApplicationRepository fileApplicationRepository)
+        public AddTasksFromTextFileCommand(IDialogUtils dialogUtils, ApplicationData appData)
         {
             _dialogUtils = dialogUtils;
-            _fileApplicationRepository = fileApplicationRepository;
+            _appData = appData;
         }
 
         public async Task ExecuteAsync()
@@ -56,7 +55,7 @@ namespace SimpleChecklist.Core.Commands.General
                 var tasksReversed = tasks.Reverse();
                 foreach (var task in tasksReversed)
                 {
-                    _fileApplicationRepository.AddItem(new ToDoItem {Description = task});
+                    _appData.ToDoItems.Add(new ToDoItem {Description = task});
                 }
             }
         }

@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces;
+using SimpleChecklist.Common.Entities;
 
 namespace SimpleChecklist.Core.Commands.General
 {
     class SaveApplicationDataCommand : ICommand
     {
-        private readonly IFileApplicationRepository _fileApplicationRepository;
+        private readonly ApplicationData _appData;
 
-        public SaveApplicationDataCommand(IFileApplicationRepository fileApplicationRepository)
+        public SaveApplicationDataCommand(ApplicationData appData)
         {
-            _fileApplicationRepository = fileApplicationRepository;
+            _appData = appData;
         }
 
         public async Task ExecuteAsync()
         {
-            await _fileApplicationRepository.SaveToFileAsync(AppSettings.ApplicationDataFileName);
+            await _appData.SaveAsync();
         }
     }
 }
