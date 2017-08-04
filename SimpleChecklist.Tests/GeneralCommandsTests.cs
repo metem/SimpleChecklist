@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using SimpleChecklist.Common.Entities;
@@ -20,9 +22,9 @@ namespace SimpleChecklist.Tests
             string[] toDoItemsDescriptionsToAdd, string[] toDoItemsDescriptionsExpected)
         {
             // given
-            var fileMock = Utils.CreateFileMock(true,
+            var fileMock = new FileMock(true,
                 toDoItemsDescriptionsToAdd.Aggregate(string.Empty, (current, s) => current + s + "\r\n"));
-            var dialogUtilsMock = Utils.CreateDialogUtilsMock(loadAccepted, fileMock.Object);
+            var dialogUtilsMock = Utils.CreateDialogUtilsMock(loadAccepted, fileMock, fileMock);
             var applicationData = new ApplicationData(Mock.Of<IRepository>());
             foreach (var toDoItemDescription in toDoItemsDescriptionsInit)
             {
@@ -48,14 +50,27 @@ namespace SimpleChecklist.Tests
         [TestCase(true, new[] {"todo1", "todo2", "todo3"}, new[] {"done1", "done2"}, 3, 2)]
         [TestCase(true, new string[0], new[] {"done1"}, 0, 1)]
         [TestCase(false, new[] {"todo1", "todo2", "todo3"}, new[] {"done1", "done2"}, 0, 0)]
-        public void LoadBackupCommandTest(bool loadAccepted, string[] toDoItemsDescriptions,
+        public void SaveAndLoadBackupCommandTest(bool loadAccepted, string[] toDoItemsDescriptions,
             string[] doneItemsDescriptions, int toDoItemsCountExpected, int doneItemsCountExpected)
         {
-            // given
-            string backupFileText = Utils.GenerateBackupFile(toDoItemsDescriptions, doneItemsDescriptions);
-            var fileMock = Utils.CreateFileMock(true, backupFileText);
-            var dialogUtilsMock = Utils.CreateDialogUtilsMock(loadAccepted, fileMock.Object);
-            var applicationData = new ApplicationData(Mock.Of<IRepository>());
+            //given
+            var fileMock = new FileMock();
+            var dialogUtilsMock = Utils.CreateDialogUtilsMock(loadAccepted, fileMock, fileMock);
+            var applicationData = new ApplicationData(Mock.Of<IRepository>())
+            {
+                ToDoItems =
+                    new ObservableCollection<ToDoItem>(
+                        toDoItemsDescriptions.Select(
+                            doItemsDescription => new ToDoItem() {Description = doItemsDescription})),
+                DoneItems =
+                    new ObservableCollection<DoneItem>(
+                        doneItemsDescriptions.Select(
+                            doItemsDescription => new DoneItem() {Description = doItemsDescription}))
+            };
+
+            var createBackupCommand = new CreateBackupCommand(dialogUtilsMock.Object, applicationData);
+            createBackupCommand.ExecuteAsync().Wait();
+            applicationData = new ApplicationData(Mock.Of<IRepository>());
             var loadBackupCommand = new LoadBackupCommand(dialogUtilsMock.Object, applicationData);
 
             // when

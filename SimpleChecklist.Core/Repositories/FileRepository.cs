@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces;
@@ -29,12 +26,8 @@ namespace SimpleChecklist.Core.Repositories
             if (!file.Exist) return null;
             var serializedData = await file.ReadTextAsync();
 
-            var deserializedUser = new FileData();
-            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(serializedData)))
-            {
-                var ser = new DataContractJsonSerializer(deserializedUser.GetType());
-                deserializedUser = ser.ReadObject(ms) as FileData;
-            }
+            var deserializedUser = Utils.Serializers.JsonSerializer.Deserialize<FileData>(serializedData);
+
             return deserializedUser;
         }
 

@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.Core.Repositories;
 
 namespace SimpleChecklist.Core.Commands.General
 {
@@ -33,7 +36,20 @@ namespace SimpleChecklist.Core.Commands.General
 
             if (accepted)
             {
-                await _appData.LoadAsync(file);
+                var serializedData = string.Empty;
+
+                try
+                {
+                    serializedData = await file.ReadTextAsync();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    await _dialogUtils.DisplayAlertAsync(AppTexts.Error, AppTexts.BackupLoadError, AppTexts.Close);
+                }
+
+                var deserializedUser = Utils.Serializers.JsonSerializer.Deserialize<FileData>(serializedData);
+                _appData.ToDoItems = new ObservableCollection<ToDoItem>(deserializedUser.ToDoItems);
+                _appData.DoneItems = new ObservableCollection<DoneItem>(deserializedUser.DoneItems);
             }
         }
     }

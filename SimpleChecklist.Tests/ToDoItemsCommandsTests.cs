@@ -35,7 +35,7 @@ namespace SimpleChecklist.Tests
             var toDoItemToRemove = new ToDoItem();
             var applicationData = new ApplicationData(Mock.Of<IRepository>());
             applicationData.ToDoItems.Add(toDoItemToRemove);
-            var dialogUtilsMock = Utils.CreateDialogUtilsMock(true, new Mock<IFile>().Object);
+            var dialogUtilsMock = Utils.CreateDialogUtilsMock(true, new Mock<IFile>().Object, new Mock<IFile>().Object);
             var removeToDoItemCommand = new RemoveToDoItemCommand(toDoItemToRemove, applicationData, dialogUtilsMock.Object);
 
             // when

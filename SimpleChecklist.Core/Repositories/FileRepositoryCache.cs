@@ -82,14 +82,8 @@ namespace SimpleChecklist.Core.Repositories
         public async Task<bool> SaveChangesAsync()
         {
             var fileData = new FileData() {ToDoItems = _toDoItems, DoneItems = _doneItems};
-            var dataContractJsonSerializer = new DataContractJsonSerializer(typeof(FileData));
 
-            string serializedData;
-            using (var ms = new MemoryStream())
-            {
-                dataContractJsonSerializer.WriteObject(ms, fileData);
-                serializedData = Encoding.UTF8.GetString(ms.ToArray(), 0, (int) ms.Length);
-            }
+            var serializedData = Utils.Serializers.JsonSerializer.Serialize(fileData);
 
             var file = _fileFunc(AppSettings.ApplicationDataFileName);
 

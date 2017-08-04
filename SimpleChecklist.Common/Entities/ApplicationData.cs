@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using SimpleChecklist.Common.Interfaces;
-using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Common.Entities
 {
@@ -21,7 +20,7 @@ namespace SimpleChecklist.Common.Entities
         public ObservableCollection<DoneItem> DoneItems
         {
             get { return _doneItems; }
-            private set
+            set
             {
                 if (Equals(value, _doneItems)) return;
                 _doneItems = value;
@@ -32,7 +31,7 @@ namespace SimpleChecklist.Common.Entities
         public ObservableCollection<ToDoItem> ToDoItems
         {
             get { return _toDoItems; }
-            private set
+            set
             {
                 if (Equals(value, _toDoItems)) return;
                 _toDoItems = value;
@@ -57,18 +56,6 @@ namespace SimpleChecklist.Common.Entities
             DoneItems = new ObservableCollection<DoneItem>(doneItems);
 
             return toDoItems != null && doneItems != null;
-        }
-
-        public async Task<bool> LoadAsync(IFile file)
-        {
-            //TODO: backup load
-            return true;
-        }
-
-        public async Task<bool> SaveAsync(IFile file)
-        {
-            //TODO: backup save
-            return true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

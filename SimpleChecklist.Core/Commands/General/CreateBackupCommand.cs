@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.Core.Repositories;
 
 namespace SimpleChecklist.Core.Commands.General
 {
@@ -30,7 +31,12 @@ namespace SimpleChecklist.Core.Commands.General
                 return;
             }
 
-            await _appData.SaveAsync(file);
+            var fileData = new FileData { ToDoItems = _appData.ToDoItems, DoneItems = _appData.DoneItems };
+
+            var serializedData = Utils.Serializers.JsonSerializer.Serialize(fileData);
+
+            if (!file.Exist) await file.CreateAsync();
+            await file.SaveTextAsync(serializedData);
         }
     }
 }

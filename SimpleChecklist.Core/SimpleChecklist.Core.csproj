@@ -88,8 +88,7 @@
     <Compile Include="Workflow\MainWorkflow.cs" />
     <Compile Include="Workflow\ShuttingDownWorkflow.cs" />
     <Compile Include="Workflow\WorkflowManager.cs" />
-    <Compile Include="Utils\Serializers\XmlBinarySerializer.cs" />
-    <Compile Include="Utils\Serializers\XmlStringSerializer.cs" />
+    <Compile Include="Utils\Serializers\JsonSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
