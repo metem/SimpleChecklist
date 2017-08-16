@@ -27,6 +27,12 @@ namespace SimpleChecklist.LegacyDataRepository
             try
             {
                 var fileUtils = _fileUtils(AppSettingsLegacy.TaskListFileName);
+
+                if (!fileUtils.Exist)
+                {
+                    return new ObservableCollection<ToDoItem>();
+                }
+
                 var data = await fileUtils.ReadBytesAsync();
 
                 if (data != null)
@@ -54,6 +60,12 @@ namespace SimpleChecklist.LegacyDataRepository
             try
             {
                 var fileUtils = _fileUtils(AppSettingsLegacy.DoneListFileName);
+
+                if (!fileUtils.Exist)
+                {
+                    return new ObservableCollection<DoneItemsGroup>();
+                }
+
                 var data = await fileUtils.ReadBytesAsync();
 
                 if (data != null)

@@ -25,7 +25,7 @@ namespace SimpleChecklist.Core.Commands.General
                         $"{AppSettings.BackupFileName}-{DateTime.Now:yy.MM.dd_HH_mm_ss}",
                         new[] {AppSettings.BackupFileExtension});
 
-            if (file == null)
+            if (string.IsNullOrEmpty(file?.Name))
             {
                 // Cancelled
                 return;

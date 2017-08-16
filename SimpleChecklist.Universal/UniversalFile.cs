@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Universal
@@ -38,12 +39,12 @@ namespace SimpleChecklist.Universal
 
         public async Task<string> ReadTextAsync()
         {
-            return await FileIO.ReadTextAsync(_storageFile);
+            return await FileIO.ReadTextAsync(_storageFile, UnicodeEncoding.Utf8);
         }
 
         public async Task SaveTextAsync(string content)
         {
-            await FileIO.WriteTextAsync(_storageFile, content);
+            await FileIO.WriteTextAsync(_storageFile, content, UnicodeEncoding.Utf8);
         }
 
         public async Task<byte[]> ReadBytesAsync()

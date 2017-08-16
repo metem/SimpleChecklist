@@ -22,7 +22,7 @@ namespace SimpleChecklist.Core.Commands.General
         {
             var file = await _dialogUtils.OpenFileDialogAsync(new[] {AppSettings.BackupFileExtension});
 
-            if (file == null)
+            if (file == null || !file.Exist)
             {
                 // Cancelled
                 return;

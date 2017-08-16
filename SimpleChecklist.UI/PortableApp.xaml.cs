@@ -2,9 +2,11 @@
 using SimpleChecklist.Core.Messages;
 using SimpleChecklist.UI.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace SimpleChecklist.UI
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PortableApp : FormsApplication
     {
         private readonly MessagesStream _messagesStream;

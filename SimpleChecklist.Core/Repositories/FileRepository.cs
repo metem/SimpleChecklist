@@ -23,12 +23,17 @@ namespace SimpleChecklist.Core.Repositories
         {
             var file = _fileFunc(applicationDataFileName);
 
-            if (!file.Exist) return null;
-            var serializedData = await file.ReadTextAsync();
+            try
+            {
+                var serializedData = await file.ReadTextAsync();
 
-            var deserializedUser = Utils.Serializers.JsonSerializer.Deserialize<FileData>(serializedData);
-
-            return deserializedUser;
+                var deserializedUser = Utils.Serializers.JsonSerializer.Deserialize<FileData>(serializedData);
+                return deserializedUser;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<IEnumerable<ToDoItem>> GetToDoItemsAsync()
