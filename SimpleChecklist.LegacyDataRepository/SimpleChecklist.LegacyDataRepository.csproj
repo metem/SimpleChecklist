@@ -13,7 +13,7 @@
     <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0" />
-    <PackageReference Include="Xamarin.Forms" Version="2.3.5.256-pre6" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
   </ItemGroup>
 
   <ItemGroup>

@@ -28,10 +28,6 @@ namespace SimpleChecklist.Universal
         /// </summary>
         public App()
         {
-            WindowsAppInitializer.InitializeAsync(
-                WindowsCollectors.Metadata |
-                WindowsCollectors.Session);
-
             InitializeComponent();
 
             Initialize();

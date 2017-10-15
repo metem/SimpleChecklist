@@ -6,58 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PortableApp.xaml" />
-    <None Remove="Views\AboutView.xaml" />
-    <None Remove="Views\DoneListView.xaml" />
-    <None Remove="Views\MainView.xaml" />
-    <None Remove="Views\OpenFilePickerView.xaml" />
-    <None Remove="Views\SaveFilePickerView.xaml" />
-    <None Remove="Views\SettingsView.xaml" />
-    <None Remove="Views\TabbedView.xaml" />
-    <None Remove="Views\TaskListView.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="PortableApp.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\AboutView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\DoneListView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\OpenFilePickerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SaveFilePickerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\TabbedView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\TaskListView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.1" />
-    <PackageReference Include="Caliburn.Micro.Core" Version="3.1.0" />
-    <PackageReference Include="Caliburn.Micro.Xamarin.Forms" Version="3.1.0" />
-    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
+    <PackageReference Include="Caliburn.Micro.Core" Version="3.2.0" />
+    <PackageReference Include="Caliburn.Micro.Xamarin.Forms" Version="3.2.0" />
+    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.2" />
     <PackageReference Include="System.Reactive" Version="3.1.1" />
-    <PackageReference Include="Xamarin.Forms" Version="2.3.5.256-pre6" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
     <PackageReference Include="xcc" Version="1.0.9" />
   </ItemGroup>
 
