@@ -2,18 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <NeutralLanguage>en</NeutralLanguage>
+    <DebugType>pdbonly</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0" />
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.18342" />
   </ItemGroup>
 
   <ItemGroup>

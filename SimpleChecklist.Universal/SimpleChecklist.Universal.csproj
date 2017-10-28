@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SimpleChecklist.Universal</RootNamespace>
     <AssemblyName>SimpleChecklist.Universal</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>en</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
@@ -19,7 +19,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>F98B3764D0C9CC3CD8F2E1D5B9BC2CAC68FBA220</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>D7551784E8894DEB0320809936AF4B0507B2D3ED</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>SimpleChecklist.Universal_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxPackageDir>C:\Users\mateu\Desktop\ch</AppxPackageDir>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
@@ -161,7 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.6.1</Version>
+      <Version>4.6.2</Version>
     </PackageReference>
     <PackageReference Include="Caliburn.Micro">
       <Version>3.2.0</Version>
@@ -185,7 +185,7 @@
       <Version>3.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>2.4.0.282</Version>
+      <Version>2.4.0.18342</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
