@@ -19,7 +19,7 @@ namespace SimpleChecklist.Common.Entities
 
         public ObservableCollection<DoneItem> DoneItems
         {
-            get { return _doneItems; }
+            get => _doneItems;
             set
             {
                 if (Equals(value, _doneItems)) return;
@@ -30,7 +30,7 @@ namespace SimpleChecklist.Common.Entities
 
         public ObservableCollection<ToDoItem> ToDoItems
         {
-            get { return _toDoItems; }
+            get => _toDoItems;
             set
             {
                 if (Equals(value, _toDoItems)) return;

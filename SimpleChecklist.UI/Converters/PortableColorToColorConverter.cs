@@ -9,8 +9,7 @@ namespace SimpleChecklist.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var portableColor = value as PortableColor;
-            if (portableColor == null) return Color.White;
+            if (!(value is PortableColor portableColor)) return Color.White;
 
             var color = Color.FromRgba(portableColor.R, portableColor.G, portableColor.B, portableColor.A);
 

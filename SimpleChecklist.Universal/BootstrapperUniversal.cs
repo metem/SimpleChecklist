@@ -7,7 +7,7 @@ namespace SimpleChecklist.Universal
     {
         public static IContainer Configure()
         {
-            ContainerBuilder containerBuilder = new ContainerBuilder();
+            var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<SimpleChecklistUIModule>();
 
             containerBuilder.RegisterType<UniversalDialogUtils>().AsImplementedInterfaces();

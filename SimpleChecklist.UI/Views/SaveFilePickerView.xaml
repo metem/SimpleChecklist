@@ -6,8 +6,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
              mc:Ignorable="d"
-             xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Platform.Xamarin.Forms"
              xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
+             xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Xamarin.Forms"
              x:Class="SimpleChecklist.UI.Views.SaveFilePickerView"
              d:DataContext="{d:DesignInstance Type=viewModels:SaveFilePickerViewModel, IsDesignTimeCreatable=False}">
 

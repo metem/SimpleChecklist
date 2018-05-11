@@ -8,10 +8,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Autofac;
 using Caliburn.Micro;
-using Microsoft.ApplicationInsights;
 using SimpleChecklist.Core.Messages;
 using SimpleChecklist.UI.ViewModels;
 using Xamarin.Forms;
+using Frame = Windows.UI.Xaml.Controls.Frame;
 
 namespace SimpleChecklist.Universal
 {
@@ -51,14 +51,13 @@ namespace SimpleChecklist.Universal
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            var rootFrame = Window.Current.Content as Windows.UI.Xaml.Controls.Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Windows.UI.Xaml.Controls.Frame();
+                rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 

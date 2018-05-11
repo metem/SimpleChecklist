@@ -26,7 +26,7 @@ namespace SimpleChecklist.UI.ViewModels
 
         public ObservableCollection<DoneItemsGroup> DoneItemsGroup
         {
-            get { return _doneItemsGroup; }
+            get => _doneItemsGroup;
             private set
             {
                 if (_doneItemsGroup != value)

@@ -10,7 +10,7 @@ namespace SimpleChecklist.UI.ViewModels
     {
         private readonly MessagesStream _messagesStream;
 
-        public ApplicationData AppData { get; private set; }
+        public ApplicationData AppData { get; }
 
         private string _entryText;
 
@@ -46,7 +46,7 @@ namespace SimpleChecklist.UI.ViewModels
 
         public string EntryText
         {
-            get { return _entryText; }
+            get => _entryText;
             set
             {
                 if (value == _entryText) return;

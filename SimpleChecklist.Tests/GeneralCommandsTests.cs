@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -39,7 +38,7 @@ namespace SimpleChecklist.Tests
             // then
             var toDoItems = applicationData.ToDoItems;
 
-            for (int i = 0; i < toDoItems.Count(); i++)
+            for (int i = 0; i < toDoItems.Count; i++)
             {
                 Assert.AreEqual(toDoItems[i].Description,
                     toDoItemsDescriptionsExpected[i]);
@@ -77,8 +76,8 @@ namespace SimpleChecklist.Tests
             loadBackupCommand.ExecuteAsync().Wait();
 
             // then
-            Assert.AreEqual(toDoItemsCountExpected, applicationData.ToDoItems.Count());
-            Assert.AreEqual(doneItemsCountExpected, applicationData.DoneItems.Count());
+            Assert.AreEqual(toDoItemsCountExpected, applicationData.ToDoItems.Count);
+            Assert.AreEqual(doneItemsCountExpected, applicationData.DoneItems.Count);
 
             for (int index = 0; index < applicationData.ToDoItems.Count; index++)
             {
@@ -86,7 +85,7 @@ namespace SimpleChecklist.Tests
                     applicationData.ToDoItems[index].Description);
             }
 
-            for (int index = 0; index < applicationData.DoneItems.Count(); index++)
+            for (int index = 0; index < applicationData.DoneItems.Count; index++)
             {
                 Assert.AreEqual(doneItemsDescriptions[index],
                     applicationData.DoneItems[index].Description);

@@ -25,13 +25,13 @@ namespace SimpleChecklist.Core.Commands.General
                         $"{AppSettings.BackupFileName}-{DateTime.Now:yy.MM.dd_HH_mm_ss}",
                         new[] {AppSettings.BackupFileExtension});
 
-            if (string.IsNullOrEmpty(file?.Name))
+            if (file == null || string.IsNullOrEmpty(file.Name))
             {
                 // Cancelled
                 return;
             }
 
-            var fileData = new FileData { ToDoItems = _appData.ToDoItems, DoneItems = _appData.DoneItems };
+            var fileData = new FileData {ToDoItems = _appData.ToDoItems, DoneItems = _appData.DoneItems};
 
             var serializedData = Utils.Serializers.JsonSerializer.Serialize(fileData);
 

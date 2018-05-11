@@ -26,7 +26,7 @@ namespace SimpleChecklist.Common.Entities
         [DataMember]
         public PortableColor ItemColor
         {
-            get { return _itemColor; }
+            get => _itemColor;
             set
             {
                 if (value.Equals(_itemColor)) return;

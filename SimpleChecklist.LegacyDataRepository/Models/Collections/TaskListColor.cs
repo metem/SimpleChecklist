@@ -26,7 +26,7 @@ namespace SimpleChecklist.LegacyDataRepository.Models.Collections
         [DataMember]
         private int CurrentColorIndex
         {
-            get { return _currentColorIndex; }
+            get => _currentColorIndex;
             set
             {
                 _currentColorIndex = value < Colors.Count ? value : 0;

@@ -1,4 +1,5 @@
-﻿using SimpleChecklist.Droid.Renderers;
+﻿using Android.Content;
+using SimpleChecklist.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -7,6 +8,10 @@ namespace SimpleChecklist.Droid.Renderers
 {
     public class DroidPageRenderer : PageRenderer
     {
+        public DroidPageRenderer(Context context) : base(context)
+        {
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
         {
             base.OnElementChanged(e);

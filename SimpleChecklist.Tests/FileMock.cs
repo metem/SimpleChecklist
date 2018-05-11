@@ -13,8 +13,8 @@ namespace SimpleChecklist.Tests
             TextData = textData;
         }
 
-        public string Name { get; }
-        public string FullName { get; }
+        public string Name => "testFile.dat";
+        public string FullName => "testFile.dat";
         public bool Exist { get; }
 
         public Task CreateAsync()

@@ -5,21 +5,12 @@ namespace SimpleChecklist.LegacyDataRepository.Models.Collections
 {
     public class TaskListObservableCollection
     {
-        private ObservableCollection<ToDoItem> _toDoItems;
-
         public TaskListObservableCollection()
         {
             ToDoItems = new ObservableCollection<ToDoItem>();
         }
 
-        public ObservableCollection<ToDoItem> ToDoItems
-        {
-            get { return _toDoItems; }
-            private set
-            {
-                _toDoItems = value;
-            }
-        }
+        public ObservableCollection<ToDoItem> ToDoItems { get; private set; }
 
         public void Clear()
         {
@@ -39,9 +30,9 @@ namespace SimpleChecklist.LegacyDataRepository.Models.Collections
 
         public void Add(ToDoItem item)
         {
-            var doneItems = _toDoItems.LastOrDefault(doneItem => doneItem.CreationDateTime > item.CreationDateTime);
-            var index = doneItems == null ? 0 : _toDoItems.IndexOf(doneItems) + 1;
-            _toDoItems.Insert(index, item);
+            var doneItems = ToDoItems.LastOrDefault(doneItem => doneItem.CreationDateTime > item.CreationDateTime);
+            var index = doneItems == null ? 0 : ToDoItems.IndexOf(doneItems) + 1;
+            ToDoItems.Insert(index, item);
         }
     }
 }

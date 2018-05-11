@@ -27,7 +27,7 @@ namespace SimpleChecklist.Universal
                 filePicker.FileTypeFilter.Add(allowedFileType);
             }
 
-            var storageFile = await filePicker.PickSingleFileAsync();
+            var storageFile = await filePicker.PickSingleFileAsync().AsTask().ConfigureAwait(false);
             return new UniversalFile(storageFile);
         }
 
@@ -47,7 +47,7 @@ namespace SimpleChecklist.Universal
 
             filePicker.SuggestedFileName = defaultFileName;
 
-            var storageFile = await filePicker.PickSaveFileAsync();
+            var storageFile = await filePicker.PickSaveFileAsync().AsTask().ConfigureAwait(false);
             return new UniversalFile(storageFile);
         }
     }

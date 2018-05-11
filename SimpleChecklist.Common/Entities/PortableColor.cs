@@ -52,8 +52,7 @@ namespace SimpleChecklist.Common.Entities
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            var color = obj as PortableColor;
-            return color != null && Equals(color);
+            return obj is PortableColor color && Equals(color);
         }
 
         public override int GetHashCode()

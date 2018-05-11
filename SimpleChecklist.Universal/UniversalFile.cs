@@ -13,16 +13,17 @@ namespace SimpleChecklist.Universal
 
         public UniversalFile(string fileName)
         {
-            Task.Run(async () => await SetStorageFileAsync(fileName)).Wait();
+            SetStorageFileAsync(fileName).Wait();
             Name = fileName;
         }
 
         private async Task SetStorageFileAsync(string fileName)
         {
-            var storageItem = await ApplicationData.Current.LocalFolder.TryGetItemAsync(fileName);
+            var storageItem = await ApplicationData.Current.LocalFolder.TryGetItemAsync(fileName).AsTask()
+                .ConfigureAwait(false);
             _storageFile = storageItem == null
                 ? null
-                : await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
+                : await ApplicationData.Current.LocalFolder.GetFileAsync(fileName).AsTask().ConfigureAwait(false);
         }
 
         public UniversalFile(IStorageFile storageFile)
@@ -34,57 +35,56 @@ namespace SimpleChecklist.Universal
         public async Task CreateAsync()
         {
             _storageFile =
-                await ApplicationData.Current.LocalFolder.CreateFileAsync(Name, CreationCollisionOption.ReplaceExisting);
+                await ApplicationData.Current.LocalFolder.CreateFileAsync(Name, CreationCollisionOption.ReplaceExisting)
+                    .AsTask().ConfigureAwait(false);
         }
 
         public async Task<string> ReadTextAsync()
         {
-            return await FileIO.ReadTextAsync(_storageFile, UnicodeEncoding.Utf8);
+            return await FileIO.ReadTextAsync(_storageFile, UnicodeEncoding.Utf8).AsTask().ConfigureAwait(false);
         }
 
         public async Task SaveTextAsync(string content)
         {
-            await FileIO.WriteTextAsync(_storageFile, content, UnicodeEncoding.Utf8);
+            await FileIO.WriteTextAsync(_storageFile, content, UnicodeEncoding.Utf8).AsTask().ConfigureAwait(false);
         }
 
         public async Task<byte[]> ReadBytesAsync()
         {
-            var result = await FileIO.ReadBufferAsync(_storageFile);
+            var result = await FileIO.ReadBufferAsync(_storageFile).AsTask().ConfigureAwait(false);
             return result.ToArray();
         }
 
         public async Task SaveBytesAsync(byte[] content)
         {
-            await FileIO.WriteBytesAsync(_storageFile, content);
+            await FileIO.WriteBytesAsync(_storageFile, content).AsTask().ConfigureAwait(false);
         }
 
         public async Task CopyFileAsync(IFile destinationFile)
         {
-            var universalFile = destinationFile as UniversalFile;
-            if (universalFile != null)
+            if (destinationFile is UniversalFile universalFile)
             {
                 if (!universalFile.Exist)
                 {
-                    await universalFile.CreateAsync();
+                    await universalFile.CreateAsync().ConfigureAwait(false);
                 }
 
                 await
                     _storageFile.CopyAsync(await universalFile.GetParentAsync(), destinationFile.Name,
-                        NameCollisionOption.ReplaceExisting);
+                        NameCollisionOption.ReplaceExisting).AsTask().ConfigureAwait(false);
             }
         }
 
         public string Name { get; }
 
-        public string FullName { get; }
+        public string FullName => Name;
 
         public bool Exist => _storageFile != null;
 
         private async Task<IStorageFolder> GetParentAsync()
         {
-            var storageFile = _storageFile as StorageFile;
-            if (storageFile != null)
-                return await storageFile.GetParentAsync();
+            if (_storageFile is StorageFile storageFile)
+                return await storageFile.GetParentAsync().AsTask().ConfigureAwait(false);
 
             return null;
         }

@@ -22,7 +22,7 @@ namespace SimpleChecklist.UI.ViewModels
 
         public bool AddTasksFromTextFileButtonIsEnabled
         {
-            get { return _addTasksFromTextFileButtonIsEnabled; }
+            get => _addTasksFromTextFileButtonIsEnabled;
             set
             {
                 if (value == _addTasksFromTextFileButtonIsEnabled) return;
@@ -33,7 +33,7 @@ namespace SimpleChecklist.UI.ViewModels
 
         public bool CreateBackupButtonIsEnabled
         {
-            get { return _createBackupButtonIsEnabled; }
+            get => _createBackupButtonIsEnabled;
             set
             {
                 if (value == _createBackupButtonIsEnabled) return;
@@ -44,7 +44,7 @@ namespace SimpleChecklist.UI.ViewModels
 
         public bool LoadBackupButtonIsEnabled
         {
-            get { return _loadBackupButtonIsEnabled; }
+            get => _loadBackupButtonIsEnabled;
             set
             {
                 if (value == _loadBackupButtonIsEnabled) return;
