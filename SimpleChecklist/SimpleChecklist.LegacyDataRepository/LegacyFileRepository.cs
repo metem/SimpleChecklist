@@ -15,11 +15,14 @@ namespace SimpleChecklist.LegacyDataRepository
     {
         private readonly IRepository _inner;
         private readonly Func<string, IFile> _fileUtils;
+        private bool useLegacyRepository = false;
 
         public LegacyFileRepository(IRepository inner, Func<string, IFile> fileUtils)
         {
             _inner = inner;
             _fileUtils = fileUtils;
+
+            useLegacyRepository = !_fileUtils(AppSettingsLegacy.ApplicationDataFileName).Exist;
         }
 
         private async Task<ObservableCollection<ToDoItem>> LoadToDoItems()
@@ -38,12 +41,6 @@ namespace SimpleChecklist.LegacyDataRepository
                 if (data != null)
                 {
                     var result = XmlBinarySerializer.Deserialize<ObservableCollection<ToDoItem>>(data);
-
-                    if (result.Any())
-                    {
-                        await fileUtils.SaveBytesAsync(new byte[0]);
-                    }
-
                     return result;
                 }
             }
@@ -71,12 +68,6 @@ namespace SimpleChecklist.LegacyDataRepository
                 if (data != null)
                 {
                     var result = XmlBinarySerializer.Deserialize<ObservableCollection<DoneItemsGroup>>(data);
-
-                    if (result.Any())
-                    {
-                        await fileUtils.SaveBytesAsync(new byte[0]);
-                    }
-
                     return result;
                 }
             }
@@ -92,9 +83,12 @@ namespace SimpleChecklist.LegacyDataRepository
         {
             var toDoItems = (await _inner.GetToDoItemsAsync())?.ToList() ?? new List<Common.Entities.ToDoItem>();
 
-            var legacyToDoItems = (await LoadToDoItems()).Select(Mapper.Map<Common.Entities.ToDoItem>);
+            if (useLegacyRepository)
+            {
+                var legacyToDoItems = (await LoadToDoItems()).Select(Mapper.Map<Common.Entities.ToDoItem>);
 
-            toDoItems.AddRange(legacyToDoItems);
+                toDoItems.AddRange(legacyToDoItems);
+            }
 
             return toDoItems;
         }
@@ -103,11 +97,14 @@ namespace SimpleChecklist.LegacyDataRepository
         {
             var doneItems = (await _inner.GetDoneItemsAsync())?.ToList() ?? new List<Common.Entities.DoneItem>();
 
-            var legacyDoneItems = from doneGroup in await LoadDoneItems()
-                from doneItem in doneGroup
-                select Mapper.Map<Common.Entities.DoneItem>(doneItem);
+            if (useLegacyRepository)
+            {
+                var legacyDoneItems = from doneGroup in await LoadDoneItems()
+                    from doneItem in doneGroup
+                    select Mapper.Map<Common.Entities.DoneItem>(doneItem);
 
-            doneItems.AddRange(legacyDoneItems);
+                doneItems.AddRange(legacyDoneItems);
+            }
 
             return doneItems;
         }

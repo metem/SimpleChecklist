@@ -78,7 +78,18 @@ namespace SimpleChecklist.LegacyDataRepository {
                 return ResourceManager.GetString("BackupFileName", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to appdata.dat.
+        /// </summary>
+        public static string ApplicationDataFileName
+        {
+            get
+            {
+                return ResourceManager.GetString("ApplicationDataFileName", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to HH:mm.
         /// </summary>

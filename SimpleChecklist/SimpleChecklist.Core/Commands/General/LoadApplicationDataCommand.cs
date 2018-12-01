@@ -21,7 +21,9 @@ namespace SimpleChecklist.Core.Commands.General
 
         public async Task ExecuteAsync()
         {
-            if (!_fileFunc(AppSettings.ApplicationDataFileName).Exist)
+            if (!_fileFunc(AppSettings.ApplicationDataFileName).Exist &&
+                !_fileFunc(AppSettings.TaskListFileName).Exist &&
+                !_fileFunc(AppSettings.DoneListFileName).Exist)
             {
                 // Application data file does not exist so it is first run
                 _messagesStream.PutToStream(new EventMessage(EventType.ApplicationDataLoadFinished));

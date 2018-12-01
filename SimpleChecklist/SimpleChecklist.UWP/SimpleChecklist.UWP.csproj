@@ -22,7 +22,7 @@
     <PackageCertificateThumbprint>2EF401C0F4B40E5A1D1CEEF5D98C1B54862AA295</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxPackageDir>D:\Pulpit\sch</AppxPackageDir>
+    <AppxPackageDir>D:\Pulpit\sch_NEW</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
