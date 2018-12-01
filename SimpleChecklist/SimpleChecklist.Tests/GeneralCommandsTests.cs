@@ -5,6 +5,7 @@ using NUnit.Framework;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Core.Commands.General;
+using SimpleChecklist.Core.Messages;
 
 namespace SimpleChecklist.Tests
 {
@@ -70,7 +71,8 @@ namespace SimpleChecklist.Tests
             var createBackupCommand = new CreateBackupCommand(dialogUtilsMock.Object, applicationData);
             createBackupCommand.ExecuteAsync().Wait();
             applicationData = new ApplicationData(Mock.Of<IRepository>());
-            var loadBackupCommand = new LoadBackupCommand(dialogUtilsMock.Object, applicationData);
+            var loadBackupCommand =
+                new LoadBackupCommand(dialogUtilsMock.Object, new MessagesStream(), applicationData);
 
             // when
             loadBackupCommand.ExecuteAsync().Wait();

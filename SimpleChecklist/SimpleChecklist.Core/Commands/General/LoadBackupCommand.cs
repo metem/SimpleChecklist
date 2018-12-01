@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.Core.Messages;
 using SimpleChecklist.Core.Repositories;
 
 namespace SimpleChecklist.Core.Commands.General
@@ -12,9 +13,11 @@ namespace SimpleChecklist.Core.Commands.General
     {
         private readonly IDialogUtils _dialogUtils;
         private readonly ApplicationData _appData;
+        private readonly MessagesStream _messagesStream;
 
-        public LoadBackupCommand(IDialogUtils dialogUtils, ApplicationData appData)
+        public LoadBackupCommand(IDialogUtils dialogUtils, MessagesStream messagesStream, ApplicationData appData)
         {
+            _messagesStream = messagesStream;
             _dialogUtils = dialogUtils;
             _appData = appData;
         }
@@ -51,6 +54,7 @@ namespace SimpleChecklist.Core.Commands.General
                 var deserializedUser = JsonConvert.DeserializeObject<FileData>(serializedData);
                 _appData.ToDoItems = new ObservableCollection<ToDoItem>(deserializedUser.ToDoItems);
                 _appData.DoneItems = new ObservableCollection<DoneItem>(deserializedUser.DoneItems);
+                _messagesStream.PutToStream(new EventMessage(EventType.DoneListRefreshRequested));
             }
         }
     }
