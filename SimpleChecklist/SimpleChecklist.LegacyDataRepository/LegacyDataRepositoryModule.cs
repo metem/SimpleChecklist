@@ -11,9 +11,9 @@ namespace SimpleChecklist.LegacyDataRepository
     {
         private static string HexConverter(Xamarin.Forms.Color c)
         {
-            return "#" + ((int) (c.R * 255)).ToString("X2")
-                       + ((int) (c.G * 255)).ToString("X2")
-                       + ((int) (c.B * 255)).ToString("X2");
+            return "#" + ((int) (c.R * 255)).ToString("X2").ToLower()
+                       + ((int) (c.G * 255)).ToString("X2").ToLower()
+                       + ((int) (c.B * 255)).ToString("X2").ToLower();
         }
 
         protected override void Load(ContainerBuilder builder)
