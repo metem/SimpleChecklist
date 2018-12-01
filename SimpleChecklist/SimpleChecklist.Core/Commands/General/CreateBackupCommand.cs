@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core.Repositories;
@@ -33,7 +34,7 @@ namespace SimpleChecklist.Core.Commands.General
 
             var fileData = new FileData {ToDoItems = _appData.ToDoItems, DoneItems = _appData.DoneItems};
 
-            var serializedData = Utils.Serializers.JsonSerializer.Serialize(fileData);
+            var serializedData = JsonConvert.SerializeObject(fileData);
 
             if (!file.Exist) await file.CreateAsync();
             await file.SaveTextAsync(serializedData);

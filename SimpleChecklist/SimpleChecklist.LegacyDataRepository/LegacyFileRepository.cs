@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
-using SimpleChecklist.LegacyDataRepository.Models.Collections;
 using SimpleChecklist.LegacyDataRepository.Models.Utils;
+using SimpleChecklist.Models.Collections;
 
 namespace SimpleChecklist.LegacyDataRepository
 {
@@ -47,7 +47,7 @@ namespace SimpleChecklist.LegacyDataRepository
                     return result;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // ignored
             }

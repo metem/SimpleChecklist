@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace SimpleChecklist.LegacyDataRepository.Models.Collections
+namespace SimpleChecklist.Models.Collections
 {
     public class TaskListObservableCollection
     {

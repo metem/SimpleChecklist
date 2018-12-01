@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
@@ -27,7 +28,7 @@ namespace SimpleChecklist.Core.Repositories
             {
                 var serializedData = await file.ReadTextAsync();
 
-                var deserializedUser = Utils.Serializers.JsonSerializer.Deserialize<FileData>(serializedData);
+                var deserializedUser = JsonConvert.DeserializeObject<FileData>(serializedData);
                 return deserializedUser;
             }
             catch (Exception)

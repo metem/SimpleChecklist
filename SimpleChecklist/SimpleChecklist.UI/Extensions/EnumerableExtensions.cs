@@ -12,7 +12,7 @@ namespace SimpleChecklist.UI.Extensions
         {
             var result = new ObservableCollection<DoneItemsGroup>();
 
-            foreach (var doneItems in data.GroupBy(item => item.FinishDateTime.Date))
+            foreach (var doneItems in data.GroupBy(item => item.FinishDateTime.ToLocalTime().Date))
             {
                 var doneItemsGroup = new DoneItemsGroup();
                 foreach (var doneItem in doneItems)

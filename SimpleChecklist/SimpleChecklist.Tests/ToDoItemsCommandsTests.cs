@@ -66,7 +66,7 @@ namespace SimpleChecklist.Tests
 
             // then
             Assert.IsFalse(applicationData.ToDoItems.Contains(toDoItemToMove));
-            Assert.IsTrue(applicationData.DoneItems.Any(item => item.Description == toDoItemToMove.Description));
+            Assert.IsTrue(applicationData.DoneItems.Any(item => item.Data == toDoItemToMove.Data));
             Assert.IsTrue(Utils.WaitFor(() => doneRefreshRequested, 1000));
         }
     }

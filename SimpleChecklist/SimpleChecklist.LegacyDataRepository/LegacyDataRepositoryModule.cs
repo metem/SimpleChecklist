@@ -3,7 +3,7 @@ using Autofac;
 using AutoMapper;
 using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
-using SimpleChecklist.LegacyDataRepository.Models.Collections;
+using SimpleChecklist.Models.Collections;
 
 namespace SimpleChecklist.LegacyDataRepository
 {

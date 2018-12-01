@@ -148,6 +148,6 @@
     <value>...</value>
   </data>
   <data name="ApplicationDataFileName" xml:space="preserve">
-    <value>appdata.dat</value>
+    <value>appdata.json</value>
   </data>
 </root>

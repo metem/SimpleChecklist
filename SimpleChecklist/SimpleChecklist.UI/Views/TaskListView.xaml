@@ -57,7 +57,7 @@
                     Grid.Column="1"
                     Text="◆"
                     FontSize="20"
-                    TextColor="{Binding ItemColor, Converter={StaticResource PortableColorToColorConverter}}"
+                    TextColor="{Binding Color, Converter={StaticResource PortableColorToColorConverter}}"
                     Opacity=".5"
                     HorizontalOptions="Start"
                     VerticalOptions="Center">
@@ -71,8 +71,8 @@
                 <Label
                     Grid.Column="2"
                     Style="{DynamicResource ToDoTaskLabelStyle}"
-                    Text="{Binding Description}"
-                    TextColor="{Binding ItemColor, Converter={StaticResource PortableColorToColorConverter}}" />
+                    Text="{Binding Data}"
+                    TextColor="{Binding Color, Converter={StaticResource PortableColorToColorConverter}}" />
 
                 <Image
                     Grid.Column="4"

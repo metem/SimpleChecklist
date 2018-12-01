@@ -73,7 +73,7 @@
                       Style="{DynamicResource DoneTaskLabelStyle}"
                       Grid.Column="3"
                       HorizontalOptions="StartAndExpand"
-                      Text="{Binding Description}" />
+                      Text="{Binding Data}" />
                 </Grid>
 
                 <BoxView Style="{DynamicResource LineSeparatorStyle}" />

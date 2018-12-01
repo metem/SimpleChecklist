@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using SimpleChecklist.Common.Entities;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.Converters
@@ -9,9 +8,9 @@ namespace SimpleChecklist.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is PortableColor portableColor)) return Color.White;
+            if (!(value is string portableColor)) return Color.White;
 
-            var color = Color.FromRgba(portableColor.R, portableColor.G, portableColor.B, portableColor.A);
+            var color = Color.FromHex(portableColor);
 
             return color;
         }

@@ -58,7 +58,7 @@ namespace SimpleChecklist.UI.ViewModels
         public void AddClick()
         {
             if (string.IsNullOrEmpty(EntryText)) return;
-            _messagesStream.PutToStream(new ToDoItemActionMessage(new ToDoItem {Description = EntryText},
+            _messagesStream.PutToStream(new ToDoItemActionMessage(new ToDoItem {Data = EntryText},
                 ToDoItemAction.Add));
             EntryText = string.Empty;
         }

@@ -61,7 +61,7 @@ namespace SimpleChecklist.Tests
 
             // then
             Assert.IsFalse(applicationData.DoneItems.Contains(doneItemToUndone));
-            Assert.IsTrue(applicationData.ToDoItems.Any(item => item.Description == doneItemToUndone.Description));
+            Assert.IsTrue(applicationData.ToDoItems.Any(item => item.Data == doneItemToUndone.Data));
             Assert.IsTrue(Utils.WaitFor(() => doneRefreshRequested, 1000));
         }
     }

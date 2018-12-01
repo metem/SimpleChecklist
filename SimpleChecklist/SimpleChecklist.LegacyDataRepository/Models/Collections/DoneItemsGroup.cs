@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace SimpleChecklist.LegacyDataRepository.Models.Collections
+namespace SimpleChecklist.Models.Collections
 {
     [CollectionDataContract]
     public class DoneItemsGroup : ObservableCollection<DoneItem>

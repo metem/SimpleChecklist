@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
@@ -80,7 +81,7 @@ namespace SimpleChecklist.Core.Repositories
         {
             var fileData = new FileData() {ToDoItems = _toDoItems, DoneItems = _doneItems};
 
-            var serializedData = Utils.Serializers.JsonSerializer.Serialize(fileData);
+            var serializedData = JsonConvert.SerializeObject(fileData);
 
             var file = _fileFunc(AppSettings.ApplicationDataFileName);
 

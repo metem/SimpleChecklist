@@ -55,7 +55,7 @@ namespace SimpleChecklist.Core.Commands.General
                 var tasksReversed = tasks.Reverse();
                 foreach (var task in tasksReversed)
                 {
-                    _appData.ToDoItems.Add(new ToDoItem {Description = task});
+                    _appData.ToDoItems.Add(new ToDoItem {Data = task});
                 }
             }
         }

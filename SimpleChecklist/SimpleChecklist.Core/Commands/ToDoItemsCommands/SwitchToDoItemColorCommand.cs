@@ -5,12 +5,12 @@ namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 {
     internal class SwitchToDoItemColorCommand : ICommand
     {
-        private static readonly PortableColor[] Colors = {
-            PortableColor.FromRgb(255, 255, 255),
-            PortableColor.FromRgb(255, 90, 90),
-            PortableColor.FromRgb(255, 255, 90),
-            PortableColor.FromRgb(90, 255, 90),
-            PortableColor.FromRgb(0, 255, 255)
+        private static readonly string[] Colors = {
+            "#ffffff",
+            "#ff5a5a",
+            "#ffff5a",
+            "#5aff5a",
+            "#00ffff"
         };
 
         private readonly ToDoItem _item;
@@ -24,7 +24,7 @@ namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
         {
             for (int index = 0; index < Colors.Length; index++)
             {
-                if (!Colors[index].Equals(_item.ItemColor)) continue;
+                if (!Colors[index].Equals(_item.Color)) continue;
 
                 var nextColorIndex = index + 1;
                 if (nextColorIndex == Colors.Length)
@@ -32,7 +32,7 @@ namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
                     nextColorIndex = 0;
                 }
 
-                _item.ItemColor = Colors[nextColorIndex];
+                _item.Color = Colors[nextColorIndex];
                 break;
             }
         }

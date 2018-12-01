@@ -7,7 +7,7 @@ namespace SimpleChecklist.UI.Converters
 {
     public class DoneItemsGroup : ObservableCollection<DoneItem>
     {
-        public DateTime? FinishDateTime => Items?.FirstOrDefault()?.FinishDateTime;
+        public DateTime? FinishDateTime => Items?.FirstOrDefault()?.FinishDateTime.ToLocalTime();
 
         public string Title => FinishDateTime?.ToString("d");
 

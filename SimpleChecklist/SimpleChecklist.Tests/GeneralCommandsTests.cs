@@ -27,7 +27,7 @@ namespace SimpleChecklist.Tests
             var applicationData = new ApplicationData(Mock.Of<IRepository>());
             foreach (var toDoItemDescription in toDoItemsDescriptionsInit)
             {
-                applicationData.ToDoItems.Add(new ToDoItem {Description = toDoItemDescription});
+                applicationData.ToDoItems.Add(new ToDoItem {Data = toDoItemDescription});
             }
             var addTasksFromTextFileCommand = new AddTasksFromTextFileCommand(dialogUtilsMock.Object,
                 applicationData);
@@ -40,7 +40,7 @@ namespace SimpleChecklist.Tests
 
             for (int i = 0; i < toDoItems.Count; i++)
             {
-                Assert.AreEqual(toDoItems[i].Description,
+                Assert.AreEqual(toDoItems[i].Data,
                     toDoItemsDescriptionsExpected[i]);
             }
         }
@@ -60,11 +60,11 @@ namespace SimpleChecklist.Tests
                 ToDoItems =
                     new ObservableCollection<ToDoItem>(
                         toDoItemsDescriptions.Select(
-                            doItemsDescription => new ToDoItem() {Description = doItemsDescription})),
+                            doItemsDescription => new ToDoItem() {Data = doItemsDescription})),
                 DoneItems =
                     new ObservableCollection<DoneItem>(
                         doneItemsDescriptions.Select(
-                            doItemsDescription => new DoneItem() {Description = doItemsDescription}))
+                            doItemsDescription => new DoneItem() {Data = doItemsDescription}))
             };
 
             var createBackupCommand = new CreateBackupCommand(dialogUtilsMock.Object, applicationData);
@@ -82,13 +82,13 @@ namespace SimpleChecklist.Tests
             for (int index = 0; index < applicationData.ToDoItems.Count; index++)
             {
                 Assert.AreEqual(toDoItemsDescriptions[index],
-                    applicationData.ToDoItems[index].Description);
+                    applicationData.ToDoItems[index].Data);
             }
 
             for (int index = 0; index < applicationData.DoneItems.Count; index++)
             {
                 Assert.AreEqual(doneItemsDescriptions[index],
-                    applicationData.DoneItems[index].Description);
+                    applicationData.DoneItems[index].Data);
             }
         }
     }

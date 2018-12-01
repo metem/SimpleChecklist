@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace SimpleChecklist.LegacyDataRepository.Models.Collections
+namespace SimpleChecklist.Models.Collections
 {
     [DataContract]
     public class DoneItem : ToDoItem
@@ -22,6 +22,6 @@ namespace SimpleChecklist.LegacyDataRepository.Models.Collections
         [DataMember]
         public DateTime FinishDateTime { get; set; }
 
-        public string FinishTime => FinishDateTime.ToString(AppSettingsLegacy.DoneItemFinishTimeFormat);
+        public string FinishTime => FinishDateTime.ToString(LegacyDataRepository.AppSettingsLegacy.DoneItemFinishTimeFormat);
     }
 }

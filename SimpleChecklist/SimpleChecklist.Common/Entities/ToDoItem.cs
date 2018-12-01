@@ -1,36 +1,34 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 
 namespace SimpleChecklist.Common.Entities
 {
-    [DataContract]
-    [KnownType(typeof(DoneItem))]
     public class ToDoItem : INotifyPropertyChanged
     {
-        private PortableColor _itemColor;
+        private string _color;
 
         public ToDoItem()
         {
-            CreationDateTime = DateTime.Now;
-            _itemColor = PortableColor.FromRgb(255, 255, 255);
+            var utcNow = DateTime.UtcNow;
+            CreationDateTime = new DateTime(utcNow.Year, utcNow.Month, utcNow.Day, utcNow.Hour, utcNow.Minute,
+                utcNow.Second, DateTimeKind.Utc);
+
+            _color = "#ffffff";
         }
 
-        [DataMember]
         public DateTime CreationDateTime { get; set; }
 
-        [DataMember]
-        public string Description { get; set; }
+        public string Data { get; set; }
 
-        [DataMember]
-        public PortableColor ItemColor
+        public string Color
         {
-            get => _itemColor;
+            get => _color;
             set
             {
-                if (value.Equals(_itemColor)) return;
-                _itemColor = value;
+                if (value.Equals(_color)) return;
+                _color = value;
                 OnPropertyChanged();
             }
         }

@@ -1,27 +1,30 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace SimpleChecklist.Common.Entities
 {
-    [DataContract]
     public class DoneItem : ToDoItem
     {
         public DoneItem()
         {
-            FinishDateTime = DateTime.Now;
+            var utcNow = DateTime.UtcNow;
+            FinishDateTime = new DateTime(utcNow.Year, utcNow.Month, utcNow.Day, utcNow.Hour, utcNow.Minute,
+                utcNow.Second, DateTimeKind.Utc);
         }
 
         public DoneItem(ToDoItem toDoItem)
         {
-            FinishDateTime = DateTime.Now;
-            Description = toDoItem.Description;
+            var utcNow = DateTime.UtcNow;
+            FinishDateTime = new DateTime(utcNow.Year, utcNow.Month, utcNow.Day, utcNow.Hour, utcNow.Minute,
+                utcNow.Second, DateTimeKind.Utc);
+            Data = toDoItem.Data;
             CreationDateTime = toDoItem.CreationDateTime;
-            ItemColor = toDoItem.ItemColor;
+            Color = toDoItem.Color;
         }
 
-        [DataMember]
         public DateTime FinishDateTime { get; set; }
 
-        public string FinishTime => FinishDateTime.ToString("HH:mm"); //TODO: configuration provider
+        [JsonIgnore]
+        public string FinishTime => FinishDateTime.ToLocalTime().ToString("HH:mm"); //TODO: configuration provider
     }
 }

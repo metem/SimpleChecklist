@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 
-namespace SimpleChecklist.LegacyDataRepository.Models.Collections
+namespace SimpleChecklist.Models.Collections
 {
     [DataContract]
     public class BackupData
