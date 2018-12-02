@@ -1,0 +1,27 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="DefaultEntry" TargetType="TextBox" >
+        <Setter Property="Background" Value="#70000000"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="SelectionHighlightColor" Value="White"/>
+        <Setter Property="IsTextPredictionEnabled" Value="True"/>
+        <Setter Property="IsSpellCheckEnabled" Value="True"/>
+    </Style>
+
+    <DataTemplate x:Key="MainTabbedPageHeaderTemplate">
+        <TextBlock
+            Text="{Binding Title}"
+            FontSize="30"
+            FontWeight="Medium"/>
+    </DataTemplate>
+
+    <LinearGradientBrush x:Key="MainTabbedPageBackground"  EndPoint="0.5,1" StartPoint="0.5,0">
+        <LinearGradientBrush.Transform>
+            <RotateTransform Angle="45"/>
+        </LinearGradientBrush.Transform>
+        <GradientStop Color="#1A5EA7" Offset="0" />
+        <GradientStop Color="#0C1356" Offset="1" />
+    </LinearGradientBrush>
+</ResourceDictionary>
