@@ -8,10 +8,13 @@ namespace SimpleChecklist.Core.Messages
 
         public ToDoItemAction Action { get; }
 
-        public ToDoItemActionMessage(ToDoItem toDoItem, ToDoItemAction action)
+        public string NewData { get; set; }
+
+        public ToDoItemActionMessage(ToDoItem toDoItem, ToDoItemAction action, string newData = null)
         {
             ToDoItem = toDoItem;
             Action = action;
+            NewData = newData;
         }
     }
 }

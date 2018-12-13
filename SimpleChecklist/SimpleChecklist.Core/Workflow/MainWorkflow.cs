@@ -19,6 +19,7 @@ namespace SimpleChecklist.Core.Workflow
         private readonly Func<ToDoItem, RemoveToDoItemCommand> _removeToDoItemCommandFunc;
         private readonly Func<ToDoItem, MoveToDoneListCommand> _moveToDoneListCommandFunc;
         private readonly Func<ToDoItem, SwitchToDoItemColorCommand> _switchToDoItemColorCommandFunc;
+        private readonly Func<ToDoItem, string, UpdateToDoItemCommand> _updateToDoItemColorCommandFunc;
         private readonly Func<DoneItem, RemoveDoneItemCommand> _removeDoneItemCommandFunc;
         private readonly Func<DoneItem, UndoneDoneItemCommand> _undoneDoneItemCommandFunc;
         private IDisposable _subscription;
@@ -30,6 +31,7 @@ namespace SimpleChecklist.Core.Workflow
             Func<ToDoItem, RemoveToDoItemCommand> removeToDoItemCommandFunc,
             Func<ToDoItem, MoveToDoneListCommand> moveToDoneListCommandFunc,
             Func<ToDoItem, SwitchToDoItemColorCommand> switchToDoItemColorCommandFunc,
+            Func<ToDoItem, string, UpdateToDoItemCommand> updateToDoItemColorCommandFunc,
             Func<DoneItem, RemoveDoneItemCommand> removeDoneItemCommandFunc,
             Func<DoneItem, UndoneDoneItemCommand> undoneDoneItemCommandFunc)
         {
@@ -42,6 +44,7 @@ namespace SimpleChecklist.Core.Workflow
             _removeToDoItemCommandFunc = removeToDoItemCommandFunc;
             _moveToDoneListCommandFunc = moveToDoneListCommandFunc;
             _switchToDoItemColorCommandFunc = switchToDoItemColorCommandFunc;
+            _updateToDoItemColorCommandFunc = updateToDoItemColorCommandFunc;
             _removeDoneItemCommandFunc = removeDoneItemCommandFunc;
             _undoneDoneItemCommandFunc = undoneDoneItemCommandFunc;
         }
@@ -105,6 +108,9 @@ namespace SimpleChecklist.Core.Workflow
                     break;
                 case ToDoItemAction.SwitchColor:
                     await _switchToDoItemColorCommandFunc(message.ToDoItem).ExecuteAsync();
+                    break;
+                case ToDoItemAction.Update:
+                    await _updateToDoItemColorCommandFunc(message.ToDoItem, message.NewData).ExecuteAsync();
                     break;
             }
         }

@@ -1,53 +1,61 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
-             mc:Ignorable="d"
-             xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
-             xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Xamarin.Forms"
-             x:Class="SimpleChecklist.UI.Views.SaveFilePickerView"
-             d:DataContext="{d:DesignInstance Type=viewModels:SaveFilePickerViewModel, IsDesignTimeCreatable=False}">
+<ContentPage
+    x:Class="SimpleChecklist.UI.Views.SaveFilePickerView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Xamarin.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
+    d:DataContext="{d:DesignInstance Type=viewModels:SaveFilePickerViewModel,
+                                     IsDesignTimeCreatable=False}"
+    mc:Ignorable="d">
 
 
-  <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-    <ListView ItemsSource="{Binding FilesList}" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand"
-              ItemTapped="OnItemTapped">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <ViewCell.View>
-              <Label Style="{DynamicResource SaveFilePickerLabelStyle}" Text="{Binding Value}" />
-            </ViewCell.View>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-    <BoxView Style="{DynamicResource LineSeparatorStyle}" />
-    <Grid
-        HeightRequest="40"
-        VerticalOptions="End"
-        HorizontalOptions="FillAndExpand">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="Auto" />
-      </Grid.ColumnDefinitions>
-      <Entry
-          Grid.Column="0"
-          HorizontalOptions="FillAndExpand"
-          VerticalOptions="CenterAndExpand"
-          Text="{Binding FileName, Mode=TwoWay}"
-          Completed="SaveEntryOnCompleted" />
-      <Button
-          Grid.Column="1"
-          Style="{DynamicResource DefaultButtonStyle}"
-          Text="{x:Static core:AppTexts.SaveButtonText}"
-          HorizontalOptions="End"
-          HeightRequest="36"
-          VerticalOptions="CenterAndExpand"
-          forms:Message.Attach="SaveClick" />
-    </Grid>
-  </StackLayout>
+    <StackLayout
+        x:Name="ParentContext"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <ListView
+            HorizontalOptions="FillAndExpand"
+            ItemTapped="OnItemTapped"
+            ItemsSource="{Binding FilesList}"
+            VerticalOptions="StartAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Label Style="{DynamicResource SaveFilePickerLabelStyle}" Text="{Binding Value}" />
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+        <Grid
+            HeightRequest="40"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Entry
+                Grid.Column="0"
+                Completed="SaveEntryOnCompleted"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding FileName, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand" />
+            <Button
+                Grid.Column="1"
+                forms:Message.Attach="SaveClick"
+                HeightRequest="36"
+                HorizontalOptions="End"
+                Style="{DynamicResource DefaultButtonStyle}"
+                Text="{x:Static core:AppTexts.SaveButtonText}"
+                VerticalOptions="CenterAndExpand" />
+        </Grid>
+    </StackLayout>
 </ContentPage>

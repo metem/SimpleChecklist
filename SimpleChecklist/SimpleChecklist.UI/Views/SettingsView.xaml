@@ -1,38 +1,43 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
-             mc:Ignorable="d"
-             xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
-             x:Class="SimpleChecklist.UI.Views.SettingsView"
-             Title="{x:Static core:AppTexts.SettingsPageTitle}"
-             BindingContext="{Binding SettingsViewModel}"
-             d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel, IsDesignTimeCreatable=False}">
+<ContentPage
+    x:Class="SimpleChecklist.UI.Views.SettingsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
+    Title="{x:Static core:AppTexts.SettingsPageTitle}"
+    d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel,
+                                     IsDesignTimeCreatable=False}"
+    BindingContext="{Binding SettingsViewModel}"
+    mc:Ignorable="d">
 
-  <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-    <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+    <StackLayout
+        x:Name="ParentContext"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
-    <Button
-        Style="{DynamicResource SettingsButtonStyle}"
-        Text="{x:Static core:AppTexts.LoadTasksFromTextFileButtonText}"
-        IsEnabled="{Binding AddTasksFromTextFileButtonIsEnabled}"
-        Command="{Binding AddTasksFromTextFileClickCommand}" />
+        <Button
+            Command="{Binding AddTasksFromTextFileClickCommand}"
+            IsEnabled="{Binding AddTasksFromTextFileButtonIsEnabled}"
+            Style="{DynamicResource SettingsButtonStyle}"
+            Text="{x:Static core:AppTexts.LoadTasksFromTextFileButtonText}" />
 
-    <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
-    <Button
-        Style="{DynamicResource SettingsButtonStyle}"
-        Text="{x:Static core:AppTexts.CreateBackupButtonText}"
-        IsEnabled="{Binding CreateBackupButtonIsEnabled}"
-        Command="{Binding CreateBackupClickCommand}" />
+        <Button
+            Command="{Binding CreateBackupClickCommand}"
+            IsEnabled="{Binding CreateBackupButtonIsEnabled}"
+            Style="{DynamicResource SettingsButtonStyle}"
+            Text="{x:Static core:AppTexts.CreateBackupButtonText}" />
 
-    <Button
-        Style="{DynamicResource SettingsButtonStyle}"
-        Text="{x:Static core:AppTexts.LoadBackupButtonText}"
-        IsEnabled="{Binding LoadBackupButtonIsEnabled}"
-        Command="{Binding LoadBackupClickCommand}" />
-  </StackLayout>
+        <Button
+            Command="{Binding LoadBackupClickCommand}"
+            IsEnabled="{Binding LoadBackupButtonIsEnabled}"
+            Style="{DynamicResource SettingsButtonStyle}"
+            Text="{x:Static core:AppTexts.LoadBackupButtonText}" />
+    </StackLayout>
 </ContentPage>
