@@ -40,21 +40,18 @@ namespace SimpleChecklist.Core.Commands.General
 
             if (accepted)
             {
-                var serializedData = string.Empty;
-
                 try
                 {
-                    serializedData = await file.ReadTextAsync();
+                    var serializedData = await file.ReadTextAsync();
+                    var deserializedUser = JsonConvert.DeserializeObject<FileData>(serializedData);
+                    _appData.ToDoItems = new ObservableCollection<ToDoItem>(deserializedUser.ToDoItems);
+                    _appData.DoneItems = new ObservableCollection<DoneItem>(deserializedUser.DoneItems);
+                    _messagesStream.PutToStream(new EventMessage(EventType.DoneListRefreshRequested));
                 }
-                catch (ArgumentOutOfRangeException)
+                catch (Exception)
                 {
                     await _dialogUtils.DisplayAlertAsync(AppTexts.Error, AppTexts.BackupLoadError, AppTexts.Close);
                 }
-
-                var deserializedUser = JsonConvert.DeserializeObject<FileData>(serializedData);
-                _appData.ToDoItems = new ObservableCollection<ToDoItem>(deserializedUser.ToDoItems);
-                _appData.DoneItems = new ObservableCollection<DoneItem>(deserializedUser.DoneItems);
-                _messagesStream.PutToStream(new EventMessage(EventType.DoneListRefreshRequested));
             }
         }
     }
