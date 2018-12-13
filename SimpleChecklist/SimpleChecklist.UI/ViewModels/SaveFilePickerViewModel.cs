@@ -101,7 +101,7 @@ namespace SimpleChecklist.UI.ViewModels
                 foreach (var keyValuePair in filesList)
                     FilesList.Add(keyValuePair);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // ignored
             }
