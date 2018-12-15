@@ -26,6 +26,12 @@
             Style="{DynamicResource SettingsButtonStyle}"
             Text="{x:Static core:AppTexts.LoadTasksFromTextFileButtonText}" />
 
+        <Button
+            Command="{Binding SaveTasksToTextFileClickCommand}"
+            IsEnabled="{Binding SaveTasksToTextFileButtonIsEnabled}"
+            Style="{DynamicResource SettingsButtonStyle}"
+            Text="{x:Static core:AppTexts.SaveTasksToTextFileButtonText}" />
+
         <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
         <Button
@@ -39,5 +45,12 @@
             IsEnabled="{Binding LoadBackupButtonIsEnabled}"
             Style="{DynamicResource SettingsButtonStyle}"
             Text="{x:Static core:AppTexts.LoadBackupButtonText}" />
+
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+
+        <StackLayout Orientation="Horizontal">
+            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Style="{DynamicResource DefaultLabelStyle}" Margin="10,0" Text="{x:Static core:AppTexts.InvertedToDoList}"></Label>
+            <Switch IsToggled="{Binding InvertedToDoList, Mode=TwoWay}"></Switch>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

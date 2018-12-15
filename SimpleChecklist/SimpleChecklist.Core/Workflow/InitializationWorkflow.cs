@@ -14,17 +14,20 @@ namespace SimpleChecklist.Core.Workflow
             _askUserIfContinueAfterInitializationFailureCommand;
 
         private readonly CreateApplicationDataBackupCommand _createApplicationDataBackupCommand;
+        private readonly InvertListOrderCommand _invertListOrderCommand;
         private IDisposable _subscription;
 
         public InitializationWorkflow(MessagesStream messagesStream,
             LoadApplicationDataCommand loadApplicationDataCommand,
             AskUserIfContinueAfterInitializationFailureCommand askUserIfContinueAfterInitializationFailureCommand,
-            CreateApplicationDataBackupCommand createApplicationDataBackupCommand)
+            CreateApplicationDataBackupCommand createApplicationDataBackupCommand,
+            InvertListOrderCommand invertListOrderCommand)
         {
             _messagesStream = messagesStream;
             _loadApplicationDataCommand = loadApplicationDataCommand;
             _askUserIfContinueAfterInitializationFailureCommand = askUserIfContinueAfterInitializationFailureCommand;
             _createApplicationDataBackupCommand = createApplicationDataBackupCommand;
+            _invertListOrderCommand = invertListOrderCommand;
         }
 
         public void Dispose()
@@ -48,6 +51,9 @@ namespace SimpleChecklist.Core.Workflow
             {
                 case EventType.Started:
                     await _loadApplicationDataCommand.ExecuteAsync();
+                    break;
+                case EventType.InvertListOrder:
+                    await _invertListOrderCommand.ExecuteAsync();
                     break;
                 case EventType.ApplicationDataLoadError:
                     _messagesStream.PutToStream(new WorkflowFinishedMessage(this, false));

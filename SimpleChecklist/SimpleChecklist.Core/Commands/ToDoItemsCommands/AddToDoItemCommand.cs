@@ -16,7 +16,15 @@ namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 
         public Task ExecuteAsync()
         {
-            _appData.ToDoItems.Add(_item);
+            if (_appData.ToDoListInverted)
+            {
+                _appData.ToDoItems.Insert(0, _item);
+            }
+            else
+            {
+                _appData.ToDoItems.Add(_item);
+            }
+
             return Task.FromResult(0);
         }
     }

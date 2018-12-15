@@ -91,5 +91,20 @@ namespace SimpleChecklist.Core.Repositories
         {
             return _inner.SetToDoItemsAsync(toDoItems);
         }
+
+        public Task SetSettingsAsync(Settings settings)
+        {
+            return _inner.SetSettingsAsync(settings);
+        }
+
+        public async Task<Settings> GetSettingsAsync()
+        {
+            var applicationDataFileName = AppSettings.ApplicationDataFileName;
+
+            if (_fileData == null)
+                _fileData = await LoadFileAsync(applicationDataFileName);
+
+            return _fileData?.Settings ?? new Settings();
+        }
     }
 }

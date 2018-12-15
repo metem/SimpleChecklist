@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using SimpleChecklist.Common.Interfaces;
@@ -11,6 +12,29 @@ namespace SimpleChecklist.Common.Entities
         private readonly IRepository _repository;
         private ObservableCollection<DoneItem> _doneItems = new ObservableCollection<DoneItem>();
         private ObservableCollection<ToDoItem> _toDoItems = new ObservableCollection<ToDoItem>();
+        private Settings _settings = new Settings();
+
+        public Settings Settings
+        {
+            get
+            {
+                return _settings;
+            }
+            private set
+            {
+                if (Equals(value, _settings)) return;
+                _settings = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ToDoListInverted { get; private set; }
+
+        public void InvertToDoListOrder()
+        {
+            ToDoItems = new ObservableCollection<ToDoItem>(ToDoItems.Reverse());
+            ToDoListInverted = !ToDoListInverted;
+        }
 
         public ApplicationData(IRepository repository)
         {
@@ -41,8 +65,16 @@ namespace SimpleChecklist.Common.Entities
 
         public async Task<bool> SaveAsync()
         {
+            if (ToDoListInverted)
+            {
+                ToDoItems = new ObservableCollection<ToDoItem>(ToDoItems.Reverse());
+            }
+
             await _repository.SetToDoItemsAsync(ToDoItems);
             await _repository.SetDoneItemsAsync(DoneItems);
+            var settings = await _repository.GetSettingsAsync();
+            settings.InvertedToDoList = ToDoListInverted;
+            await _repository.SetSettingsAsync(settings);
 
             return await _repository.SaveChangesAsync();
         }
@@ -51,9 +83,12 @@ namespace SimpleChecklist.Common.Entities
         {
             var toDoItems = await _repository.GetToDoItemsAsync();
             var doneItems = await _repository.GetDoneItemsAsync();
+            var settings = await _repository.GetSettingsAsync();
+
 
             ToDoItems = new ObservableCollection<ToDoItem>(toDoItems);
             DoneItems = new ObservableCollection<DoneItem>(doneItems);
+            Settings = settings;
 
             return toDoItems != null && doneItems != null;
         }

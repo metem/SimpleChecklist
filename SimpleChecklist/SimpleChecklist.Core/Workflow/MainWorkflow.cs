@@ -15,6 +15,10 @@ namespace SimpleChecklist.Core.Workflow
         private readonly CreateBackupCommand _createBackupCommand;
         private readonly LoadBackupCommand _loadBackupCommand;
         private readonly AddTasksFromTextFileCommand _addTasksFromTextFileCommand;
+        private readonly InvertListOrderCommand _invertListOrderCommand;
+
+        public SaveTasksToTextFileCommand _saveTasksToTextFileCommand { get; }
+
         private readonly Func<ToDoItem, AddToDoItemCommand> _addToDoItemCommandFunc;
         private readonly Func<ToDoItem, RemoveToDoItemCommand> _removeToDoItemCommandFunc;
         private readonly Func<ToDoItem, MoveToDoneListCommand> _moveToDoneListCommandFunc;
@@ -27,6 +31,8 @@ namespace SimpleChecklist.Core.Workflow
         public MainWorkflow(MessagesStream messagesStream, SaveApplicationDataCommand saveApplicationDataCommand,
             CreateBackupCommand createBackupCommand, LoadBackupCommand loadBackupCommand,
             AddTasksFromTextFileCommand addTasksFromTextFileCommand,
+            SaveTasksToTextFileCommand saveTasksToTextFileCommand,
+            InvertListOrderCommand invertListOrderCommand,
             Func<ToDoItem, AddToDoItemCommand> addToDoItemCommandFunc,
             Func<ToDoItem, RemoveToDoItemCommand> removeToDoItemCommandFunc,
             Func<ToDoItem, MoveToDoneListCommand> moveToDoneListCommandFunc,
@@ -40,6 +46,8 @@ namespace SimpleChecklist.Core.Workflow
             _createBackupCommand = createBackupCommand;
             _loadBackupCommand = loadBackupCommand;
             _addTasksFromTextFileCommand = addTasksFromTextFileCommand;
+            _saveTasksToTextFileCommand = saveTasksToTextFileCommand;
+            _invertListOrderCommand = invertListOrderCommand;
             _addToDoItemCommandFunc = addToDoItemCommandFunc;
             _removeToDoItemCommandFunc = removeToDoItemCommandFunc;
             _moveToDoneListCommandFunc = moveToDoneListCommandFunc;
@@ -89,6 +97,13 @@ namespace SimpleChecklist.Core.Workflow
 
                 case EventType.AddTasksFromTextFile:
                     await _addTasksFromTextFileCommand.ExecuteAsync();
+                    break;
+
+                case EventType.SaveTasksToTextFile:
+                    await _saveTasksToTextFileCommand.ExecuteAsync();
+                    break;
+                case EventType.InvertListOrder:
+                    await _invertListOrderCommand.ExecuteAsync();
                     break;
             }
         }

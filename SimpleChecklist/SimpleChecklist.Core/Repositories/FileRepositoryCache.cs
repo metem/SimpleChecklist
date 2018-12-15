@@ -16,6 +16,7 @@ namespace SimpleChecklist.Core.Repositories
 
         private List<ToDoItem> _toDoItems;
         private List<DoneItem> _doneItems;
+        private Settings _settings;
 
         public FileRepositoryCache(IRepository inner, Func<string,IFile> fileFunc)
         {
@@ -79,7 +80,7 @@ namespace SimpleChecklist.Core.Repositories
 
         public async Task<bool> SaveChangesAsync()
         {
-            var fileData = new FileData() {ToDoItems = _toDoItems, DoneItems = _doneItems};
+            var fileData = new FileData() {ToDoItems = _toDoItems, DoneItems = _doneItems, Settings = _settings};
 
             var serializedData = JsonConvert.SerializeObject(fileData);
 
@@ -88,6 +89,17 @@ namespace SimpleChecklist.Core.Repositories
             if (!file.Exist) await file.CreateAsync();
             await file.SaveTextAsync(serializedData);
             return true;
+        }
+
+        public Task SetSettingsAsync(Settings settings)
+        {
+            _settings = settings;
+            return Task.FromResult(0);
+        }
+
+        public async Task<Settings> GetSettingsAsync()
+        {
+            return _settings ?? (_settings = await _inner.GetSettingsAsync());
         }
     }
 }

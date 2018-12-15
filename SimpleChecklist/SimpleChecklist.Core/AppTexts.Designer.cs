@@ -10,7 +10,6 @@
 
 namespace SimpleChecklist.Core {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -20,7 +19,7 @@ namespace SimpleChecklist.Core {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AppTexts {
@@ -40,7 +39,7 @@ namespace SimpleChecklist.Core {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleChecklist.Core.AppTexts", typeof(AppTexts).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleChecklist.Core.AppTexts", typeof(AppTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,7 +61,7 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright © Mateusz Ucher 2017.
+        ///   Looks up a localized string similar to Copyright © Mateusz Ucher 2018.
         /// </summary>
         public static string AboutPageText {
             get {
@@ -179,6 +178,15 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inverted to do list order:.
+        /// </summary>
+        public static string InvertedToDoList {
+            get {
+                return ResourceManager.GetString("InvertedToDoList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load backup from file....
         /// </summary>
         public static string LoadBackupButtonText {
@@ -249,6 +257,15 @@ namespace SimpleChecklist.Core {
         public static string SaveButtonText {
             get {
                 return ResourceManager.GetString("SaveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save tasks to text file....
+        /// </summary>
+        public static string SaveTasksToTextFileButtonText {
+            get {
+                return ResourceManager.GetString("SaveTasksToTextFileButtonText", resourceCulture);
             }
         }
         

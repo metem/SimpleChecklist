@@ -12,6 +12,8 @@ namespace SimpleChecklist.Core.Messages
         DoneListRefreshRequested,
         LoadBackup,
         CreateBackup,
-        AddTasksFromTextFile
+        AddTasksFromTextFile,
+        SaveTasksToTextFile,
+        InvertListOrder
     }
 }

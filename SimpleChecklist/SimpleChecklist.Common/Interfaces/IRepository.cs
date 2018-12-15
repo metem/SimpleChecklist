@@ -23,5 +23,9 @@ namespace SimpleChecklist.Common.Interfaces
         Task SetDoneItemsAsync(IEnumerable<DoneItem> doneItems);
 
         Task SetToDoItemsAsync(IEnumerable<ToDoItem> toDoItems);
+
+        Task SetSettingsAsync(Settings settings);
+
+        Task<Settings> GetSettingsAsync();
     }
 }

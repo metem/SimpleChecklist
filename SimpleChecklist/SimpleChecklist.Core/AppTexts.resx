@@ -198,4 +198,10 @@ Do you want to stop initialization?</value>
   <data name="FileAlreadyExist" xml:space="preserve">
     <value>A file with the name '{0}' already exists. Do you want to overwrite this file?</value>
   </data>
+  <data name="SaveTasksToTextFileButtonText" xml:space="preserve">
+    <value>Save tasks to text file...</value>
+  </data>
+  <data name="InvertedToDoList" xml:space="preserve">
+    <value>Inverted to do list order:</value>
+  </data>
 </root>

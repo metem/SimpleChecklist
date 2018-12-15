@@ -162,6 +162,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Resources\Icons\BackIcon.png" />
     <Content Include="Resources\Icons\DoneIcon.png" />
+    <Content Include="Resources\Icons\EditIcon.png" />
     <Content Include="Resources\Icons\RemoveIcon.png" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
