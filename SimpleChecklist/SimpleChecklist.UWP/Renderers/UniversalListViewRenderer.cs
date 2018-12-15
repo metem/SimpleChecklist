@@ -17,6 +17,7 @@ namespace SimpleChecklist.Universal.Renderers
             }
             else if (Control is SemanticZoom semanticZoom)
             {
+                semanticZoom.CanChangeViews = false;
                 var listViewControl = semanticZoom.ZoomedInView as ListView;
                 listViewControl.SelectionMode = ListViewSelectionMode.None;
 

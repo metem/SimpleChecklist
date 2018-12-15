@@ -47,9 +47,9 @@
             Text="{x:Static core:AppTexts.LoadBackupButtonText}" />
 
         <BoxView Style="{DynamicResource LineSeparatorStyle}" />
-
+        
         <StackLayout Orientation="Horizontal">
-            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Style="{DynamicResource DefaultLabelStyle}" Margin="10,0" Text="{x:Static core:AppTexts.InvertedToDoList}"></Label>
+            <Button Style="{DynamicResource SettingsButtonStyle}" HorizontalOptions="Start" Text="{x:Static core:AppTexts.InvertedToDoList}"></Button>
             <Switch IsToggled="{Binding InvertedToDoList, Mode=TwoWay}"></Switch>
         </StackLayout>
     </StackLayout>

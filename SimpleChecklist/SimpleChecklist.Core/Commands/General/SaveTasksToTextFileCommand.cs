@@ -27,8 +27,20 @@ namespace SimpleChecklist.Core.Commands.General
                 return;
             }
 
-            var todolist = _appData.ToDoItems.Select(t => t.Data).Aggregate((t1, t2) => t1 + "\r\n" + t2);
-            var donelist = _appData.DoneItems.Select(t => t.Data).Aggregate((t1, t2) => t1 + "\r\n" + t2);
+            string todolist = string.Empty;
+
+            if (_appData.ToDoItems?.Any() == true)
+            {
+                todolist = _appData.ToDoItems.Select(t => t.Data).Aggregate((t1, t2) => t1 + "\r\n" + t2);
+            }
+
+            string donelist = string.Empty;
+
+            if (_appData.DoneItems?.Any() == true)
+            {
+                donelist = _appData.DoneItems.Select(t => t.Data).Aggregate((t1, t2) => t1 + "\r\n" + t2);
+            }
+
             await file.SaveTextAsync("To do:\r\n\r\n" + todolist + "\r\n\r\nDone:\r\n\r\n" + donelist);
         }
     }
