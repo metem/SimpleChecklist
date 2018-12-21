@@ -10,7 +10,6 @@
 
 namespace SimpleChecklist.Core {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -20,7 +19,7 @@ namespace SimpleChecklist.Core {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AppSettings {
@@ -40,7 +39,7 @@ namespace SimpleChecklist.Core {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleChecklist.Core.AppSettings", typeof(AppSettings).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleChecklist.Core.AppSettings", typeof(AppSettings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,7 +61,7 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to appdata.dat.
+        ///   Looks up a localized string similar to appdata.json.
         /// </summary>
         public static string ApplicationDataFileName {
             get {
@@ -143,7 +142,7 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.3.
+        ///   Looks up a localized string similar to 1.4.
         /// </summary>
         public static string VersionNumber {
             get {

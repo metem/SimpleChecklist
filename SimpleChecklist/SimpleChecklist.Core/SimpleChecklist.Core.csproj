@@ -18,4 +18,31 @@
     <ProjectReference Include="..\SimpleChecklist.LegacyDataRepository\SimpleChecklist.LegacyDataRepository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="AppSettings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppSettings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="AppTexts.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppTexts.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="AppSettings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppSettings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="AppTexts.pl-PL.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="AppTexts.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppTexts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

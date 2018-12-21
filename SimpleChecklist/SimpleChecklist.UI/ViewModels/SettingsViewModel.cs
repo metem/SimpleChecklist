@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Caliburn.Micro;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Core.Messages;
 using Xamarin.Forms;
 
@@ -8,16 +9,45 @@ namespace SimpleChecklist.UI.ViewModels
     public class SettingsViewModel : Screen
     {
         private readonly MessagesStream _messagesStream;
+        private readonly ApplicationData _applicationData;
         private bool _addTasksFromTextFileButtonIsEnabled;
+        private bool _saveTasksToTextFileButtonIsEnabled;
         private bool _createBackupButtonIsEnabled;
         private bool _loadBackupButtonIsEnabled;
+        private bool _invertedTodoList;
 
-        public SettingsViewModel(MessagesStream messagesStream)
+        public bool InvertedToDoList
+        {
+            get { return _invertedTodoList; }
+            set
+            {
+                if (_invertedTodoList != value)
+                {
+                    _invertedTodoList = value;
+                    NotifyOfPropertyChange();
+                    _messagesStream.PutToStream(new EventMessage(EventType.InvertListOrder));
+                }
+            }
+        }          
+        
+
+        public SettingsViewModel(MessagesStream messagesStream, ApplicationData applicationData)
         {
             _messagesStream = messagesStream;
+            _applicationData = applicationData;
             AddTasksFromTextFileButtonIsEnabled = true;
+            SaveTasksToTextFileButtonIsEnabled = true;
             LoadBackupButtonIsEnabled = true;
             CreateBackupButtonIsEnabled = true;
+            applicationData.PropertyChanged += ApplicationData_PropertyChanged;            
+        }
+
+        private void ApplicationData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Settings))
+            {
+                InvertedToDoList = _applicationData.Settings.InvertedToDoList;
+            }
         }
 
         public bool AddTasksFromTextFileButtonIsEnabled
@@ -28,6 +58,17 @@ namespace SimpleChecklist.UI.ViewModels
                 if (value == _addTasksFromTextFileButtonIsEnabled) return;
                 _addTasksFromTextFileButtonIsEnabled = value;
                 NotifyOfPropertyChange(() => AddTasksFromTextFileButtonIsEnabled);
+            }
+        }
+
+        public bool SaveTasksToTextFileButtonIsEnabled
+        {
+            get => _saveTasksToTextFileButtonIsEnabled;
+            set
+            {
+                if (value == _saveTasksToTextFileButtonIsEnabled) return;
+                _saveTasksToTextFileButtonIsEnabled = value;
+                NotifyOfPropertyChange(() => SaveTasksToTextFileButtonIsEnabled);
             }
         }
 
@@ -80,6 +121,16 @@ namespace SimpleChecklist.UI.ViewModels
                 AddTasksFromTextFileButtonIsEnabled = false;
                 _messagesStream.PutToStream(new EventMessage(EventType.AddTasksFromTextFile));
                 AddTasksFromTextFileButtonIsEnabled = true;
+            }
+        });
+
+        public ICommand SaveTasksToTextFileClickCommand => new Command(() =>
+        {
+            if (SaveTasksToTextFileButtonIsEnabled)
+            {
+                SaveTasksToTextFileButtonIsEnabled = false;
+                _messagesStream.PutToStream(new EventMessage(EventType.SaveTasksToTextFile));
+                SaveTasksToTextFileButtonIsEnabled = true;
             }
         });
     }

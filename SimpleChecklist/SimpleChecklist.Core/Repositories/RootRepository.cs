@@ -51,5 +51,15 @@ namespace SimpleChecklist.Core.Repositories
         {
             return Task.FromResult(true);
         }
+
+        public Task SetSettingsAsync(Settings settings)
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        public Task<Settings> GetSettingsAsync()
+        {
+            return Task.FromResult<Settings>(new Settings());
+        }
     }
 }
