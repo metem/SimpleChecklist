@@ -192,4 +192,10 @@ Czy chcesz zatrzymać inicjalizację?</value>
   <data name="FileAlreadyExist" xml:space="preserve">
     <value>Plik o nazwie '{0}' już istnieje. Czy chcesz go nadpisać?</value>
   </data>
+  <data name="SaveTasksToTextFileButtonText" xml:space="preserve">
+    <value>Zapisz zadania do pliku tekstowego...</value>
+  </data>
+  <data name="InvertedToDoList" xml:space="preserve">
+    <value>Odwrotna kolejność listy zadań:</value>
+  </data>
 </root>

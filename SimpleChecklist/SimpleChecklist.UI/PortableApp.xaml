@@ -23,6 +23,8 @@
             </Style>
 
             <Style x:Key="DefaultLabelStyle" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="20" />
             </Style>

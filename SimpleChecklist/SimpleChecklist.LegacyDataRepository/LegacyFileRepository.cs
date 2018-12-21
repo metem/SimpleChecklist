@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.LegacyDataRepository.Models.Utils;
@@ -25,7 +26,7 @@ namespace SimpleChecklist.LegacyDataRepository
             useLegacyRepository = !_fileUtils(AppSettingsLegacy.ApplicationDataFileName).Exist;
         }
 
-        private async Task<ObservableCollection<ToDoItem>> LoadToDoItems()
+        private async Task<ObservableCollection<SimpleChecklist.Models.Collections.ToDoItem>> LoadToDoItems()
         {
             try
             {
@@ -33,14 +34,14 @@ namespace SimpleChecklist.LegacyDataRepository
 
                 if (!fileUtils.Exist)
                 {
-                    return new ObservableCollection<ToDoItem>();
+                    return new ObservableCollection<SimpleChecklist.Models.Collections.ToDoItem>();
                 }
 
                 var data = await fileUtils.ReadBytesAsync();
 
                 if (data != null)
                 {
-                    var result = XmlBinarySerializer.Deserialize<ObservableCollection<ToDoItem>>(data);
+                    var result = XmlBinarySerializer.Deserialize<ObservableCollection<SimpleChecklist.Models.Collections.ToDoItem>>(data);
                     return result;
                 }
             }
@@ -49,7 +50,7 @@ namespace SimpleChecklist.LegacyDataRepository
                 // ignored
             }
 
-            return new ObservableCollection<ToDoItem>();
+            return new ObservableCollection<SimpleChecklist.Models.Collections.ToDoItem>();
         }
 
         private async Task<ObservableCollection<DoneItemsGroup>> LoadDoneItems()
@@ -142,6 +143,16 @@ namespace SimpleChecklist.LegacyDataRepository
         public Task<bool> SaveChangesAsync()
         {
             return _inner.SaveChangesAsync();
+        }
+
+        public Task SetSettingsAsync(Settings settings)
+        {
+            return _inner.SetSettingsAsync(settings);
+        }
+
+        public Task<Settings> GetSettingsAsync()
+        {
+            return _inner.GetSettingsAsync();
         }
     }
 }

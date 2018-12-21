@@ -5,6 +5,7 @@ namespace SimpleChecklist.Core.Messages
         Add,
         Remove,
         MoveToDoneList,
-        SwitchColor
+        SwitchColor,
+        Update
     }
 }

@@ -1,60 +1,63 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
-             mc:Ignorable="d"
-             xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
-             x:Class="SimpleChecklist.UI.Views.AboutView"
-             Title="{x:Static core:AppTexts.AboutPageTitle}"
-             BindingContext="{Binding AboutViewModel}"
-             d:DataContext="{d:DesignInstance Type=viewModels:AboutViewModel, IsDesignTimeCreatable=False}">
+<ContentPage
+    x:Class="SimpleChecklist.UI.Views.AboutView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
+    Title="{x:Static core:AppTexts.AboutPageTitle}"
+    d:DataContext="{d:DesignInstance Type=viewModels:AboutViewModel,
+                                     IsDesignTimeCreatable=False}"
+    BindingContext="{Binding AboutViewModel}"
+    mc:Ignorable="d">
 
-  <StackLayout x:Name="ParentContext" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-    <BoxView Style="{DynamicResource LineSeparatorStyle}" />
-    <StackLayout VerticalOptions="CenterAndExpand">
-      <Label
-          Style="{DynamicResource DefaultLabelStyle}"
-          Text="{x:Static core:AppTexts.AboutPageText}"
-          HorizontalOptions="Center" />
+    <StackLayout
+        x:Name="ParentContext"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <BoxView Style="{DynamicResource LineSeparatorStyle}" />
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label
+                HorizontalOptions="Center"
+                Style="{DynamicResource DefaultLabelStyle}"
+                Text="{x:Static core:AppTexts.AboutPageText}" />
 
-      <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-        <Label
-            Style="{DynamicResource DefaultLabelStyle}"
-            Text="{x:Static core:AppTexts.AboutPageVersionText}"
-            HorizontalOptions="Center" />
+            <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="Center"
+                    Style="{DynamicResource DefaultLabelStyle}"
+                    Text="{x:Static core:AppTexts.AboutPageVersionText}" />
 
-        <Label
-            Style="{DynamicResource DefaultLabelStyle}"
-            Text="{x:Static core:AppSettings.VersionNumber}"
-            HorizontalOptions="Center" />
-      </StackLayout>
+                <Label
+                    HorizontalOptions="Center"
+                    Style="{DynamicResource DefaultLabelStyle}"
+                    Text="{x:Static core:AppSettings.VersionNumber}" />
+            </StackLayout>
 
-      <Label
-          Style="{DynamicResource DefaultLabelStyle}"
-          Text="{x:Static core:AppSettings.WebsiteUrl}"
-          HorizontalOptions="Center"
-          Margin="0,50,0,0"
-          FontAttributes="Italic">
-        <Label.GestureRecognizers>
-          <TapGestureRecognizer
-              Command="{Binding Path=BindingContext.UrlClickCommand, Source={x:Reference ParentContext}}"
-              CommandParameter="{Binding}" />
-        </Label.GestureRecognizers>
-      </Label>
+            <Label
+                Margin="0,50,0,0"
+                FontAttributes="Italic"
+                HorizontalOptions="Center"
+                Style="{DynamicResource DefaultLabelStyle}"
+                Text="{x:Static core:AppSettings.WebsiteUrl}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Path=BindingContext.UrlClickCommand, Source={x:Reference ParentContext}}" CommandParameter="{Binding}" />
+                </Label.GestureRecognizers>
+            </Label>
 
-      <Label
-          Style="{DynamicResource DefaultLabelStyle}"
-          Text="{x:Static core:AppTexts.AboutPageTranslatorsText}"
-          HorizontalOptions="StartAndExpand"
-          Margin="0,50,0,0" />
+            <Label
+                Margin="0,50,0,0"
+                HorizontalOptions="StartAndExpand"
+                Style="{DynamicResource DefaultLabelStyle}"
+                Text="{x:Static core:AppTexts.AboutPageTranslatorsText}" />
 
-      <Label
-          Style="{DynamicResource DefaultLabelStyle}"
-          Text="{x:Static core:AppTexts.AboutPageTranslatorsListText}"
-          HorizontalOptions="StartAndExpand" />
+            <Label
+                HorizontalOptions="StartAndExpand"
+                Style="{DynamicResource DefaultLabelStyle}"
+                Text="{x:Static core:AppTexts.AboutPageTranslatorsListText}" />
+        </StackLayout>
     </StackLayout>
-  </StackLayout>
 </ContentPage>

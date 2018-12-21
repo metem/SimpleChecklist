@@ -8,6 +8,7 @@ namespace SimpleChecklist.Common.Entities
     public class ToDoItem : INotifyPropertyChanged
     {
         private string _color;
+        private string _data;
 
         public ToDoItem()
         {
@@ -20,7 +21,16 @@ namespace SimpleChecklist.Common.Entities
 
         public DateTime CreationDateTime { get; set; }
 
-        public string Data { get; set; }
+        public string Data
+        {
+            get => _data;
+            set
+            {
+                if (value.Equals(_data)) return;
+                _data = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Color
         {

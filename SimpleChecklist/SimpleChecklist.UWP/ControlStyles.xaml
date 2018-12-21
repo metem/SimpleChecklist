@@ -5,7 +5,7 @@
     <Style x:Key="DefaultEntry" TargetType="TextBox" >
         <Setter Property="Background" Value="#70000000"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="SelectionHighlightColor" Value="White"/>
+        <Setter Property="SelectionHighlightColor" Value="Black"/>
         <Setter Property="IsTextPredictionEnabled" Value="True"/>
         <Setter Property="IsSpellCheckEnabled" Value="True"/>
     </Style>
@@ -15,6 +15,13 @@
             Text="{Binding Title}"
             FontSize="30"
             FontWeight="Medium"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="GridViewItemTemplate">
+        <TextBlock
+            Text="{Binding}"
+            FontSize="30"
+            FontWeight="Light"/>
     </DataTemplate>
 
     <LinearGradientBrush x:Key="MainTabbedPageBackground"  EndPoint="0.5,1" StartPoint="0.5,0">

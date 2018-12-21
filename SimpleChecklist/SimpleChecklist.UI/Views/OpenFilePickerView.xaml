@@ -1,37 +1,43 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
-             mc:Ignorable="d"
-             xmlns:converters="clr-namespace:SimpleChecklist.UI.Converters;assembly=SimpleChecklist.UI"
-             x:Class="SimpleChecklist.UI.Views.OpenFilePickerView"
-             d:DataContext="{d:DesignInstance Type=viewModels:OpenFilePickerViewModel, IsDesignTimeCreatable=False}">
+<ContentPage
+    x:Class="SimpleChecklist.UI.Views.OpenFilePickerView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:SimpleChecklist.UI.Converters;assembly=SimpleChecklist.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
+    d:DataContext="{d:DesignInstance Type=viewModels:OpenFilePickerViewModel,
+                                     IsDesignTimeCreatable=False}"
+    mc:Ignorable="d">
 
 
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <converters:FileTypeToColorConverter x:Key="FileTypeToColorConverter" />
-    </ResourceDictionary>
-  </ContentPage.Resources>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FileTypeToColorConverter x:Key="FileTypeToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-  <ListView x:Name="ParentContext" ItemsSource="{Binding FilesList}" VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand" ItemTapped="OnItemTapped">
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <ViewCell.View>
-            <Label
-                Text="{Binding Value}"
-                FontSize="20"
-                HorizontalOptions="Start"
-                VerticalOptions="CenterAndExpand"
-                TextColor="{Binding Key, Converter={StaticResource FileTypeToColorConverter}}" />
-          </ViewCell.View>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
+    <ListView
+        x:Name="ParentContext"
+        HorizontalOptions="FillAndExpand"
+        ItemTapped="OnItemTapped"
+        ItemsSource="{Binding FilesList}"
+        VerticalOptions="FillAndExpand">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <ViewCell.View>
+                        <Label
+                            FontSize="20"
+                            HorizontalOptions="Start"
+                            Text="{Binding Value}"
+                            TextColor="{Binding Key, Converter={StaticResource FileTypeToColorConverter}}"
+                            VerticalOptions="CenterAndExpand" />
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>

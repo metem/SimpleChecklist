@@ -3,28 +3,21 @@ using SimpleChecklist.Common.Entities;
 
 namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
 {
-    public class AddToDoItemCommand : ICommand
+    public class UpdateToDoItemCommand : ICommand
     {
         private readonly ToDoItem _item;
         private readonly ApplicationData _appData;
+        protected internal string _newData;
 
-        public AddToDoItemCommand(ToDoItem item, ApplicationData appData)
+        public UpdateToDoItemCommand(ToDoItem item, string newData)
         {
+            _newData = newData;
             _item = item;
-            _appData = appData;
         }
 
         public Task ExecuteAsync()
         {
-            if (_appData.ToDoListInverted)
-            {
-                _appData.ToDoItems.Insert(0, _item);
-            }
-            else
-            {
-                _appData.ToDoItems.Add(_item);
-            }
-
+            _item.Data = _newData;
             return Task.FromResult(0);
         }
     }
