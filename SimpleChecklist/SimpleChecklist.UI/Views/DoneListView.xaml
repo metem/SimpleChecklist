@@ -24,7 +24,8 @@
             GroupShortNameBinding="{Binding ShortName}"
             HasUnevenRows="True"
             IsGroupingEnabled="true"
-            ItemsSource="{Binding DoneItemsGroup}">
+            ItemsSource="{Binding DoneItemsGroup}"
+            Margin="0, 0, 0, 10">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -40,7 +41,7 @@
                                         <ColumnDefinition Width="20" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="1" />
+                                        <ColumnDefinition Width="10" />
                                     </Grid.ColumnDefinitions>
 
                                     <Image
