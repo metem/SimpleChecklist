@@ -7,7 +7,6 @@ using SimpleChecklist.Core.Commands;
 using SimpleChecklist.Core.Messages;
 using SimpleChecklist.Core.Repositories;
 using SimpleChecklist.Core.Workflow;
-using SimpleChecklist.LegacyDataRepository;
 
 namespace SimpleChecklist.Core
 {
@@ -15,8 +14,6 @@ namespace SimpleChecklist.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterModule<LegacyDataRepositoryModule>();
-
             builder.RegisterType<WorkflowManager>()
                 .SingleInstance()
                 .AutoActivate();
@@ -31,7 +28,7 @@ namespace SimpleChecklist.Core
 
             builder.RegisterDecorator<IRepository>(
                     (c, repository) => new FileRepositoryCache(repository, c.Resolve<Func<string, IFile>>()),
-                    "legacyFileRepository")
+                    "fileRepository")
                 .SingleInstance();
 
             builder.RegisterType<ApplicationData>().SingleInstance();

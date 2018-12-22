@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimpleChecklist.Common\SimpleChecklist.Common.csproj" />
-    <ProjectReference Include="..\SimpleChecklist.LegacyDataRepository\SimpleChecklist.LegacyDataRepository.csproj" />
   </ItemGroup>
 
   <ItemGroup>
