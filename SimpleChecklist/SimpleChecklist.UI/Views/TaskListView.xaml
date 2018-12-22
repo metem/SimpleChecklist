@@ -49,6 +49,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="10" />
                                 </Grid.ColumnDefinitions>
                                 <Image
                                     Grid.Column="0"
