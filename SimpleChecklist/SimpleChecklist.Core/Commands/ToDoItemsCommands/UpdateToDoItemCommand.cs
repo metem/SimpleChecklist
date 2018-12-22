@@ -6,7 +6,6 @@ namespace SimpleChecklist.Core.Commands.ToDoItemsCommands
     public class UpdateToDoItemCommand : ICommand
     {
         private readonly ToDoItem _item;
-        private readonly ApplicationData _appData;
         protected internal string _newData;
 
         public UpdateToDoItemCommand(ToDoItem item, string newData)
