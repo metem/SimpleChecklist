@@ -86,8 +86,8 @@ namespace SimpleChecklist.Common.Entities
             var settings = await _repository.GetSettingsAsync();
 
 
-            ToDoItems = new ObservableCollection<ToDoItem>(toDoItems);
-            DoneItems = new ObservableCollection<DoneItem>(doneItems);
+            ToDoItems = new ObservableCollection<ToDoItem>(toDoItems ?? new ToDoItem[0]);
+            DoneItems = new ObservableCollection<DoneItem>(doneItems ?? new DoneItem[0]);
             Settings = settings;
 
             return toDoItems != null && doneItems != null;

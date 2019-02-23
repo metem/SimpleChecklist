@@ -26,7 +26,7 @@ namespace SimpleChecklist.Common.Entities
             get => _data;
             set
             {
-                if (value.Equals(_data)) return;
+                if (string.Equals(value, _data)) return;
                 _data = value;
                 OnPropertyChanged();
             }

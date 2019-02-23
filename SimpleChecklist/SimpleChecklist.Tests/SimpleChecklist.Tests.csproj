@@ -15,5 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SimpleChecklist.Common\SimpleChecklist.Common.csproj" />
     <ProjectReference Include="..\SimpleChecklist.Core\SimpleChecklist.Core.csproj" />
+    <ProjectReference Include="..\SimpleChecklist.UI\SimpleChecklist.UI.csproj" />
   </ItemGroup>
 </Project>

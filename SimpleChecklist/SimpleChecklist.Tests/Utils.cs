@@ -9,16 +9,23 @@ namespace SimpleChecklist.Tests
 {
     public static class Utils
     {
-        public static bool WaitFor(Func<bool> condition, int milisecondsTimeout)
+        public static void WaitFor(Func<bool> condition, int milisecondsTimeout)
         {
-            var task = Task.Run(() =>
+            AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+            Task.Run(async () =>
             {
                 while (!condition())
                 {
-                    Thread.Sleep(500);
+                    await Task.Delay(1000);
                 }
+
+                autoResetEvent.Set();
             });
-            return task.Wait(milisecondsTimeout);
+
+            if (!autoResetEvent.WaitOne(milisecondsTimeout))
+            {
+                throw new Exception("Timeout");
+            }
         }
 
         public static Mock<IDialogUtils> CreateDialogUtilsMock(bool dialogResult, IFile openFileDialogResult,

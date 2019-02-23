@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using SimpleChecklist.Common.Entities;
@@ -50,6 +51,11 @@ namespace SimpleChecklist.Core.Commands.General
 
             if (accepted)
             {
+                if (_appData.ToDoItems == null)
+                {
+                    _appData.ToDoItems = new ObservableCollection<ToDoItem>();
+                }
+
                 text = text.Replace("\t", string.Empty).Replace("\r", string.Empty);
                 var tasks = text.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
                 var tasksReversed = tasks.Reverse();

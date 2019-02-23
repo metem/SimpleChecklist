@@ -7,7 +7,7 @@ namespace SimpleChecklist.Tests
     {
         public string TextData { get; private set; }
 
-        public FileMock(bool exist = true, string textData = "")
+        public FileMock(bool exist = true, string textData = "{\"ToDoItems\":[],\"DoneItems\":[]}")
         {
             Exist = exist;
             TextData = textData;
