@@ -55,7 +55,7 @@ namespace SimpleChecklist.Tests
             taskListViewModel.ToDoItems.Add(item);
 
             // when
-            await taskListViewModel.RemoveToDoItem(item);
+            await taskListViewModel.RemoveToDoItemAsync(item);
 
             // then
             Assert.IsFalse(taskListViewModel.ToDoItems.Any());

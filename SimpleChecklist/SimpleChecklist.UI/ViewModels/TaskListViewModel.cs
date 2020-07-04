@@ -115,7 +115,7 @@ namespace SimpleChecklist.UI.ViewModels
             }
         }
 
-        public ICommand RemoveClickCommand => new Command(async item => await RemoveToDoItem((ToDoItem)item));
+        public ICommand RemoveClickCommand => new Command(async item => await RemoveToDoItemAsync((ToDoItem)item));
 
         public ObservableCollection<ToDoItem> ToDoItems
         {
@@ -130,7 +130,7 @@ namespace SimpleChecklist.UI.ViewModels
             }
         }
 
-        public async Task RemoveToDoItem(ToDoItem item)
+        public async Task RemoveToDoItemAsync(ToDoItem item)
         {
             var accepted = await _dialogUtils.DisplayAlertAsync(
                                 AppTexts.Alert,

@@ -4,9 +4,7 @@ using SimpleChecklist.Common;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.UI;
 using SimpleChecklist.UI.Commands;
-using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SimpleChecklist.Tests
@@ -43,25 +41,6 @@ namespace SimpleChecklist.Tests
             var container = builder.Build();
             container.Resolve<LoadApplicationDataCommand>().ExecuteAsync().Wait();
             return container;
-        }
-
-        public static void WaitFor(Func<bool> condition, int milisecondsTimeout)
-        {
-            AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-            Task.Run(async () =>
-            {
-                while (!condition())
-                {
-                    await Task.Delay(1000);
-                }
-
-                autoResetEvent.Set();
-            });
-
-            if (!autoResetEvent.WaitOne(milisecondsTimeout))
-            {
-                throw new Exception("Timeout");
-            }
         }
     }
 }

@@ -4,6 +4,7 @@ using SimpleChecklist.Core;
 using SimpleChecklist.UI.Converters;
 using SimpleChecklist.UI.Extensions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -38,7 +39,11 @@ namespace SimpleChecklist.UI.ViewModels
 
         public List<DoneItemsGroup> DoneItemsGroup => DoneItems.ToDoneItemsGroups();
 
-        public ICommand RemoveClickCommand => new Command(async item =>
+        public ICommand RemoveClickCommand => new Command(async item => await RemoveDoneItemAsync((DoneItem)item));
+
+        public ICommand UndoneClickCommand => new Command(async item => await UndoneItemAsync((DoneItem)item));
+
+        public async Task RemoveDoneItemAsync(DoneItem item)
         {
             var accepted = await _dialogUtils.DisplayAlertAsync(
                 AppTexts.Alert,
@@ -48,25 +53,24 @@ namespace SimpleChecklist.UI.ViewModels
 
             if (accepted)
             {
-                RemoveDoneItem((DoneItem)item);
+                RemoveDoneItem(item);
             }
-        });
+        }
 
-        public ICommand UndoneClickCommand => new Command(async item =>
+        public async Task UndoneItemAsync(DoneItem item)
         {
             var accepted = await _dialogUtils.DisplayAlertAsync(
-                AppTexts.Alert,
-                AppTexts.UndoneTaskConfirmationText,
-                AppTexts.Yes,
-                AppTexts.No);
+                            AppTexts.Alert,
+                            AppTexts.UndoneTaskConfirmationText,
+                            AppTexts.Yes,
+                            AppTexts.No);
 
             if (accepted)
             {
-                var doneItem = (DoneItem)item;
-                RemoveDoneItem(doneItem);
-                _workspace.AddToDoItem(doneItem);
+                RemoveDoneItem(item);
+                _workspace.AddToDoItem(item);
             }
-        });
+        }
 
         private void AddDoneItem(DoneItem item)
         {
