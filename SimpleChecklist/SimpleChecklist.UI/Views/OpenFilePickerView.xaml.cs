@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces.Utils;
+﻿using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.UI.ViewModels;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SimpleChecklist.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    [DesignTimeVisible(false)]
     public partial class OpenFilePickerView : ContentPage
     {
         private readonly IDirectory _directory;
@@ -18,27 +18,27 @@ namespace SimpleChecklist.UI.Views
         public OpenFilePickerView(IDirectory directory, OpenFilePickerViewModel openFilePickerViewModel,
             MainView mainView)
         {
-            InitializeComponent();
-
-            openFilePickerViewModel.FileChoosen += s => _tcs.SetResult(s);
+            openFilePickerViewModel.FileChoosen += (s) => _tcs.SetResult(s);
             _directory = directory;
             _openFilePickerViewModel = openFilePickerViewModel;
             _mainView = mainView;
             BindingContext = openFilePickerViewModel;
+
+            InitializeComponent();
         }
 
         public async Task<string> ShowAsync(IEnumerable<string> allowedFileTypes)
         {
             _openFilePickerViewModel.AllowedFileTypes = allowedFileTypes;
-            _openFilePickerViewModel.ChangeListedDirectory(_directory);
+            await _openFilePickerViewModel.ChangeListedDirectory(_directory);
 
             _tcs = new TaskCompletionSource<string>();
 
-            await _mainView.Navigation.PushAsync(this);
+            await _mainView.Navigation.PushAsync(this, false);
 
             var result = await _tcs.Task;
 
-            await _mainView.Navigation.PopAsync();
+            await _mainView.Navigation.PopToRootAsync(false);
 
             return result;
         }

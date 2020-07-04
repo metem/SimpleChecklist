@@ -4,22 +4,19 @@ namespace SimpleChecklist.Common.Interfaces.Utils
 {
     public interface IFile
     {
-        string Name { get; }
-
-        string FullName { get; }
-
         bool Exist { get; }
+        string FilePath { get; }
+        string NameWithExtension { get; }
+        string NameWithPath { get; }
+
+        Task CopyFileAsync(IFile destinationFile);
 
         Task CreateAsync();
+
+        Task DeleteAsync();
 
         Task<string> ReadTextAsync();
 
         Task SaveTextAsync(string content);
-
-        Task<byte[]> ReadBytesAsync();
-
-        Task SaveBytesAsync(byte[] content);
-
-        Task CopyFileAsync(IFile destinationFile);
     }
 }

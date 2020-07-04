@@ -1,26 +1,18 @@
-﻿using System;
+﻿using Autofac;
+using Moq;
+using SimpleChecklist.Common;
+using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.UI;
+using SimpleChecklist.UI.Commands;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Moq;
-using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Tests
 {
     public static class Utils
     {
-        public static bool WaitFor(Func<bool> condition, int milisecondsTimeout)
-        {
-            var task = Task.Run(() =>
-            {
-                while (!condition())
-                {
-                    Thread.Sleep(500);
-                }
-            });
-            return task.Wait(milisecondsTimeout);
-        }
-
         public static Mock<IDialogUtils> CreateDialogUtilsMock(bool dialogResult, IFile openFileDialogResult,
             IFile saveFileDialogResult)
         {
@@ -36,6 +28,40 @@ namespace SimpleChecklist.Tests
                     utils => utils.SaveFileDialogAsync(It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(Task.Run(() => saveFileDialogResult));
             return dialogUtilsMock;
+        }
+
+        public static IContainer Initialize(bool loadAccepted)
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<SimpleChecklistUIModule>();
+            builder.RegisterInstance(Mock.Of<IAppUtils>()).As<IAppUtils>();
+            builder.Register(cc => CreateDialogUtilsMock(loadAccepted, cc.Resolve<IFile>(), cc.Resolve<IFile>()).Object).As<IDialogUtils>();
+            builder.RegisterType<FileMock>().As<IFile>();
+            builder.RegisterType<FilesContainer>().SingleInstance();
+            builder.RegisterType<DirectoryMock>().As<IDirectoryFilesReader>();
+            builder.RegisterType<MockedDateTimeProvider>().As<IDateTimeProvider>().SingleInstance();
+            var container = builder.Build();
+            container.Resolve<LoadApplicationDataCommand>().ExecuteAsync().Wait();
+            return container;
+        }
+
+        public static void WaitFor(Func<bool> condition, int milisecondsTimeout)
+        {
+            AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+            Task.Run(async () =>
+            {
+                while (!condition())
+                {
+                    await Task.Delay(1000);
+                }
+
+                autoResetEvent.Set();
+            });
+
+            if (!autoResetEvent.WaitOne(milisecondsTimeout))
+            {
+                throw new Exception("Timeout");
+            }
         }
     }
 }

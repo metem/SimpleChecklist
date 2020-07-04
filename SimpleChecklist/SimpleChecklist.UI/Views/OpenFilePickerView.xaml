@@ -4,14 +4,11 @@
     x:Class="SimpleChecklist.UI.Views.OpenFilePickerView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:SimpleChecklist.UI.Converters;assembly=SimpleChecklist.UI"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:converters="clr-namespace:SimpleChecklist.UI.Converters"
+    xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
-    d:DataContext="{d:DesignInstance Type=viewModels:OpenFilePickerViewModel,
-                                     IsDesignTimeCreatable=False}"
     mc:Ignorable="d">
-
 
     <ContentPage.Resources>
         <ResourceDictionary>

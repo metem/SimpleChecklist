@@ -3,4 +3,5 @@
 <NavigationPage
     x:Class="SimpleChecklist.UI.Views.MainView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BarBackgroundColor="#1A5EA7" />

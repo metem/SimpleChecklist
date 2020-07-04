@@ -1,67 +1,83 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Caliburn.Micro;
-using SimpleChecklist.Common.Entities;
-using SimpleChecklist.Core.Messages;
+﻿using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.Core;
 using SimpleChecklist.UI.Converters;
 using SimpleChecklist.UI.Extensions;
+using System.Collections.Generic;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.ViewModels
 {
-    public class DoneListViewModel : Screen
+    public class DoneListViewModel : BaseViewModel
     {
-        private readonly ApplicationData _appData;
-        private readonly MessagesStream _messagesStream;
-        private ObservableCollection<DoneItemsGroup> _doneItemsGroup;
+        private readonly IDialogUtils _dialogUtils;
+        private readonly Workspace _workspace;
 
-        public DoneListViewModel(ApplicationData appData, MessagesStream messagesStream)
+        private List<DoneItem> _doneItems = new List<DoneItem>();
+
+        public DoneListViewModel(IDialogUtils dialogUtils, Workspace workspace)
         {
-            _appData = appData;
-            _messagesStream = messagesStream;
-            var stream = _messagesStream.GetStream();
-            stream.Subscribe(OnNext);
+            _dialogUtils = dialogUtils;
+            _workspace = workspace;
+            _workspace.AddDoneItem += AddDoneItem;
         }
 
-        public ObservableCollection<DoneItemsGroup> DoneItemsGroup
+        public List<DoneItem> DoneItems
         {
-            get => _doneItemsGroup;
-            private set
+            get => _doneItems;
+            set
             {
-                if (_doneItemsGroup != value)
+                if (_doneItems != value)
                 {
-                    _doneItemsGroup = value;
-                    NotifyOfPropertyChange();
+                    _doneItems = value;
+                    OnPropertyChanged(nameof(DoneItemsGroup));
                 }
             }
         }
 
-        public ICommand RemoveClickCommand
-            =>
-                new Command(
-                    item =>
-                    {
-                        _messagesStream.PutToStream(new DoneItemActionMessage((DoneItem) item, DoneItemAction.Remove));
-                    })
-        ;
+        public List<DoneItemsGroup> DoneItemsGroup => DoneItems.ToDoneItemsGroups();
 
-        public ICommand UndoneClickCommand
-            =>
-                new Command(
-                    item =>
-                    {
-                        _messagesStream.PutToStream(new DoneItemActionMessage((DoneItem) item, DoneItemAction.Undone));
-                    })
-        ;
-
-        private void OnNext(IMessage message)
+        public ICommand RemoveClickCommand => new Command(async item =>
         {
-            var eventMessage = message as EventMessage;
-            if (eventMessage?.EventType == EventType.DoneListRefreshRequested)
+            var accepted = await _dialogUtils.DisplayAlertAsync(
+                AppTexts.Alert,
+                AppTexts.RemoveTaskConfirmationText,
+                AppTexts.Yes,
+                AppTexts.No);
+
+            if (accepted)
             {
-                DoneItemsGroup = _appData.DoneItems.ToDoneItemsGroups();
+                RemoveDoneItem((DoneItem)item);
             }
+        });
+
+        public ICommand UndoneClickCommand => new Command(async item =>
+        {
+            var accepted = await _dialogUtils.DisplayAlertAsync(
+                AppTexts.Alert,
+                AppTexts.UndoneTaskConfirmationText,
+                AppTexts.Yes,
+                AppTexts.No);
+
+            if (accepted)
+            {
+                var doneItem = (DoneItem)item;
+                RemoveDoneItem(doneItem);
+                _workspace.AddToDoItem(doneItem);
+            }
+        });
+
+        private void AddDoneItem(DoneItem item)
+        {
+            _doneItems.Add(item);
+            OnPropertyChanged(nameof(DoneItemsGroup));
+        }
+
+        private void RemoveDoneItem(DoneItem item)
+        {
+            _doneItems.Remove(item);
+            OnPropertyChanged(nameof(DoneItemsGroup));
         }
     }
 }

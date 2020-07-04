@@ -1,21 +1,27 @@
+using SimpleChecklist.Common.Interfaces.Utils;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SimpleChecklist.Common.Interfaces.Utils;
+using System.Threading.Tasks;
 
 namespace SimpleChecklist.Droid
 {
-    class DroidDirectory : IDirectory
+    internal class DroidDirectory : IDirectory
     {
         public DroidDirectory(string path)
         {
             Path = path;
         }
 
-        public IEnumerable<IFile> GetFiles()
+        public bool Exist => Directory.Exists(Path);
+
+        public string Name => System.IO.Path.GetFileName(Path);
+
+        public string Path { get; }
+
+        public IDirectory GetChild(string name)
         {
-            var files = Directory.EnumerateFiles(Path);
-            return files.Select(file => new DroidFile(file));
+            return new DroidDirectory(System.IO.Path.Combine(Path, name));
         }
 
         public IEnumerable<IDirectory> GetDirectories()
@@ -24,14 +30,10 @@ namespace SimpleChecklist.Droid
             return directories.Select(directory => new DroidDirectory(directory));
         }
 
-        public string Path { get; }
-
-        public string Name => System.IO.Path.GetFileName(Path);
-
-        public bool Exist => Directory.Exists(Path);
-        public IDirectory GetChild(string name)
+        public Task<IEnumerable<IFile>> GetFilesAsync()
         {
-            return new DroidDirectory(System.IO.Path.Combine(Path, name));
+            var files = Directory.EnumerateFiles(Path);
+            return Task.FromResult(files.Select(file => (IFile)new DroidFile(file)));
         }
 
         public IDirectory GetParent()

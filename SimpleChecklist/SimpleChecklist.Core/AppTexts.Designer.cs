@@ -61,7 +61,7 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright © Mateusz Ucher 2018.
+        ///   Looks up a localized string similar to Copyright © Mateusz Ucher 2020.
         /// </summary>
         public static string AboutPageText {
             get {
@@ -75,24 +75,6 @@ namespace SimpleChecklist.Core {
         public static string AboutPageTitle {
             get {
                 return ResourceManager.GetString("AboutPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mateusz Ucher - English, Polish.
-        /// </summary>
-        public static string AboutPageTranslatorsListText {
-            get {
-                return ResourceManager.GetString("AboutPageTranslatorsListText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translations:.
-        /// </summary>
-        public static string AboutPageTranslatorsText {
-            get {
-                return ResourceManager.GetString("AboutPageTranslatorsText", resourceCulture);
             }
         }
         

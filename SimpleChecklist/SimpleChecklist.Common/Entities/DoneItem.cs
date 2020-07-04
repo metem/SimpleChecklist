@@ -1,22 +1,18 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace SimpleChecklist.Common.Entities
 {
-    public class DoneItem : ToDoItem
+    public class DoneItem : ToDoItem, IEquatable<DoneItem>
     {
         public DoneItem()
         {
-            var utcNow = DateTime.UtcNow;
-            FinishDateTime = new DateTime(utcNow.Year, utcNow.Month, utcNow.Day, utcNow.Hour, utcNow.Minute,
-                utcNow.Second, DateTimeKind.Utc);
+            FinishDateTime = DateTime.UtcNow.RemoveMiliseconds();
         }
 
-        public DoneItem(ToDoItem toDoItem)
+        public DoneItem(ToDoItem toDoItem) : this()
         {
-            var utcNow = DateTime.UtcNow;
-            FinishDateTime = new DateTime(utcNow.Year, utcNow.Month, utcNow.Day, utcNow.Hour, utcNow.Minute,
-                utcNow.Second, DateTimeKind.Utc);
             Data = toDoItem.Data;
             CreationDateTime = toDoItem.CreationDateTime;
             Color = toDoItem.Color;
@@ -25,6 +21,42 @@ namespace SimpleChecklist.Common.Entities
         public DateTime FinishDateTime { get; set; }
 
         [JsonIgnore]
-        public string FinishTime => FinishDateTime.ToLocalTime().ToString("HH:mm"); //TODO: configuration provider
+        public string FinishTime => FinishDateTime.ToLocalTime().ToString("HH:mm");
+
+        public static bool operator !=(DoneItem left, DoneItem right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator ==(DoneItem left, DoneItem right)
+        {
+            return EqualityComparer<DoneItem>.Default.Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as DoneItem);
+        }
+
+        public bool Equals(DoneItem other)
+        {
+            return other != null &&
+                   base.Equals(other) &&
+                   Color == other.Color &&
+                   CreationDateTime == other.CreationDateTime &&
+                   Data == other.Data &&
+                   FinishDateTime == other.FinishDateTime;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -1147776445;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Color);
+            hashCode = hashCode * -1521134295 + CreationDateTime.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Data);
+            hashCode = hashCode * -1521134295 + FinishDateTime.GetHashCode();
+            return hashCode;
+        }
     }
 }

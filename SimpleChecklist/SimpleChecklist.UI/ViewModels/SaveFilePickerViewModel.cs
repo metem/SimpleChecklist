@@ -1,18 +1,17 @@
+using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.Core;
+using SimpleChecklist.UI.Converters;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
-using Caliburn.Micro;
-using SimpleChecklist.Common.Interfaces.Utils;
-using SimpleChecklist.Core;
-using SimpleChecklist.UI.Converters;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.ViewModels
 {
-    public class SaveFilePickerViewModel : Screen
+    public class SaveFilePickerViewModel : BaseViewModel
     {
         private readonly IDialogUtils _dialogUtils;
         private readonly Func<string, IFile> _file;
@@ -26,24 +25,12 @@ namespace SimpleChecklist.UI.ViewModels
             FilesList = new ObservableCollection<KeyValuePair<FileType, string>>();
         }
 
-        public Action<string> FileChoosen { get; set; }
-
         public string Extension { get; set; }
-
-        public string FileName
-        {
-            get => _fileName;
-            set
-            {
-                if (value == _fileName) return;
-                _fileName = value;
-                NotifyOfPropertyChange(() => FileName);
-            }
-        }
+        public Action<string> FileChoosen { get; set; }
 
         public ICommand FileChoosenCommand => new Command(item =>
         {
-            var data = (KeyValuePair<FileType, string>) item;
+            var data = (KeyValuePair<FileType, string>)item;
             switch (data.Key)
             {
                 case FileType.Directory:
@@ -54,9 +41,20 @@ namespace SimpleChecklist.UI.ViewModels
             }
         });
 
+        public string FileName
+        {
+            get => _fileName;
+            set
+            {
+                if (value == _fileName) return;
+                _fileName = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<KeyValuePair<FileType, string>> FilesList { get; }
 
-        public async void SaveClick()
+        public ICommand SaveCommand => new Command(async () =>
         {
             var file = Path.Combine(_currentDirectory.Path, FileName);
 
@@ -75,7 +73,7 @@ namespace SimpleChecklist.UI.ViewModels
 
             if (!fileExist || alertResult)
                 FileChoosen?.Invoke(file);
-        }
+        });
 
         public void ChangeListedDirectory(IDirectory directory)
         {
@@ -101,7 +99,7 @@ namespace SimpleChecklist.UI.ViewModels
                 foreach (var keyValuePair in filesList)
                     FilesList.Add(keyValuePair);
             }
-            catch (Exception ex)
+            catch
             {
                 // ignored
             }

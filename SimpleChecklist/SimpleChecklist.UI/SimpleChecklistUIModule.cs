@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using Caliburn.Micro;
-using Caliburn.Micro.Xamarin.Forms;
 using SimpleChecklist.Core;
+using SimpleChecklist.Core.Commands;
+using SimpleChecklist.UI.ViewModels;
 using SimpleChecklist.UI.Views;
 using Xamarin.Forms;
 
@@ -15,9 +15,6 @@ namespace SimpleChecklist.UI
 
             builder.RegisterType<PortableApp>();
 
-            builder.Register(context => new NavigationPageAdapter(context.Resolve<MainView>()))
-                .As<INavigationService>();
-
             builder.RegisterType<MainView>()
                 .SingleInstance();
 
@@ -27,8 +24,15 @@ namespace SimpleChecklist.UI
             builder.RegisterAssemblyTypes(ThisAssembly)
                 .Where(type => type.IsAssignableTo<ContentPage>());
 
+            builder.RegisterType<AboutViewModel>();
+            builder.RegisterType<OpenFilePickerViewModel>();
+            builder.RegisterType<SaveFilePickerViewModel>();
+            builder.RegisterType<TaskListViewModel>().SingleInstance();
+            builder.RegisterType<DoneListViewModel>().SingleInstance();
+            builder.RegisterType<SettingsViewModel>().SingleInstance();
+
             builder.RegisterAssemblyTypes(ThisAssembly)
-                .Where(type => type.IsAssignableTo<Screen>());
+                .Where(type => type.IsAssignableTo<ICommand>());
         }
     }
 }

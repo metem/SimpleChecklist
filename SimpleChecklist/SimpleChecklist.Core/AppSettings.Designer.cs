@@ -70,38 +70,38 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to backups.
+        /// </summary>
+        public static string BackupsDir {
+            get {
+                return ResourceManager.GetString("BackupsDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 20.
+        /// </summary>
+        public static string BackupsLimit {
+            get {
+                return ResourceManager.GetString("BackupsLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .btd.
         /// </summary>
-        public static string BackupFileExtension {
+        public static string ManualBackupFileExtension {
             get {
-                return ResourceManager.GetString("BackupFileExtension", resourceCulture);
+                return ResourceManager.GetString("ManualBackupFileExtension", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ChecklistBackup.
         /// </summary>
-        public static string BackupFileName {
+        public static string ManualBackupFileName {
             get {
-                return ResourceManager.GetString("BackupFileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HH:mm.
-        /// </summary>
-        public static string DoneItemFinishTimeFormat {
-            get {
-                return ResourceManager.GetString("DoneItemFinishTimeFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to donelist.xml.
-        /// </summary>
-        public static string DoneListFileName {
-            get {
-                return ResourceManager.GetString("DoneListFileName", resourceCulture);
+                return ResourceManager.GetString("ManualBackupFileName", resourceCulture);
             }
         }
         
@@ -115,24 +115,6 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .bcp.
-        /// </summary>
-        public static string PartialBackupFileExtension {
-            get {
-                return ResourceManager.GetString("PartialBackupFileExtension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tasklist.xml.
-        /// </summary>
-        public static string TaskListFileName {
-            get {
-                return ResourceManager.GetString("TaskListFileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .txt.
         /// </summary>
         public static string TextFileExtension {
@@ -142,7 +124,7 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.4.
+        ///   Looks up a localized string similar to 1.5.
         /// </summary>
         public static string VersionNumber {
             get {

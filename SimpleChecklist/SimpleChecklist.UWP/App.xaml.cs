@@ -1,88 +1,108 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
+﻿using Autofac;
+using SimpleChecklist.Core;
+using SimpleChecklist.UI.Commands;
+using SimpleChecklist.Universal;
+using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Autofac;
-using Caliburn.Micro;
-using SimpleChecklist.Core.Messages;
-using SimpleChecklist.UI.ViewModels;
-using Xamarin.Forms;
-using Frame = Windows.UI.Xaml.Controls.Frame;
 
-namespace SimpleChecklist.Universal
+namespace SimpleChecklist.UWP
 {
     /// <summary>
-    ///     Provides application-specific behavior to supplement the default Application class.
+    /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : CaliburnApplication
+    sealed partial class App : Application
     {
-        private IContainer _container;
+        private readonly IContainer _container;
 
         /// <summary>
-        ///     Initializes the singleton application object.  This is the first line of authored code
-        ///     executed, and as such is the logical equivalent of main() or WinMain().
+        /// Initializes the singleton application object.  This is the first line of authored code
+        /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
+            MoveDataFile();
+            _container = BootstrapperUniversal.Configure();
             InitializeComponent();
-
-            Initialize();
+            Suspending += OnSuspending;
         }
 
-        protected override void Configure()
+        private static void MoveDataFile()
         {
-            _container = BootstrapperUniversal.Configure();
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var dir = await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalFolder.Path);
+                    var appData = await dir.GetFileAsync(AppSettings.ApplicationDataFileName);
+                    await appData.CopyAsync(
+                        await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalCacheFolder.Path),
+                        $"{appData.Name}_",
+                        NameCollisionOption.GenerateUniqueName);
+                    await appData.MoveAsync(await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalCacheFolder.Path));
+                    foreach (var file in await dir.GetFilesAsync())
+                    {
+                        await file.MoveAsync(await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalCacheFolder.Path));
+                    }
+                }
+                catch { }
+            }).Wait();
         }
 
         /// <summary>
-        ///     Invoked when the application is launched normally by the end user.  Other entry points
-        ///     will be used such as when the application is launched to open a specific file.
+        /// Invoked when the application is launched normally by the end user.  Other entry points
+        /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
-            if (Debugger.IsAttached)
+            if (System.Diagnostics.Debugger.IsAttached)
             {
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
+            Frame rootFrame = Window.Current.Content as Frame;
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (!(Window.Current.Content is Frame rootFrame))
+            if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Forms.Init(e); // requires the `e` parameter
+                Xamarin.Forms.Forms.Init(e);
+
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: Load state from previously suspended application
+                }
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (rootFrame.Content == null)
             {
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Content = IoC.Get<MainWindowsPage>();
-                }
-                // Ensure the current window is active
-                Window.Current.Activate();
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                rootFrame.Content = _container.Resolve<MainWindowsPage>();
             }
+            // Ensure the current window is active
+            Window.Current.Activate();
         }
 
         /// <summary>
-        ///     Invoked when Navigation to a certain page fails
+        /// Invoked when Navigation to a certain page fails
         /// </summary>
         /// <param name="sender">The Frame which failed navigation</param>
         /// <param name="e">Details about the navigation failure</param>
@@ -92,54 +112,17 @@ namespace SimpleChecklist.Universal
         }
 
         /// <summary>
-        ///     Invoked when application execution is being suspended.  Application state is saved
-        ///     without knowing whether the application will be terminated or resumed with the contents
-        ///     of memory still intact.
+        /// Invoked when application execution is being suspended.  Application state is saved
+        /// without knowing whether the application will be terminated or resumed with the contents
+        /// of memory still intact.
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        protected override void OnSuspending(object sender, SuspendingEventArgs e)
+        private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            base.OnSuspending(sender, e);
-
             var deferral = e.SuspendingOperation.GetDeferral();
-            IoC.Get<MessagesStream>().PutToStream(new EventMessage(EventType.Closing));
-
+            Task.Run(_container.Resolve<SaveApplicationDataCommand>().ExecuteAsync).Wait();
             deferral.Complete();
-        }
-
-        protected override IEnumerable<Assembly> SelectAssemblies()
-        {
-            return new[]
-            {
-                GetType().GetTypeInfo().Assembly,
-                typeof(TabbedViewModel).GetTypeInfo().Assembly
-            };
-        }
-
-        protected override object GetInstance(Type service, string key)
-        {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                if (_container.IsRegistered(service))
-                    return _container.Resolve(service);
-            }
-            else
-            {
-                if (_container.IsRegisteredWithName(key, service))
-                    return _container.ResolveNamed(key, service);
-            }
-            throw new Exception($"Could not resolve {key ?? service.Name}.");
-        }
-
-        protected override IEnumerable<object> GetAllInstances(Type service)
-        {
-            return _container.Resolve(typeof(IEnumerable<>).MakeGenericType(service)) as IEnumerable<object>;
-        }
-
-        protected override void BuildUp(object instance)
-        {
-            _container.InjectProperties(instance);
         }
     }
 }

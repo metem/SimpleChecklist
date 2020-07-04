@@ -136,7 +136,7 @@
     <value>Yes</value>
   </data>
   <data name="AboutPageText" xml:space="preserve">
-    <value>Copyright © Mateusz Ucher 2018</value>
+    <value>Copyright © Mateusz Ucher 2020</value>
   </data>
   <data name="LoadTasksFromTextFileButtonText" xml:space="preserve">
     <value>Add tasks from text file...</value>
@@ -155,12 +155,6 @@
   </data>
   <data name="TaskListPageTitle" xml:space="preserve">
     <value>Tasks</value>
-  </data>
-  <data name="AboutPageTranslatorsListText" xml:space="preserve">
-    <value>Mateusz Ucher - English, Polish</value>
-  </data>
-  <data name="AboutPageTranslatorsText" xml:space="preserve">
-    <value>Translations:</value>
   </data>
   <data name="CreateBackupButtonText" xml:space="preserve">
     <value>Create backup file...</value>

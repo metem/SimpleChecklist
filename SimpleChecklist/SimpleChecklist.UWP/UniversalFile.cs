@@ -1,9 +1,9 @@
+using SimpleChecklist.Common.Interfaces.Utils;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Universal
 {
@@ -13,80 +13,72 @@ namespace SimpleChecklist.Universal
 
         public UniversalFile(string fileName)
         {
-            SetStorageFileAsync(fileName).Wait();
-            Name = fileName;
-        }
+            var fullFileName = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, fileName);
+            FilePath = Path.GetDirectoryName(fullFileName);
+            NameWithExtension = Path.GetFileName(fullFileName);
 
-        private async Task SetStorageFileAsync(string fileName)
-        {
-            var storageItem = await ApplicationData.Current.LocalFolder.TryGetItemAsync(fileName).AsTask()
-                .ConfigureAwait(false);
-            _storageFile = storageItem == null
-                ? null
-                : await ApplicationData.Current.LocalFolder.GetFileAsync(fileName).AsTask().ConfigureAwait(false);
+            try
+            {
+                Task.Run(SetStorageFileAsync).Wait();
+            }
+            catch
+            {
+                // ignore, files doesn't exist.
+            }
         }
 
         public UniversalFile(IStorageFile storageFile)
         {
             _storageFile = storageFile;
-            Name = _storageFile?.Name;
+
+            FilePath = storageFile?.Path;
+            NameWithExtension = _storageFile?.Name;
+        }
+
+        public bool Exist => _storageFile != null;
+
+        public string FilePath { get; }
+
+        public string NameWithExtension { get; }
+
+        public string NameWithPath => Path.Combine(FilePath, NameWithExtension);
+
+        public async Task CopyFileAsync(IFile destinationFile)
+        {
+            if (_storageFile == null)
+            {
+                return;
+            }
+
+            StorageFolder destinationStorageFolder = await StorageFolder.GetFolderFromPathAsync(destinationFile.FilePath);
+            await _storageFile.CopyAsync(destinationStorageFolder, destinationFile.NameWithExtension, NameCollisionOption.ReplaceExisting);
         }
 
         public async Task CreateAsync()
         {
-            _storageFile =
-                await ApplicationData.Current.LocalFolder.CreateFileAsync(Name, CreationCollisionOption.ReplaceExisting)
-                    .AsTask().ConfigureAwait(false);
+            StorageFolder storageFolder = await StorageFolder.GetFolderFromPathAsync(FilePath);
+            _storageFile = await storageFolder.CreateFileAsync(NameWithExtension, CreationCollisionOption.ReplaceExisting);
         }
 
-        public async Task<string> ReadTextAsync()
+        public Task DeleteAsync()
         {
-            return await FileIO.ReadTextAsync(_storageFile, UnicodeEncoding.Utf8).AsTask().ConfigureAwait(false);
+            return _storageFile.DeleteAsync().AsTask();
         }
 
-        public async Task SaveTextAsync(string content)
+        public Task<string> ReadTextAsync()
         {
-            await FileIO.WriteTextAsync(_storageFile, content, UnicodeEncoding.Utf8).AsTask().ConfigureAwait(false);
+            return FileIO.ReadTextAsync(_storageFile, UnicodeEncoding.Utf8).AsTask();
         }
 
-        public async Task<byte[]> ReadBytesAsync()
+        public Task SaveTextAsync(string content)
         {
-            var result = await FileIO.ReadBufferAsync(_storageFile).AsTask().ConfigureAwait(false);
-            return result.ToArray();
+            return FileIO.WriteTextAsync(_storageFile, content, UnicodeEncoding.Utf8).AsTask();
         }
 
-        public async Task SaveBytesAsync(byte[] content)
+        private async Task SetStorageFileAsync()
         {
-            await FileIO.WriteBytesAsync(_storageFile, content).AsTask().ConfigureAwait(false);
-        }
-
-        public async Task CopyFileAsync(IFile destinationFile)
-        {
-            if (destinationFile is UniversalFile universalFile)
-            {
-                if (!universalFile.Exist)
-                {
-                    await universalFile.CreateAsync().ConfigureAwait(false);
-                }
-
-                await
-                    _storageFile.CopyAsync(await universalFile.GetParentAsync(), destinationFile.Name,
-                        NameCollisionOption.ReplaceExisting).AsTask().ConfigureAwait(false);
-            }
-        }
-
-        public string Name { get; }
-
-        public string FullName => Name;
-
-        public bool Exist => _storageFile != null;
-
-        private async Task<IStorageFolder> GetParentAsync()
-        {
-            if (_storageFile is StorageFile storageFile)
-                return await storageFile.GetParentAsync().AsTask().ConfigureAwait(false);
-
-            return null;
+            StorageFolder storageFolder = await StorageFolder.GetFolderFromPathAsync(FilePath);
+            _storageFile = await storageFolder.GetFileAsync(NameWithExtension);
         }
     }
 }

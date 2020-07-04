@@ -1,97 +1,166 @@
-﻿using System.Windows.Input;
-using Caliburn.Micro;
-using SimpleChecklist.Common.Entities;
-using SimpleChecklist.Core.Messages;
+﻿using SimpleChecklist.Common.Entities;
+using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.Core;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.ViewModels
 {
-    public class TaskListViewModel : Screen
+    public class TaskListViewModel : BaseViewModel
     {
-        private readonly MessagesStream _messagesStream;
+        private static readonly string[] Colors = {
+            "#ffffff",
+            "#ff5a5a",
+            "#ffff5a",
+            "#5aff5a",
+            "#00ffff"
+        };
 
-        public ApplicationData AppData { get; }
+        private readonly IDialogUtils _dialogUtils;
+
+        private readonly Workspace _workspace;
+
+        private bool _editing;
+
+        private ToDoItem _editingItem;
 
         private string _entryText;
+
+        private bool _invertedTodoList;
+
+        private ObservableCollection<ToDoItem> _toDoItems = new ObservableCollection<ToDoItem>();
+
+        public TaskListViewModel(IDialogUtils dialogUtils, Workspace workspace)
+        {
+            _dialogUtils = dialogUtils;
+            _workspace = workspace;
+            _workspace.AddToDoItem += AddToDoItem;
+        }
+
+        public ICommand AddClickCommand => new Command(() =>
+        {
+            if (string.IsNullOrEmpty(EntryText)) return;
+            if (Editing)
+            {
+                _editingItem.Data = EntryText;
+                Editing = false;
+            }
+            else
+            {
+                var newItem = new ToDoItem { Data = EntryText };
+                AddToDoItem(newItem);
+            }
+
+            EntryText = string.Empty;
+        });
+
+        public ICommand ChangeColorClickCommand => new Command(item =>
+        {
+            var toDoItem = (ToDoItem)item;
+            for (int index = 0; index < Colors.Length; index++)
+            {
+                if (!Colors[index].Equals(toDoItem.Color)) continue;
+
+                var nextColorIndex = index + 1;
+                if (nextColorIndex == Colors.Length)
+                {
+                    nextColorIndex = 0;
+                }
+
+                toDoItem.Color = Colors[nextColorIndex];
+                break;
+            }
+        });
+
+        public ICommand DoneClickCommand => new Command(item =>
+        {
+            ToDoItem toDoItem = (ToDoItem)item;
+            ToDoItems.Remove(toDoItem);
+            _workspace.AddDoneItem(new DoneItem(toDoItem));
+        });
+
+        public ICommand EditClickCommand => new Command(item =>
+        {
+            Editing = true;
+            _editingItem = (ToDoItem)item;
+            EntryText = _editingItem.Data;
+        });
 
         public bool Editing
         {
             get => _editing;
             private set
             {
-                if (value == _editing) return;
-                _editing = value;
-                NotifyOfPropertyChange();
+                if (value != _editing)
+                {
+                    _editing = value;
+                    OnPropertyChanged();
+                }
             }
         }
-
-        private ToDoItem editingItem;
-        private bool _editing;
-
-        public TaskListViewModel(MessagesStream messagesStream, ApplicationData appData)
-        {
-            _messagesStream = messagesStream;
-            AppData = appData;
-        }
-
-        public ICommand RemoveClickCommand => new Command(item =>
-        {
-            _messagesStream.PutToStream(new ToDoItemActionMessage((ToDoItem)item,
-                ToDoItemAction.Remove));
-        });
-
-        public ICommand EditClickCommand => new Command(item =>
-        {
-            Editing = true;
-            editingItem = (ToDoItem)item;
-            EntryText = editingItem.Data;
-        });
-
-        public ICommand DoneClickCommand
-            =>
-                new Command(
-                    item =>
-                    {
-                        _messagesStream.PutToStream(new ToDoItemActionMessage((ToDoItem)item,
-                            ToDoItemAction.MoveToDoneList));
-                    });
-
-        public ICommand ChangeColorClickCommand
-            =>
-                new Command(
-                    item =>
-                    {
-                        _messagesStream.PutToStream(new ToDoItemActionMessage((ToDoItem)item,
-                            ToDoItemAction.SwitchColor));
-                    });
 
         public string EntryText
         {
             get => _entryText;
             set
             {
-                if (value == _entryText) return;
-                _entryText = value;
-                NotifyOfPropertyChange();
+                if (value != _entryText)
+                {
+                    _entryText = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
-        public void AddClick()
+        public ICommand RemoveClickCommand => new Command(async item =>
         {
-            if (string.IsNullOrEmpty(EntryText)) return;
-            if (Editing)
+            var accepted =
+                await _dialogUtils.DisplayAlertAsync(
+                    AppTexts.Alert,
+                    AppTexts.RemoveTaskConfirmationText,
+                    AppTexts.Yes,
+                    AppTexts.No);
+
+            if (accepted)
             {
-                _messagesStream.PutToStream(new ToDoItemActionMessage(editingItem,
-                    ToDoItemAction.Update, EntryText));
-                Editing = false;
+                ToDoItems.Remove((ToDoItem)item);
+            }
+        });
+
+        public ObservableCollection<ToDoItem> ToDoItems
+        {
+            get => _toDoItems;
+            set
+            {
+                if (value != _toDoItems)
+                {
+                    _toDoItems = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        internal void InvertedToDoList(bool invertedTodoList)
+        {
+            if (_invertedTodoList != invertedTodoList)
+            {
+                _invertedTodoList = invertedTodoList;
+                ToDoItems = new ObservableCollection<ToDoItem>(ToDoItems.Reverse());
+            }
+        }
+
+        private void AddToDoItem(ToDoItem newItem)
+        {
+            if (_invertedTodoList)
+            {
+                ToDoItems.Insert(0, newItem);
             }
             else
             {
-                _messagesStream.PutToStream(new ToDoItemActionMessage(new ToDoItem { Data = EntryText },
-                    ToDoItemAction.Add));
+                ToDoItems.Add(newItem);
             }
-
-            EntryText = string.Empty;
         }
     }
 }

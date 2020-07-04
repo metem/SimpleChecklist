@@ -8,9 +8,9 @@ namespace SimpleChecklist.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (FileType) value == FileType.Directory
-                ? (Color) Application.Current.Resources["FileColor"]
-                : (Color) Application.Current.Resources["DirectoryColor"];
+            return (FileType)value == FileType.Directory
+                ? (Color)Application.Current.Resources["FileColor"]
+                : (Color)Application.Current.Resources["DirectoryColor"];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

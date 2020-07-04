@@ -1,39 +1,27 @@
-﻿using Caliburn.Micro.Xamarin.Forms;
-using SimpleChecklist.Core.Messages;
+﻿using SimpleChecklist.UI.Commands;
 using SimpleChecklist.UI.Views;
+using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SimpleChecklist.UI
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PortableApp : FormsApplication
+    public partial class PortableApp : Application
     {
-        private readonly MessagesStream _messagesStream;
-        private readonly MainView _mainView;
+        private readonly LoadApplicationDataCommand _loadApplicationDataCommand;
 
-        public PortableApp(MainView mainView, MessagesStream messagesStream)
+        public PortableApp(MainView mainView, LoadApplicationDataCommand loadApplicationDataCommand)
         {
             InitializeComponent();
 
-            _mainView = mainView;
-            _messagesStream = messagesStream;
-
-            Initialize();
-
-            DisplayRootView<TabbedView>();
-        }
-
-        protected override NavigationPage CreateApplicationPage()
-        {
-            return _mainView;
+            _loadApplicationDataCommand = loadApplicationDataCommand;
+            MainPage = mainView;
         }
 
         protected override void OnStart()
         {
             base.OnStart();
 
-            _messagesStream.PutToStream(new EventMessage(EventType.Started));
+            Task.Run(_loadApplicationDataCommand.ExecuteAsync).Wait();
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using Windows.UI.ViewManagement;
+﻿using SimpleChecklist.Universal.Renderers;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media;
-using SimpleChecklist.Universal.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(UniversalTabbedPageRenderer))]
+
 namespace SimpleChecklist.Universal.Renderers
 {
     public class UniversalTabbedPageRenderer : TabbedPageRenderer

@@ -3,6 +3,7 @@ using Windows.UI.Xaml.Controls;
 using Xamarin.Forms.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(Xamarin.Forms.ListView), typeof(UniversalListViewRenderer))]
+
 namespace SimpleChecklist.Universal.Renderers
 {
     public class UniversalListViewRenderer : ListViewRenderer

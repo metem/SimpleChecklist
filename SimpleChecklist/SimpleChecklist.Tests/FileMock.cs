@@ -1,50 +1,61 @@
-using System.Threading.Tasks;
 using SimpleChecklist.Common.Interfaces.Utils;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace SimpleChecklist.Tests
 {
     public class FileMock : IFile
     {
-        public string TextData { get; private set; }
+        private readonly FilesContainer _filesContainer;
 
-        public FileMock(bool exist = true, string textData = "")
+        public FileMock(FilesContainer filesContainer)
         {
-            Exist = exist;
-            TextData = textData;
+            NameWithExtension = "test.dat";
+            _filesContainer = filesContainer;
         }
 
-        public string Name => "testFile.dat";
-        public string FullName => "testFile.dat";
-        public bool Exist { get; }
+        public FileMock(string fileName, FilesContainer filesContainer)
+        {
+            NameWithExtension = fileName;
+            _filesContainer = filesContainer;
+        }
+
+        public bool Exist => _filesContainer.ContainsKey(NameWithExtension);
+        public string FilePath => string.Empty;
+        public string NameWithExtension { get; }
+        public string NameWithPath => Path.Combine(FilePath, NameWithExtension);
+
+        public Task CopyFileAsync(IFile destinationFile)
+        {
+            if (Exist)
+            {
+                _filesContainer[destinationFile.NameWithExtension] = _filesContainer[NameWithExtension];
+            }
+
+            return Task.CompletedTask;
+        }
 
         public Task CreateAsync()
         {
-            return Task.FromResult(0);
+            _filesContainer[NameWithExtension] = string.Empty;
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteAsync()
+        {
+            _filesContainer.Remove(NameWithExtension);
+            return Task.CompletedTask;
         }
 
         public Task<string> ReadTextAsync()
         {
-            return Task.FromResult(TextData);
+            return Task.FromResult(_filesContainer[NameWithExtension]);
         }
 
         public Task SaveTextAsync(string content)
         {
-            return Task.Run(() => TextData = content);
-        }
-
-        public Task<byte[]> ReadBytesAsync()
-        {
-            return Task.FromResult(new byte[0]);
-        }
-
-        public Task SaveBytesAsync(byte[] content)
-        {
-            return Task.FromResult(0);
-        }
-
-        public Task CopyFileAsync(IFile destinationFile)
-        {
-            return Task.FromResult(0);
+            _filesContainer[NameWithExtension] = content;
+            return Task.CompletedTask;
         }
     }
 }

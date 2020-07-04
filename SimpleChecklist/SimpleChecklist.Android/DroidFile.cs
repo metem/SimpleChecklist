@@ -1,60 +1,57 @@
-﻿using System;
+﻿using SimpleChecklist.Common.Interfaces.Utils;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces.Utils;
 
 namespace SimpleChecklist.Droid
 {
     public class DroidFile : IFile
     {
-        public string FullName { get; }
-
         public DroidFile(string fileName)
         {
-            FullName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), fileName);
+            var fullFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), fileName);
+            FilePath = Path.GetDirectoryName(fullFileName);
+            NameWithExtension = Path.GetFileName(fullFileName);
         }
 
         public DroidFile(FileInfo file)
         {
-            FullName = file.FullName;
+            FilePath = file.DirectoryName;
+            NameWithExtension = file.Name;
+        }
+
+        public bool Exist => File.Exists(NameWithPath);
+        public string FilePath { get; }
+        public string NameWithExtension { get; }
+        public string NameWithPath => Path.Combine(FilePath, NameWithExtension);
+
+        public Task CopyFileAsync(IFile destinationFile)
+        {
+            File.Copy(NameWithPath, destinationFile.NameWithPath, true);
+            return Task.CompletedTask;
         }
 
         public Task CreateAsync()
         {
-            return Task.Run(() =>
-            {
-                var fileStream = File.Open(FullName, FileMode.OpenOrCreate, FileAccess.Read);
-                fileStream.Close();
-            });
+            var fileStream = File.Open(NameWithPath, FileMode.OpenOrCreate, FileAccess.Read);
+            fileStream.Close();
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteAsync()
+        {
+            File.Delete(NameWithPath);
+            return Task.CompletedTask;
         }
 
         public Task<string> ReadTextAsync()
         {
-            return Task.Run(() => File.ReadAllText(FullName));
-        }
-
-        public Task<byte[]> ReadBytesAsync()
-        {
-            return Task.Run(() => File.ReadAllBytes(FullName));
-        }
-
-        public Task CopyFileAsync(IFile destinationFile)
-        {
-            return Task.Run(() => File.Copy(FullName, destinationFile.FullName, true));
-        }
-
-        public string Name => Path.GetFileName(FullName);
-
-        public bool Exist => File.Exists(FullName);
-
-        public Task SaveBytesAsync(byte[] content)
-        {
-            return Task.Run(() => File.WriteAllBytes(FullName, content));
+            return File.ReadAllTextAsync(NameWithPath);
         }
 
         public Task SaveTextAsync(string content)
         {
-            return Task.Run(() => File.WriteAllText(FullName, content));
+            return File.WriteAllTextAsync(NameWithPath, content);
         }
     }
 }

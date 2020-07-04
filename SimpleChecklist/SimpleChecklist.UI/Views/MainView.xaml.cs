@@ -1,12 +1,11 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using System.ComponentModel;
 
 namespace SimpleChecklist.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainView : NavigationPage
+    [DesignTimeVisible(false)]
+    public partial class MainView : Xamarin.Forms.NavigationPage
     {
-        public MainView(TabbedView tabbedView)
+        public MainView(TabbedView tabbedView) : base(tabbedView)
         {
             InitializeComponent();
 

@@ -5,19 +5,15 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
     Title="{x:Static core:AppTexts.SettingsPageTitle}"
-    d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel,
-                                     IsDesignTimeCreatable=False}"
-    BindingContext="{Binding SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackLayout
         x:Name="ParentContext"
-        HorizontalOptions="FillAndExpand"
-        VerticalOptions="FillAndExpand">
+        HorizontalOptions="Fill"
+        VerticalOptions="Fill">
         <BoxView Style="{DynamicResource LineSeparatorStyle}" />
 
         <Button
@@ -47,10 +43,13 @@
             Text="{x:Static core:AppTexts.LoadBackupButtonText}" />
 
         <BoxView Style="{DynamicResource LineSeparatorStyle}" />
-        
+
         <StackLayout Orientation="Horizontal">
-            <Button Style="{DynamicResource SettingsButtonStyle}" HorizontalOptions="Start" Text="{x:Static core:AppTexts.InvertedToDoList}"></Button>
-            <Switch IsToggled="{Binding InvertedToDoList, Mode=TwoWay}"></Switch>
+            <Button
+                HorizontalOptions="Start"
+                Style="{DynamicResource SettingsButtonStyle}"
+                Text="{x:Static core:AppTexts.InvertedToDoList}" />
+            <Switch IsToggled="{Binding InvertedToDoList, Mode=TwoWay}" />
         </StackLayout>
     </StackLayout>
 </ContentPage>

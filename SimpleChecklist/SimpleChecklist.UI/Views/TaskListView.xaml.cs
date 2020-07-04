@@ -1,13 +1,15 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using SimpleChecklist.UI.ViewModels;
+using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    [DesignTimeVisible(false)]
     public partial class TaskListView : ContentPage
     {
-        public TaskListView()
+        public TaskListView(TaskListViewModel vm)
         {
+            BindingContext = vm;
             InitializeComponent();
         }
     }

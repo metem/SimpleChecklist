@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(DroidPageRenderer))]
+
 namespace SimpleChecklist.Droid.Renderers
 {
     public class DroidPageRenderer : PageRenderer

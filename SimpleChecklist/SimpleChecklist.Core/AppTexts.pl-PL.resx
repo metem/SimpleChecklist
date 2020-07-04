@@ -153,9 +153,6 @@
   <data name="TaskListPageTitle" xml:space="preserve">
     <value>Zadania</value>
   </data>
-  <data name="AboutPageTranslatorsText" xml:space="preserve">
-    <value>Tłumaczenia:</value>
-  </data>
   <data name="CreateBackupButtonText" xml:space="preserve">
     <value>Stwórz plik kopii zapasowej...</value>
   </data>

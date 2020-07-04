@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces.Utils;
+﻿using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.UI.ViewModels;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SimpleChecklist.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    [DesignTimeVisible(false)]
     public partial class SaveFilePickerView : ContentPage
     {
         private readonly MainView _mainView;
@@ -17,13 +17,13 @@ namespace SimpleChecklist.UI.Views
         public SaveFilePickerView(IDirectory directory, SaveFilePickerViewModel saveFilePickerViewModel,
             MainView mainView)
         {
-            InitializeComponent();
-
             saveFilePickerViewModel.ChangeListedDirectory(directory);
-            saveFilePickerViewModel.FileChoosen += s => _tcs.SetResult(s);
+            saveFilePickerViewModel.FileChoosen += (s) => _tcs.SetResult(s);
             _saveFilePickerViewModel = saveFilePickerViewModel;
             _mainView = mainView;
             BindingContext = saveFilePickerViewModel;
+
+            InitializeComponent();
         }
 
         public async Task<string> ShowAsync(string defaultFileName, string extension)
@@ -33,18 +33,13 @@ namespace SimpleChecklist.UI.Views
 
             _tcs = new TaskCompletionSource<string>();
 
-            await _mainView.Navigation.PushAsync(this);
+            await _mainView.Navigation.PushAsync(this, false);
 
             var result = await _tcs.Task;
 
-            await _mainView.Navigation.PopAsync();
+            await _mainView.Navigation.PopToRootAsync(false);
 
             return result;
-        }
-
-        private void SaveEntryOnCompleted(object sender, EventArgs e)
-        {
-            _saveFilePickerViewModel.SaveClick();
         }
 
         protected override void OnDisappearing()
@@ -58,6 +53,11 @@ namespace SimpleChecklist.UI.Views
         private void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             _saveFilePickerViewModel.FileChoosenCommand.Execute(e.Item);
+        }
+
+        private void SaveEntryOnCompleted(object sender, EventArgs e)
+        {
+            _saveFilePickerViewModel.SaveCommand.Execute(null);
         }
     }
 }

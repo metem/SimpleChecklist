@@ -5,13 +5,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
     Title="{x:Static core:AppTexts.AboutPageTitle}"
-    d:DataContext="{d:DesignInstance Type=viewModels:AboutViewModel,
-                                     IsDesignTimeCreatable=False}"
-    BindingContext="{Binding AboutViewModel}"
     mc:Ignorable="d">
 
     <StackLayout
@@ -47,17 +43,6 @@
                     <TapGestureRecognizer Command="{Binding Path=BindingContext.UrlClickCommand, Source={x:Reference ParentContext}}" CommandParameter="{Binding}" />
                 </Label.GestureRecognizers>
             </Label>
-
-            <Label
-                Margin="0,50,0,0"
-                HorizontalOptions="StartAndExpand"
-                Style="{DynamicResource DefaultLabelStyle}"
-                Text="{x:Static core:AppTexts.AboutPageTranslatorsText}" />
-
-            <Label
-                HorizontalOptions="StartAndExpand"
-                Style="{DynamicResource DefaultLabelStyle}"
-                Text="{x:Static core:AppTexts.AboutPageTranslatorsListText}" />
         </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -1,18 +1,23 @@
-﻿<forms:FormsApplication xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Platform.Xamarin.Forms"
-                        x:Class="SimpleChecklist.UI.PortableApp">
-  <forms:FormsApplication.Resources>
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="SimpleChecklist.UI.PortableApp"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Application.Resources>
         <ResourceDictionary>
-          <Color x:Key="FileColor">Color.White</Color>
+            <Color x:Key="FileColor">Color.White</Color>
             <Color x:Key="DirectoryColor">#B8D3FE</Color>
 
             <Style x:Key="DefaultButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#20FFFFFF" />
             </Style>
             <Style x:Key="SettingsButtonStyle" TargetType="Button">
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="FontSize" Value="17" />
+                <Setter Property="HorizontalOptions" Value="Start" />
                 <Setter Property="VerticalOptions" Value="Start" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
             </Style>
@@ -23,24 +28,33 @@
             </Style>
 
             <Style x:Key="DefaultLabelStyle" TargetType="Label">
-                <Setter Property="HorizontalTextAlignment" Value="Start"/>
-                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="20" />
             </Style>
-            <Style x:Key="ToDoTaskLabelStyle" TargetType="Label" BasedOn="{StaticResource DefaultLabelStyle}">
+            <Style
+                x:Key="ToDoTaskLabelStyle"
+                BasedOn="{StaticResource DefaultLabelStyle}"
+                TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="LineBreakMode" Value="WordWrap" />
             </Style>
-            <Style x:Key="DoneTaskLabelStyle" TargetType="Label" BasedOn="{StaticResource DefaultLabelStyle}">
+            <Style
+                x:Key="DoneTaskLabelStyle"
+                BasedOn="{StaticResource DefaultLabelStyle}"
+                TargetType="Label">
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="LineBreakMode" Value="WordWrap" />
             </Style>
-            <Style x:Key="SaveFilePickerLabelStyle" TargetType="Label" BasedOn="{StaticResource DefaultLabelStyle}">
+            <Style
+                x:Key="SaveFilePickerLabelStyle"
+                BasedOn="{StaticResource DefaultLabelStyle}"
+                TargetType="Label">
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Start" />
             </Style>
         </ResourceDictionary>
-    </forms:FormsApplication.Resources>
-</forms:FormsApplication>
+    </Application.Resources>
+</Application>

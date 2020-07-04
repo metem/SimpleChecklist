@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using SimpleChecklist.Common.Entities;
+﻿using SimpleChecklist.Common.Entities;
 using SimpleChecklist.UI.Converters;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SimpleChecklist.UI.Extensions
 {
     public static class EnumerableExtensions
     {
-        public static ObservableCollection<DoneItemsGroup> ToDoneItemsGroups(this IEnumerable<DoneItem> data)
+        public static List<DoneItemsGroup> ToDoneItemsGroups(this IEnumerable<DoneItem> data)
         {
-            var result = new ObservableCollection<DoneItemsGroup>();
+            var result = new List<DoneItemsGroup>();
 
             foreach (var doneItems in data.GroupBy(item => item.FinishDateTime.ToLocalTime().Date))
             {

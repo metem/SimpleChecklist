@@ -4,16 +4,12 @@
     x:Class="SimpleChecklist.UI.Views.TaskListView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:SimpleChecklist.UI.Converters;assembly=SimpleChecklist.UI"
+    xmlns:converters="clr-namespace:SimpleChecklist.UI.Converters"
     xmlns:core="clr-namespace:SimpleChecklist.Core;assembly=SimpleChecklist.Core"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:forms="clr-namespace:Caliburn.Micro.Xamarin.Forms;assembly=Caliburn.Micro.Xamarin.Forms"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:local="clr-namespace:SimpleChecklist.UI.Behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:SimpleChecklist.UI.ViewModels;assembly=SimpleChecklist.UI"
     Title="{x:Static core:AppTexts.TaskListPageTitle}"
-    d:DataContext="{d:DesignInstance Type=viewModels:TaskListViewModel,
-                                     IsDesignTimeCreatable=False}"
-    BindingContext="{Binding TaskListViewModel}"
     mc:Ignorable="d">
 
     <ContentPage.Resources>
@@ -31,12 +27,12 @@
             x:Name="ToDoListView"
             HasUnevenRows="True"
             HorizontalOptions="FillAndExpand"
-            ItemsSource="{Binding AppData.ToDoItems}"
+            ItemsSource="{Binding ToDoItems}"
             VerticalOptions="FillAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame Padding="0">
+                        <Frame Padding="0" BackgroundColor="Transparent">
                             <Grid
                                 ColumnSpacing="10"
                                 HorizontalOptions="FillAndExpand"
@@ -116,12 +112,15 @@
             VerticalOptions="End">
             <Entry
                 x:Name="InputEntry"
-                forms:Message.Attach="[Event Completed] = [Action AddClick]"
                 HorizontalOptions="FillAndExpand"
                 Text="{Binding EntryText}"
-                VerticalOptions="CenterAndExpand" />
+                VerticalOptions="CenterAndExpand">
+                <Entry.Behaviors>
+                    <local:EventToCommandBehavior Command="{Binding AddClickCommand}" EventName="Completed" />
+                </Entry.Behaviors>
+            </Entry>
             <Button
-                forms:Message.Attach="AddClick"
+                Command="{Binding AddClickCommand}"
                 HeightRequest="36"
                 HorizontalOptions="End"
                 Style="{DynamicResource DefaultButtonStyle}"
@@ -138,5 +137,4 @@
             </Button>
         </StackLayout>
     </StackLayout>
-
 </ContentPage>

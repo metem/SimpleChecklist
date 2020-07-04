@@ -1,14 +1,13 @@
-﻿using System;
+﻿using SimpleChecklist.Core;
+using System;
 using System.Windows.Input;
-using Caliburn.Micro;
-using SimpleChecklist.Core;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.ViewModels
 {
-    public class AboutViewModel : Screen
+    public class AboutViewModel : BaseViewModel
     {
-        public ICommand UrlClickCommand
-            => new Command(() => { Device.OpenUri(new Uri($"http://{AppSettings.WebsiteUrl}")); });
+        public ICommand UrlClickCommand => new Command(async () => await Browser.OpenAsync(new Uri($"https://{AppSettings.WebsiteUrl}")));
     }
 }

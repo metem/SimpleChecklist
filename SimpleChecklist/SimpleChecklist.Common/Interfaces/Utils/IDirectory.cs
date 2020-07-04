@@ -2,19 +2,11 @@ using System.Collections.Generic;
 
 namespace SimpleChecklist.Common.Interfaces.Utils
 {
-    public interface IDirectory
+    public interface IDirectory : IDirectoryFilesReader, IDirectoryBase
     {
-        string Path { get; }
-
-        string Name { get; }
-
-        bool Exist { get; }
-
-        IEnumerable<IFile> GetFiles();
+        IDirectory GetChild(string name);
 
         IEnumerable<IDirectory> GetDirectories();
-
-        IDirectory GetChild(string name);
 
         IDirectory GetParent();
     }

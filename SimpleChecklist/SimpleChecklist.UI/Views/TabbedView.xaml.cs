@@ -1,13 +1,18 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace SimpleChecklist.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+    [DesignTimeVisible(false)]
     public partial class TabbedView : TabbedPage
     {
-        public TabbedView()
+        public TabbedView(TaskListView taskListView, DoneListView doneListView, SettingsView settingsView, AboutView aboutView)
         {
+            Children.Add(taskListView);
+            Children.Add(doneListView);
+            Children.Add(settingsView);
+            Children.Add(aboutView);
+
             InitializeComponent();
         }
     }

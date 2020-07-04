@@ -1,0 +1,66 @@
+# Universal Windows Platform
+# Build a Universal Windows Platform project using Visual Studio.
+# Add steps that test and distribute an app, save build artifacts, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+- develop
+- releases/*
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'x86|x64|ARM'
+  buildConfiguration: 'Release'
+  appxPackageDir: '$(build.artifactStagingDirectory)/AppxPackages/'
+
+steps:
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: Package.StoreAssociation.xml
+
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: SimpleChecklist.UWP_StoreKey.pfx
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Agent.TempDirectory)'
+    contents: '**'
+    targetFolder: '$(Build.SourcesDirectory)/SimpleChecklist/SimpleChecklist.UWP/'  
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+    includeNuGetOrg: true
+
+- task: VSBuild@1
+  inputs:
+    platform: 'x86'
+    solution: '$(solution)'
+    configuration: '$(buildConfiguration)'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload /p:AndroidNdkDirectory="$(ANDROID_NDK_PATH)" /p:JavaSdkDirectory="$(JAVA_HOME)"'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=Cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+
+- script: |
+    dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
+    .\reportgenerator -reports:$(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)\TestResults\Coverage\results -reporttypes:HtmlInline_AzurePipelines_Dark;HTMLChart
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: $(Build.SourcesDirectory)\TestResults\Coverage\coverage.cobertura.xml
+    reportDirectory: $(Build.SourcesDirectory)\TestResults\Coverage\results
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'SimpleChecklist'
+    targetPath: $(appxPackageDir)

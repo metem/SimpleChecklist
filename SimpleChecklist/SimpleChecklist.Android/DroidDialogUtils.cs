@@ -1,16 +1,17 @@
-﻿using System;
+﻿using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.UI.Utils;
+using SimpleChecklist.UI.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using SimpleChecklist.Common.Interfaces.Utils;
-using SimpleChecklist.UI.Utils;
-using SimpleChecklist.UI.Views;
 
 namespace SimpleChecklist.Droid
 {
     public class DroidDialogUtils : DialogUtils
     {
+        public Func<bool> AskForPermissions;
         private readonly Func<IDirectory, OpenFilePickerView> _openFilePicker;
         private readonly Func<IDirectory, SaveFilePickerView> _saveFilePicker;
 
@@ -22,9 +23,6 @@ namespace SimpleChecklist.Droid
             _openFilePicker = openFilePicker;
             _saveFilePicker = saveFilePicker;
         }
-
-        public Func<bool> AskForPermissions;
-
 
         public override async Task<IFile> OpenFileDialogAsync(IEnumerable<string> allowedFileTypes)
         {

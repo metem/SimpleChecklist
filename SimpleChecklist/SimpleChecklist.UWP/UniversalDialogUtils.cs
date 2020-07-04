@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SimpleChecklist.Common.Interfaces.Utils;
+using SimpleChecklist.UI.Utils;
+using SimpleChecklist.UI.Views;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
-using SimpleChecklist.Common.Interfaces.Utils;
-using SimpleChecklist.UI.Utils;
-using SimpleChecklist.UI.Views;
 
 namespace SimpleChecklist.Universal
 {
@@ -27,7 +27,7 @@ namespace SimpleChecklist.Universal
                 filePicker.FileTypeFilter.Add(allowedFileType);
             }
 
-            var storageFile = await filePicker.PickSingleFileAsync().AsTask().ConfigureAwait(false);
+            var storageFile = await filePicker.PickSingleFileAsync();
             return new UniversalFile(storageFile);
         }
 
@@ -42,12 +42,12 @@ namespace SimpleChecklist.Universal
             foreach (var allowedFileType in allowedFileTypes)
             {
                 filePicker.FileTypeChoices.Add(new KeyValuePair<string, IList<string>>(allowedFileType,
-                    new List<string> {allowedFileType}));
+                    new List<string> { allowedFileType }));
             }
 
             filePicker.SuggestedFileName = defaultFileName;
 
-            var storageFile = await filePicker.PickSaveFileAsync().AsTask().ConfigureAwait(false);
+            var storageFile = await filePicker.PickSaveFileAsync();
             return new UniversalFile(storageFile);
         }
     }
