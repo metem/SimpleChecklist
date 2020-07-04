@@ -3,6 +3,7 @@ using NUnit.Framework;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.UI.ViewModels;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimpleChecklist.Tests
 {
@@ -44,7 +45,7 @@ namespace SimpleChecklist.Tests
         }
 
         [Test]
-        public void RemoveToDoItem()
+        public async Task RemoveToDoItem()
         {
             // given
             var container = Utils.Initialize(true);
@@ -54,7 +55,7 @@ namespace SimpleChecklist.Tests
             taskListViewModel.ToDoItems.Add(item);
 
             // when
-            taskListViewModel.RemoveClickCommand?.Execute(item);
+            await taskListViewModel.RemoveToDoItem(item);
 
             // then
             Assert.IsFalse(taskListViewModel.ToDoItems.Any());
