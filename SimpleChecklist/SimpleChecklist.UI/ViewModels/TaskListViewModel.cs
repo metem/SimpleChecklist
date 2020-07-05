@@ -3,6 +3,7 @@ using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -114,20 +115,7 @@ namespace SimpleChecklist.UI.ViewModels
             }
         }
 
-        public ICommand RemoveClickCommand => new Command(async item =>
-        {
-            var accepted =
-                await _dialogUtils.DisplayAlertAsync(
-                    AppTexts.Alert,
-                    AppTexts.RemoveTaskConfirmationText,
-                    AppTexts.Yes,
-                    AppTexts.No);
-
-            if (accepted)
-            {
-                ToDoItems.Remove((ToDoItem)item);
-            }
-        });
+        public ICommand RemoveClickCommand => new Command(async item => await RemoveToDoItemAsync((ToDoItem)item));
 
         public ObservableCollection<ToDoItem> ToDoItems
         {
@@ -139,6 +127,20 @@ namespace SimpleChecklist.UI.ViewModels
                     _toDoItems = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        public async Task RemoveToDoItemAsync(ToDoItem item)
+        {
+            var accepted = await _dialogUtils.DisplayAlertAsync(
+                                AppTexts.Alert,
+                                AppTexts.RemoveTaskConfirmationText,
+                                AppTexts.Yes,
+                                AppTexts.No);
+
+            if (accepted)
+            {
+                ToDoItems.Remove(item);
             }
         }
 

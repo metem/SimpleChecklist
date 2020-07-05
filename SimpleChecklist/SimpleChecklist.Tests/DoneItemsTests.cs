@@ -3,6 +3,7 @@ using NUnit.Framework;
 using SimpleChecklist.Common.Entities;
 using SimpleChecklist.UI.ViewModels;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimpleChecklist.Tests
 {
@@ -10,7 +11,7 @@ namespace SimpleChecklist.Tests
     public class DoneItemsTests
     {
         [Test]
-        public void RemoveDoneItem()
+        public async Task RemoveDoneItem()
         {
             // given
             var container = Utils.Initialize(true);
@@ -20,14 +21,14 @@ namespace SimpleChecklist.Tests
             doneListViewModel.DoneItems.Add(item);
 
             // when
-            doneListViewModel.RemoveClickCommand?.Execute(item);
+            await doneListViewModel.RemoveDoneItemAsync(item);
 
             // then
             Assert.IsFalse(doneListViewModel.DoneItems.Any());
         }
 
         [Test]
-        public void UndoneDoneItemTest()
+        public async Task UndoneDoneItemTest()
         {
             // given
             var container = Utils.Initialize(true);
@@ -38,7 +39,7 @@ namespace SimpleChecklist.Tests
             doneListViewModel.DoneItems.Add(item);
 
             // when
-            doneListViewModel.UndoneClickCommand?.Execute(item);
+            await doneListViewModel.UndoneItemAsync(item);
 
             // then
             Assert.IsFalse(doneListViewModel.DoneItems.Any());
