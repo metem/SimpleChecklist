@@ -124,7 +124,7 @@ namespace SimpleChecklist.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.5.
+        ///   Looks up a localized string similar to 1.5.1.
         /// </summary>
         public static string VersionNumber {
             get {

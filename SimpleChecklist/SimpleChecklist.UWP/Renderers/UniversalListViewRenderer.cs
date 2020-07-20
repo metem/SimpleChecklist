@@ -15,6 +15,10 @@ namespace SimpleChecklist.Universal.Renderers
             if (Control is ListView listView)
             {
                 listView.SelectionMode = ListViewSelectionMode.None;
+                listView.CanReorderItems = true;
+                listView.AllowDrop = true;
+                listView.CanReorderItems = true;
+                listView.IsSwipeEnabled = true;
             }
             else if (Control is SemanticZoom semanticZoom)
             {
