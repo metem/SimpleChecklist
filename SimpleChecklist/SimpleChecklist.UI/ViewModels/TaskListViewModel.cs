@@ -1,6 +1,7 @@
 ﻿using SimpleChecklist.Common.Entities;
 using SimpleChecklist.Common.Interfaces.Utils;
 using SimpleChecklist.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ namespace SimpleChecklist.UI.ViewModels
             "#ff5a5a",
             "#ffff5a",
             "#5aff5a",
-            "#00ffff"
+            "#00ffff",
+            "#ea7b48",
+            "#fac320",
+            "#a8e221"
         };
 
         private readonly IDialogUtils _dialogUtils;
@@ -60,19 +64,9 @@ namespace SimpleChecklist.UI.ViewModels
         public ICommand ChangeColorClickCommand => new Command(item =>
         {
             var toDoItem = (ToDoItem)item;
-            for (int index = 0; index < Colors.Length; index++)
-            {
-                if (!Colors[index].Equals(toDoItem.Color)) continue;
-
-                var nextColorIndex = index + 1;
-                if (nextColorIndex == Colors.Length)
-                {
-                    nextColorIndex = 0;
-                }
-
-                toDoItem.Color = Colors[nextColorIndex];
-                break;
-            }
+            var nextColorIndex = Array.IndexOf(Colors, toDoItem.Color) + 1;
+            if (nextColorIndex >= Colors.Length) nextColorIndex = 0;
+            toDoItem.Color = Colors[nextColorIndex];
         });
 
         public ICommand DoneClickCommand => new Command(item =>

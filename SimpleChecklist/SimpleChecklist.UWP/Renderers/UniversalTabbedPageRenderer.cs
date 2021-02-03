@@ -1,6 +1,5 @@
 ﻿using SimpleChecklist.Universal.Renderers;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 
@@ -33,8 +32,8 @@ namespace SimpleChecklist.Universal.Renderers
 
         private void OnElementChanged(object sender, VisualElementChangedEventArgs visualElementChangedEventArgs)
         {
-            Control.Background =
-                Windows.UI.Xaml.Application.Current.Resources["MainTabbedPageBackground"] as LinearGradientBrush;
+            Control.Background = Windows.UI.Xaml.Application.Current.Resources["MainTabbedPageBackground"] as
+                Windows.UI.Xaml.Media.LinearGradientBrush;
 
             Control.HeaderTemplate =
                 Windows.UI.Xaml.Application.Current.Resources["MainTabbedPageHeaderTemplate"] as

@@ -124,7 +124,7 @@ namespace SimpleChecklist.UI.ViewModels
                 {
                     var file = await _dialogUtils.OpenFileDialogAsync(new[] { AppSettings.TextFileExtension });
 
-                    if (file == null)
+                    if (file == null || !file.Exist)
                     {
                         // Cancelled
                         return;
@@ -134,7 +134,7 @@ namespace SimpleChecklist.UI.ViewModels
 
                     try
                     {
-                        text = file.Exist ? await file.ReadTextAsync() : string.Empty;
+                        text = await file.ReadTextAsync();
                     }
                     catch (ArgumentOutOfRangeException)
                     {
@@ -183,7 +183,7 @@ namespace SimpleChecklist.UI.ViewModels
                 {
                     var file = await _dialogUtils.SaveFileDialogAsync($"{AppSettings.ManualBackupFileName}-{_dateTimeProvider.Now:yy.MM.dd_HH_mm_ss}", new[] { AppSettings.ManualBackupFileExtension });
 
-                    if (file == null || string.IsNullOrEmpty(file.NameWithExtension))
+                    if (file == null || !file.Exist)
                     {
                         // Cancelled
                         return;
@@ -259,7 +259,7 @@ namespace SimpleChecklist.UI.ViewModels
                 {
                     var file = await _dialogUtils.SaveFileDialogAsync("list", new[] { AppSettings.TextFileExtension });
 
-                    if (file == null)
+                    if (file == null || !file.Exist)
                     {
                         // Cancelled
                         return;
